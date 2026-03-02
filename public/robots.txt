@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rkm247.co.uk/sitemap.xml

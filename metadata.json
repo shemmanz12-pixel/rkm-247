@@ -1,0 +1,7 @@
+{
+  "name": "RKM Plumbing & Heating Services",
+  "description": "Professional, clean, and local UK trades website for RKM Plumbing & Heating Services, focused on Leicestershire coverage with 24/7 emergency support.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "rkm247-plumbing-and-heating",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:routes && npm run build:client && npm run build:server && npm run prerender",
+    "build:routes": "vite build --mode library",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --config vite.config.server.ts --outDir dist/server",
+    "prerender": "node scripts/prerender.mjs",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^12.27.0",
+    "install": "^0.13.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.562.0",
+    "npm": "^11.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^6.25.1"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.12",
+    "@types/node": "^22.14.0",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.23",
+    "express": "^5.2.1",
+    "glob": "^11.0.0",
+    "jsdom": "^24.1.1",
+    "postcss": "^8.5.6",
+    "puppeteer": "^24.37.4",
+    "tailwindcss": "^3.4.17",
+    "terser": "^5.46.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "vite-plugin-sitemap": "^0.8.2",
+    "vite-plugin-static-copy": "^3.2.0"
+  }
+}

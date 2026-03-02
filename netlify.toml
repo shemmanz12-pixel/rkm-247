@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+
+# Enforce trailing slashes to match the sitemap and prevent redirects
+[build.processing]
+  [build.processing.html]
+    pretty_urls = true
+[context.production.processing]
+  [context.production.processing.html]
+    pretty_urls = true
