@@ -71,31 +71,47 @@ const routesToPrerender = allRoutes.filter(route => {
 
     // Ensure a canonical link is present and correct for the prerendered URL.
     try {
-      // Compute expected canonical per audit: root -> https://rkm247.co.uk, else https://rkm247.co.uk{url}.html
-      const base = 'https://rkm247.co.uk';
-      const expectedCanonical = url === '/' ? base : `${base}${url}.html`;
+  // Compute expected canonical to match sitemap and Netlify pretty_urls: use trailing-slash form
+  const base = 'https://rkm247.co.uk';
+  // For root use trailing slash, for others ensure a trailing slash is present
+  const expectedCanonical = url === '/' ? `${base}/` : `${base}${url}/`;
 
-      const canonicalRegex = /<link[^>]+rel=["']canonical["'][^>]*>/i;
-      const canonicalHrefRegex = /href=["']([^"']+)["']/i;
+  const canonicalRegex = /<link[^>]+rel=["']canonical["'][^>]*>/i;
+  const canonicalHrefRegex = /href=["']([^"']+)["']/i;
 
       const existingCanonicalMatch = finalHtml.match(canonicalRegex);
       if (existingCanonicalMatch) {
-        // Replace href with expectedCanonical
-        const existing = existingCanonicalMatch[0];
-        const newLink = existing.replace(canonicalHrefRegex, `href="${expectedCanonical.replace(/\/$/, '')}"`);
-        finalHtml = finalHtml.replace(existing, newLink);
+  // Replace href with expectedCanonical (keep trailing slash)
+  const existing = existingCanonicalMatch[0];
+  const newLink = existing.replace(canonicalHrefRegex, `href="${expectedCanonical}"`);
+  finalHtml = finalHtml.replace(existing, newLink);
       } else {
         // Insert link rel=canonical before </head>
-        const linkTag = `<link rel="canonical" href="${expectedCanonical.replace(/\/$/, '')}"/>`;
+        const linkTag = `<link rel="canonical" href="${expectedCanonical}"/>`;
         finalHtml = finalHtml.replace('</head>', `${linkTag}\n</head>`);
       }
     } catch (e) {
       // non-fatal
     }
 
-    const filePath = `dist/client${url === '/' ? '/index' : url}.html`;
-    fs.mkdirSync(path.dirname(toAbsolute(filePath)), { recursive: true });
-    fs.writeFileSync(toAbsolute(filePath), finalHtml);
+    // Normalize any in-head occurrences of the old .html page URL to the trailing-slash canonical
+    try {
+      if (url !== '/') {
+        // Replace any absolute occurrences like https://rkm247.co.uk{url}.html -> https://rkm247.co.uk{url}/
+        const htmlUrl = `${base}${url}.html`;
+        const slashUrl = `${base}${url}/`;
+        if (finalHtml.includes(htmlUrl)) {
+          finalHtml = finalHtml.split(htmlUrl).join(slashUrl);
+        }
+      }
+    } catch (e) {
+      // non-fatal
+    }
+
+  // Write each route into a folder with index.html so trailing-slash URLs resolve (e.g. /foo/ -> /foo/index.html)
+  const filePath = `dist/client${url === '/' ? '/' : url}/index.html`;
+  fs.mkdirSync(path.dirname(toAbsolute(filePath)), { recursive: true });
+  fs.writeFileSync(toAbsolute(filePath), finalHtml);
     console.log('pre-rendered:', filePath);
   }
 })();
