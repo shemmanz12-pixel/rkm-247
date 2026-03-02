@@ -1,0 +1,11 @@
+/local-plumber/:area/    /local-plumber/in-:area/    301!
+/emergency-plumber/:area/    /emergency-plumber/in-:area/    301!
+/drain-unblocking/:area/    /drain-unblocking/in-:area/    301!
+/heating-engineer/:area/    /heating-engineer/in-:area/    301!
+/leak-detection/:area/    /leak-detection/in-:area/    301!
+
+# Legacy town landing style -> local-plumber
+/plumber-in-:area/    /local-plumber/in-:area/    301!
+
+# Fallback: preserve existing behavior for other static assets and files
+/_sitemap.xml  /sitemap.xml  200
