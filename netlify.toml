@@ -2,6 +2,9 @@
   command = "npm run build"
   publish = "dist/client"
 
+  # After the build completes, copy versioned sitemap into the published folder
+  command = "npm run build && cp sitemap-src.xml dist/client/sitemap.xml"
+
 [build.environment]
   NODE_VERSION = "18"
 
