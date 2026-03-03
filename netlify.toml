@@ -1,9 +1,7 @@
 [build]
+  # Single combined build command: build everything (sitemap copied into public by npm build script)
   command = "npm run build"
   publish = "dist/client"
-
-  # After the build completes, copy versioned sitemap into the published folder
-  command = "npm run build && cp sitemap-src.xml dist/client/sitemap.xml"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -19,3 +17,11 @@
 [context.production.processing]
   [context.production.processing.html]
     pretty_urls = true
+
+# Regex redirect: only match /local-plumber/<area>/ when <area> does NOT start with "in-"
+[[redirects]]
+  from = "^/local-plumber/(?!in-)(.+)/$"
+  to = "/local-plumber/in-$1/"
+  status = 301
+  force = true
+  regex = true

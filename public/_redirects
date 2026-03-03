@@ -1,4 +1,9 @@
-/local-plumber/:area/    /local-plumber/in-:area/    301!
+/# NOTE: removed greedy rule that caused "in-in-..." redirect loops.
+# The rule was: /local-plumber/:area/ -> /local-plumber/in-:area/
+# That pattern matches when :area already starts with "in-" and re-applies,
+# producing repeated "in-in-in-..." prefixes and redirect loops.
+# Please deploy the regex redirect in netlify.toml (see below) instead.
+
 /emergency-plumber/:area/    /emergency-plumber/in-:area/    301!
 /drain-unblocking/:area/    /drain-unblocking/in-:area/    301!
 /heating-engineer/:area/    /heating-engineer/in-:area/    301!
@@ -7,5 +12,11 @@
 # Legacy town landing style -> local-plumber
 /plumber-in-:area/    /local-plumber/in-:area/    301!
 
+# Direct plumber .html -> final canonical to avoid redirect chains
+/plumber-in-:area.html    /local-plumber/in-:area/    301!
+
 # Fallback: preserve existing behavior for other static assets and files
 /_sitemap.xml  /sitemap.xml  200
+
+# Redirect any legacy .html requests to trailing-slash canonical (force single URL)
+/*.html  /:splat/  301!
