@@ -3,33 +3,40 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // This is the config for the server-side build.
-// It bundles the app into a single CJS module that can be imported by Node.js.
+// It bundles the app into a single CJS module used by your SSG script to generate the HTML.
 export default defineConfig({
   plugins: [react()],
-  // Prevent Vite from trying to resolve absolute paths in the server build
   resolve: {
     alias: {
+      // 1. Aligned with your client config to prevent import "Not Found" errors
+      '@': path.resolve(__dirname, './src'),
+      // Kept your original alias just in case your entry-server uses it
       '/': path.resolve(__dirname, './src'),
     },
   },
   build: {
-    // The server build output directory
-    outDir: 'dist-server',
-    // Build as a library
+    outDir: 'dist/server',
+    ssr: true, // Crucial: Tells Vite to compile for Node.js, not the browser
     lib: {
       entry: path.resolve(__dirname, 'src/entry-server.tsx'),
       name: 'Server',
-      // The format must be 'cjs' for Node.js compatibility
       formats: ['cjs'],
+      fileName: () => 'entry-server.cjs', // Explicitly name the output file to match the actual output
     },
-    // Important for server-side code
-    ssr: true,
-    // Minify to reduce file size
-    minify: 'terser',
-    // Ensure we don't have an empty outDir warning
+    rollupOptions: {
+      // 2. Externalize core React libraries
+      // This prevents the dreaded "Multiple instances of React" error during the SSG build
+      external: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+    },
+    // 3. Disabled minification for the server build
+    // Minifying the SSG script just slows down your build time. The end-user never downloads this file.
+    minify: false,
     emptyOutDir: true,
   },
-  // Define `global` for any packages that might expect it in a Node environment
+  ssr: {
+    // Ensure Node doesn't try to bundle these into the CJS file
+    external: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+  },
   define: {
     'global': 'globalThis',
   },

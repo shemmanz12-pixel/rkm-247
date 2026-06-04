@@ -1,155 +1,321 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { towns } from '../townConfig';
 
-const FAQ = () => {
-  const { town } = useParams<{ town: string }>();
-  
-  // Helper to format the town name nicely
-  const formatName = (slug: string | undefined) => {
-    if (!slug) return 'Coalville'; // Default fallback
-    return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  };
+interface FAQProps {
+  townSlug?: string;
+  serviceSlug?: string;
+}
 
-  const townName = formatName(town);
-  
-  // State to handle which question is open
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
+  const params = useParams<{
+    town?: string;
+    townSlug?: string;
+    service?: string;
+    serviceSlug?: string;
+  }>();
+
+  const normalize = (value: string) =>
+    value.toLowerCase().replace(/\/$/, '').replace(/\.html$/, '').trim();
+
+  const rawTown = townSlug || params.townSlug || params.town || '';
+  const rawService = serviceSlug || params.serviceSlug || params.service || '';
+
+  const cleanTownKey = normalize(rawTown);
+  const cleanServiceKey = normalize(rawService);
+
+  const townData = towns[cleanTownKey];
+  const townName =
+    townData?.name ||
+    cleanTownKey
+      .split('-')
+      .filter(Boolean)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ') ||
+    'Leicestershire';
+
+  const postcodes = townData?.postcodes?.length
+    ? townData.postcodes.join(', ')
+    : 'LE67, LE65';
+
+  const nearbyTowns = townData?.nearbyTowns?.length
+    ? townData.nearbyTowns.join(', ')
+    : 'Coalville, Ashby-de-la-Zouch, Ibstock and surrounding areas';
+
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // 1. DYNAMIC QUESTIONS
-  const faqs: { question: React.ReactNode; answer: React.ReactNode }[] = [
-    // --- EMERGENCY ---
-    {
-      question: (<span>Do you provide emergency plumbing services in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes, we provide fast-response emergency plumbing services in <span className="text-[#A6892C]">{townName}</span> and surrounding areas. Whether you are dealing with a burst pipe, major leak, blocked toilet, no hot water, or sudden pressure loss, we understand plumbing emergencies cannot wait. Because we operate locally, we aim to attend as quickly as possible to minimise water damage and disruption.</span>)
-    },
-    {
-      question: (<span>How quickly can a plumber attend in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>For emergency plumbing in <span className="text-[#A6892C]">{townName}</span>, we aim for same-day attendance and often arrive within a few hours depending on availability. Being local means we are already working in and around <span className="text-[#A6892C]">{townName}</span>, allowing us to respond faster than national companies. Non-urgent jobs can usually be booked within a few days.</span>)
-    },
+  const faqSets = useMemo(() => {
+    const drainFAQs: FAQItem[] = [
+      {
+        question: `Do you provide drain unblocking in ${townName}?`,
+        answer: `Yes, we provide professional drain unblocking in ${townName} and surrounding areas. We clear blocked drains, blocked sinks, blocked toilets, showers, gullies, manholes and outside drains for homes and businesses.`,
+      },
+      {
+        question: `How quickly can you attend a blocked drain in ${townName}?`,
+        answer: `Because we are based near Coalville, we can usually provide a fast local response to blocked drains in ${townName} and surrounding areas, including ${postcodes}.`,
+      },
+      {
+        question: `Do you clear blocked outside drains in ${townName}?`,
+        answer: `Yes, we clear blocked outside drains, gullies, manholes and waste pipes in ${townName}. Common causes include grease, wipes, leaves, silt and general debris.`,
+      },
+      {
+        question: `Can you unblock toilets, sinks and showers in ${townName}?`,
+        answer: `Yes, we unblock toilets, sinks, showers and internal waste pipes throughout ${townName}. We deal with slow draining fixtures, recurring blockages and full drain stoppages.`,
+      },
+      {
+        question: `Do you cover North West Leicestershire for drain unblocking?`,
+        answer: `Yes, we provide drain unblocking across ${townName} and wider North West Leicestershire, covering nearby areas such as ${nearbyTowns} and postcode areas including ${postcodes}.`,
+      },
+      {
+        question: `Do you charge a call out fee for drain unblocking in ${townName}?`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the drainage work carried out.`,
+      },
+    ];
 
-    // --- PRICING ---
-    {
-      question: (<span>How much does a plumber cost in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>We work on fixed pricing rather than hourly rates. Most standard plumbing jobs in <span className="text-[#A6892C]">{townName}</span> start from £120+, depending on the type of repair, materials required, and access to the issue. We believe in clear, upfront pricing, so once we assess the problem, we confirm the cost before starting any work. There are no hidden fees and no unexpected surprises.</span>)
-    },
-    {
-      question: (<span>What is a reasonable plumbing call out charge in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Many plumbing companies charge a separate call out fee just to attend your property. However, we charge £0 call out fee in <span className="text-[#A6892C]">{townName}</span>. You only pay for the work carried out. We believe this offers better value and full transparency for customers. All pricing is discussed clearly before work begins.</span>)
-    },
-    {
-      question: (<span>How much does it cost to clear a blocked drain in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>The cost to clear a blocked drain in <span className="text-[#A6892C]">{townName}</span> typically starts from £120+, depending on the severity of the blockage and whether it is internal or external. Simple sink or toilet blockages can often be resolved quickly, while outside drains or recurring problems may require further investigation. We use professional equipment to properly clear the blockage rather than temporarily masking the issue.</span>)
-    },
+    const emergencyPlumberFAQs: FAQItem[] = [
+      {
+        question: `Do you provide emergency plumber callouts in ${townName}?`,
+        answer: `Yes, we provide emergency plumber callouts in ${townName} and surrounding areas for urgent leaks, burst pipes, no water, blocked toilets and other plumbing emergencies.`,
+      },
+      {
+        question: `How quickly can an emergency plumber attend in ${townName}?`,
+        answer: `Because we are based near Coalville, we can usually provide a rapid response in ${townName} and surrounding areas, including ${postcodes}.`,
+      },
+      {
+        question: `What plumbing emergencies do you deal with in ${townName}?`,
+        answer: `We attend burst pipes, severe leaks, overflowing toilets, blocked drains, faulty stop taps, no hot water and urgent plumbing issues in ${townName}.`,
+      },
+      {
+        question: `Do you charge a call out fee for emergency plumbing in ${townName}?`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the work carried out.`,
+      },
+      {
+        question: `Do you cover homes and businesses in ${townName}?`,
+        answer: `Yes, we provide emergency plumbing services for homeowners, landlords and businesses across ${townName} and surrounding areas.`,
+      },
+      {
+        question: `Do you cover North West Leicestershire for emergency plumber callouts?`,
+        answer: `Yes, we cover ${townName} and wider North West Leicestershire, including nearby areas such as ${nearbyTowns}.`,
+      },
+    ];
 
-    // --- DIY & TRUST ---
-    {
-      question: (<span>Can I unblock a drain myself in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Minor sink blockages can sometimes be cleared using a plunger or by removing visible debris. However, chemical drain cleaners can damage pipework and rarely fix the root cause. If blockages keep returning or affect multiple fixtures, it usually indicates a deeper issue in the drainage system. In these cases, professional equipment is needed to fully resolve the problem.</span>)
-    },
-    {
-      question: (<span>How do I know I am choosing a reliable plumber in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>A reliable plumber should provide transparent pricing, clear communication, and genuine local reviews. You should never feel pressured into unnecessary work. We pride ourselves on honest advice, fixed pricing, and professional workmanship throughout <span className="text-[#A6892C]">{townName}</span>. We explain the issue clearly and confirm costs before proceeding.</span>)
-    },
+    const leakDetectionFAQs: FAQItem[] = [
+      {
+        question: `Do you provide leak detection in ${townName}?`,
+        answer: `Yes, we provide leak detection in ${townName} for hidden water leaks, internal plumbing leaks and suspected pipework problems in homes and businesses.`,
+      },
+      {
+        question: `Can you find hidden leaks in walls or under floors in ${townName}?`,
+        answer: `Yes, we help locate hidden leaks in ${townName}, including leaks under floors, behind walls and within internal plumbing systems.`,
+      },
+      {
+        question: `What are the signs of a hidden water leak in ${townName}?`,
+        answer: `Common signs include damp patches, low water pressure, unexplained water usage, musty smells, staining and the sound of running water when no taps are in use.`,
+      },
+      {
+        question: `Do you repair leaks after detecting them in ${townName}?`,
+        answer: `Yes, once the source of the leak is identified, we can usually carry out the plumbing repair or advise on the next steps needed.`,
+      },
+      {
+        question: `How quickly can you attend a leak detection job in ${townName}?`,
+        answer: `We provide a fast local response in ${townName} and surrounding areas, including ${postcodes}, especially where active leaks may be causing damage.`,
+      },
+      {
+        question: `Do you charge a call out fee for leak detection in ${townName}?`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the work carried out.`,
+      },
+    ];
 
-    // --- LONG-TAIL SEO QUESTIONS ---
-    {
-      question: (<span>Why is my boiler losing pressure in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>If your boiler keeps losing pressure in <span className="text-[#A6892C]">{townName}</span>, it is often caused by a small system leak, a faulty pressure relief valve, or an issue with the expansion vessel. Topping up the pressure may provide a temporary fix, but repeated pressure loss usually indicates an underlying fault. Leaving it unresolved can eventually cause breakdowns or water damage.</span>)
-    },
-    {
-      question: (<span>Why does my toilet keep blocking in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>A toilet that repeatedly blocks in <span className="text-[#A6892C]">{townName}</span> is often caused by a partial obstruction further down the pipework or a restriction in the external drain. If plunging only solves the issue temporarily, it usually means the blockage has not been fully cleared. Recurring blockages should be investigated properly to prevent overflow or damage.</span>)
-    },
-    {
-      question: (<span>Why are my pipes making banging noises in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Banging or knocking pipes in <span className="text-[#A6892C]">{townName}</span> are commonly caused by water hammer, loose pipework, or pressure fluctuations within the system. While it may seem harmless at first, ongoing vibration can stress joints and fittings over time. Identifying and correcting the issue early helps prevent leaks and long-term damage.</span>)
-    },
+    const heatingFAQs: FAQItem[] = [
+      {
+        question: `Do you provide heating repairs in ${townName}?`,
+        answer: `Yes, we provide heating repairs in ${townName} and surrounding areas, helping with heating faults, radiator issues, pressure problems and loss of heating or hot water.`,
+      },
+      {
+        question: `Can you fix radiators not heating properly in ${townName}?`,
+        answer: `Yes, we deal with common radiator issues in ${townName}, including cold spots, balancing problems, trapped air and circulation faults.`,
+      },
+      {
+        question: `Do you help with low boiler pressure and heating faults in ${townName}?`,
+        answer: `Yes, we attend common heating system faults in ${townName}, including low pressure, poor circulation, thermostat issues and no heating or hot water.`,
+      },
+      {
+        question: `How quickly can you attend a heating issue in ${townName}?`,
+        answer: `Because we are based near Coalville, we can usually provide a fast local response in ${townName} and surrounding areas, including ${postcodes}.`,
+      },
+      {
+        question: `Do you cover North West Leicestershire for heating repairs?`,
+        answer: `Yes, we cover ${townName} and wider North West Leicestershire, including nearby areas such as ${nearbyTowns}.`,
+      },
+      {
+        question: `Do you charge a call out fee for heating repairs in ${townName}?`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the work carried out.`,
+      },
+    ];
 
-    // --- SERVICES ---
-    {
-      question: (<span>What types of blocked drains do you clear in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>We clear blocked toilets, sinks, baths, showers, and external drains throughout <span className="text-[#A6892C]">{townName}</span>. Whether caused by grease build-up, wipes, debris, or collapsed pipework, we use professional equipment to restore proper flow safely and effectively.</span>)
-    },
-    {
-      question: (<span>Do you offer leak detection services in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes. If you notice damp patches, water stains, or pressure loss in <span className="text-[#A6892C]">{townName}</span>, these may indicate a hidden leak. We carefully investigate and locate the issue while keeping disruption to a minimum wherever possible. Early detection helps prevent more serious structural damage.</span>)
-    },
-    {
-      question: (<span>Do you cover commercial properties in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes, we provide plumbing and drainage services for commercial properties in <span className="text-[#A6892C]">{townName}</span>. From offices and retail units to rental properties, we understand the need for fast response and minimal disruption to your business.</span>)
-    },
+    const plumbingFAQs: FAQItem[] = [
+      {
+        question: `Do you provide plumbing services in ${townName}?`,
+        answer: `Yes, we provide local plumbing services in ${townName} and surrounding areas for leaks, taps, toilets, pipework, blockages and general plumbing repairs.`,
+      },
+      {
+        question: `How quickly can a local plumber attend in ${townName}?`,
+        answer: `Because we are based near Coalville, we can usually provide a fast local response in ${townName} and surrounding areas, including ${postcodes}.`,
+      },
+      {
+        question: `Do you charge a call out fee for plumbing jobs in ${townName}?`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the plumbing work carried out.`,
+      },
+      {
+        question: `Do you cover homes and businesses in ${townName}?`,
+        answer: `Yes, we support homeowners, landlords and businesses across ${townName} and surrounding areas.`,
+      },
+      {
+        question: `What areas do you cover near ${townName}?`,
+        answer: `We cover ${townName}, nearby areas such as ${nearbyTowns}, and surrounding postcode areas including ${postcodes}.`,
+      },
+      {
+        question: `Do you also deal with blocked toilets and drainage problems in ${townName}?`,
+        answer: `Yes, alongside general plumbing we also attend blocked toilets, blocked sinks and drainage issues in ${townName}.`,
+      },
+    ];
 
-        // --- RELIABILITY & OBJECTION HANDLING ---
-    {
-      question: (<span>Do you turn up at the agreed appointment time in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes. When we book an appointment in <span className="text-[#A6892C]">{townName}</span>, we commit to it. We understand how frustrating it is to wait in all day for a tradesperson who does not arrive. If we are ever delayed due to an emergency job overrunning, we will contact you immediately to keep you informed. Clear communication and reliability are a core part of our service, and we always respect your time.</span>)
-    },
-    {
-      question: (<span>Will the price change after you start the job in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>No. We work on fixed pricing, not hourly rates. Once we assess the issue in <span className="text-[#A6892C]">{townName}</span>, we explain the problem clearly and confirm the agreed price before starting any work. There are no hidden fees and no surprise charges. If additional issues are discovered, we discuss your options first so you remain in full control of the decision.</span>)
-    },
-    {
-      question: (<span>What happens if the repair does not fix the problem in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>We aim to diagnose plumbing issues correctly the first time. However, if a related issue develops after work has been carried out in <span className="text-[#A6892C]">{townName}</span>, we stand by our workmanship. If there is a genuine fault connected to the work completed, we will return to investigate and resolve it professionally. Our goal is long-term solutions rather than temporary fixes.</span>)
-    },
-    {
-      question: (<span>Will you pressure me into replacing my boiler in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>No. We provide honest advice based on the condition and safety of your system. If a boiler in <span className="text-[#A6892C]">{townName}</span> can be safely repaired, we will explain that option clearly. If replacement is more cost-effective long term, we will outline why — but the final decision is always yours. We do not use pressure sales tactics.</span>)
-    },
-    {
-      question: (<span>Will you explain the plumbing issue clearly before starting work in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes. Before carrying out any work in <span className="text-[#A6892C]">{townName}</span>, we explain the issue in straightforward terms so you understand exactly what the problem is and what needs to be done. We believe customers should feel confident and informed before approving any repair or installation.</span>)
-    },
+    return {
+      'drain-unblocking': {
+        heading: `${townName} Drain Unblocking FAQ`,
+        subheading: `Trusted Local Drainage Advice For ${townName}`,
+        items: drainFAQs,
+      },
+      'blocked-drain-clearing': {
+        heading: `${townName} Blocked Drain FAQ`,
+        subheading: `Trusted Local Drain Clearing Advice For ${townName}`,
+        items: drainFAQs,
+      },
+      'emergency-drain-unblocking': {
+        heading: `${townName} Emergency Drain FAQ`,
+        subheading: `Trusted Local Emergency Drain Advice For ${townName}`,
+        items: drainFAQs,
+      },
+      'outside-drain-unblocking': {
+        heading: `${townName} Outside Drain FAQ`,
+        subheading: `Trusted Local Outside Drain Advice For ${townName}`,
+        items: drainFAQs,
+      },
+      'blocked-toilet': {
+        heading: `${townName} Blocked Toilet FAQ`,
+        subheading: `Trusted Local Toilet Unblocking Advice For ${townName}`,
+        items: drainFAQs,
+      },
+      'emergency-plumber': {
+        heading: `${townName} Emergency Plumber FAQ`,
+        subheading: `Trusted Local Emergency Plumbing Advice For ${townName}`,
+        items: emergencyPlumberFAQs,
+      },
+      'leak-detection': {
+        heading: `${townName} Leak Detection FAQ`,
+        subheading: `Trusted Local Leak Detection Advice For ${townName}`,
+        items: leakDetectionFAQs,
+      },
+      heating: {
+        heading: `${townName} Heating FAQ`,
+        subheading: `Trusted Local Heating Repair Advice For ${townName}`,
+        items: heatingFAQs,
+      },
+      'heating-repairs': {
+        heading: `${townName} Heating Repair FAQ`,
+        subheading: `Trusted Local Heating Repair Advice For ${townName}`,
+        items: heatingFAQs,
+      },
+      plumber: {
+        heading: `${townName} Plumbing FAQ`,
+        subheading: `Trusted Local Plumbing Advice For ${townName}`,
+        items: plumbingFAQs,
+      },
+      default: {
+        heading: `${townName} Plumbing FAQ`,
+        subheading: `Trusted Local Plumbing Advice For ${townName}`,
+        items: plumbingFAQs,
+      },
+    };
+  }, [townName, postcodes, nearbyTowns]);
 
-    // --- PAYMENTS & WARRANTY ---
-    {
-      question: (<span>How do I pay for plumbing services in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>We accept major debit and credit cards as well as bank transfers. Payment is taken once the work in <span className="text-[#A6892C]">{townName}</span> has been completed and you are satisfied with the result.</span>)
-    },
-    {
-      question: (<span>Do you offer a guarantee on your plumbing work in <span className="text-[#A6892C]">{townName}</span>?</span>),
-      answer: (<span>Yes, all workmanship carried out in <span className="text-[#A6892C]">{townName}</span> is backed by our guarantee for your peace of mind. Any supplied parts are covered by the manufacturer's warranty where applicable.</span>)
-    }
-   ];
+  const selectedFAQSet = faqSets[cleanServiceKey as keyof typeof faqSets] || faqSets.default;
+  const faqs = selectedFAQSet.items;
+
+  const schemaData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
 
   return (
     <section id="faq" className="py-20 bg-white border-t border-gray-100">
       <div className="container mx-auto px-4 max-w-4xl">
-        
-        {/* HEADER */}
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(schemaData)}
+          </script>
+        </Helmet>
+
         <div className="mb-12">
           <div className="w-12 h-1 bg-[#A6892C] mb-6"></div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight flex items-center gap-3">
-            FREQUENTLY ASKED <span className="text-[#A6892C]">QUESTIONS</span>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
+            {selectedFAQSet.heading}
           </h2>
+          <p className="text-gray-500 mt-2 font-bold uppercase text-xs tracking-widest">
+            {selectedFAQSet.subheading}
+          </p>
         </div>
 
-        {/* ACCORDION LIST */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`border rounded-2xl transition-all duration-300 ${
-                openIndex === index 
-                  ? 'border-[#A6892C] bg-yellow-50/10 shadow-sm' 
+                openIndex === index
+                  ? 'border-[#A6892C] bg-yellow-50/10 shadow-sm'
                   : 'border-gray-100 hover:border-gray-200 bg-white'
               }`}
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
               >
                 <div className="flex items-center gap-4">
-                  <HelpCircle className={`w-6 h-6 flex-shrink-0 ${openIndex === index ? 'text-[#A6892C]' : 'text-gray-300'}`} />
-                  <span className={`text-lg font-bold uppercase tracking-wide ${openIndex === index ? 'text-slate-900' : 'text-slate-600'}`}>
+                  <HelpCircle
+                    className={`w-6 h-6 flex-shrink-0 ${
+                      openIndex === index ? 'text-[#A6892C]' : 'text-gray-300'
+                    }`}
+                  />
+                  <span
+                    className={`text-sm md:text-lg font-bold uppercase tracking-wide ${
+                      openIndex === index ? 'text-slate-900' : 'text-slate-600'
+                    }`}
+                  >
                     {faq.question}
                   </span>
                 </div>
+
                 {openIndex === index ? (
                   <ChevronUp className="w-5 h-5 text-[#A6892C]" />
                 ) : (
@@ -157,7 +323,8 @@ const FAQ = () => {
                 )}
               </button>
 
-              <div 
+              <div
+                id={`faq-answer-${index}`}
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
@@ -169,7 +336,6 @@ const FAQ = () => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

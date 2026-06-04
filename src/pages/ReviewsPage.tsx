@@ -1,8 +1,13 @@
-// React import not required with the new jsx transform when not referencing React directly
+import { Helmet } from 'react-helmet-async';
 
 export default function ReviewsPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <Helmet>
+        <title>Customer Reviews | RKM Plumbing</title>
+        <meta name="description" content="Read real customer reviews for RKM Plumbing & Heating, serving Coalville and Leicestershire. See why customers trust us for their plumbing needs." />
+        <link rel="canonical" href="https://rkm247.co.uk/reviews/" />
+      </Helmet>
       <main className="mx-auto w-full max-w-4xl px-4 py-10">
         <h1 className="text-3xl font-bold">Customer Reviews</h1>
 

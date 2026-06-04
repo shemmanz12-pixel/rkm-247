@@ -1,26 +1,26 @@
-import { serviceContent } from './serviceData.js';
-import { towns } from './townConfig.js';
+import { serviceContent } from './data/serviceData'; 
+import { towns } from './townConfig'; // Corrected path to src folder
 
-const services: string[] = Object.keys(serviceContent);
-const areas: string[] = Object.keys(towns);
+const services = Object.keys(serviceContent);
+const areas = Object.keys(towns);
 
-const routes: string[] = ['/'];
+const routes: string[] = [
+    '/',
+    '/about',
+    '/reviews',
+    '/services',
+    '/locations',
+    '/faq',
+    '/privacy-policy'
+];
 
-services.forEach((service: string) => {
+services.forEach((service) => {
     routes.push(`/${service}`);
-});
-
-areas.forEach((area: string) => {
-    routes.push(`/plumber-in-${area}`);
-});
-
-services.forEach((service: string) => {
-    areas.forEach((area: string) => {
-        routes.push(`/${service}/in-${area}`);
+    areas.forEach((area) => {
+        // Generates clean paths like /local-plumber/ashby-de-la-zouch
+        // No "in-" prefix ensures townKey matches towns[area]
+        routes.push(`/${service}/${area}`);
     });
 });
-
-// Add other static routes if any
-// e.g. routes.push('/about', '/contact');
 
 export default routes;

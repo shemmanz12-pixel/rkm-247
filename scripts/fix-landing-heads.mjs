@@ -141,7 +141,6 @@ function setMetaDescription(html, descText) {
 }
 
 function ensureCanonical(html, canonicalUrl) {
-  // NO-OP: canonical tags are handled in postbuild reset to ensure single source of truth
   return html;
 }
 
@@ -199,7 +198,6 @@ function stripExistingSeoBlock(html) {
 
 function injectSeoBlock(html, blockHtml) {
   html = stripExistingSeoBlock(html);
-  // Insert SEO block right BEFORE the root div
   const rootDivRe = new RegExp("(<div\\s+id=[\"']root[\"'][^>]*>)", "i");
   if (rootDivRe.test(html)) {
     return html.replace(
@@ -213,9 +211,8 @@ function injectSeoBlock(html, blockHtml) {
 function seoHtmlFor(service, town, townSlugs) {
   const svc = serviceCopy[service] || { name: prettify(service), bullets: [] };
   const townName = prettify(town);
-  const h1 = svc.name + " " + townName;
+  const headingText = svc.name + " " + townName;
 
-  // Nearby towns = next 8 in list (simple + works)
   const idx = Math.max(0, townSlugs.indexOf(town));
   const near = [];
   for (let i = 1; i <= 8; i++) {
@@ -238,7 +235,8 @@ function seoHtmlFor(service, town, townSlugs) {
 
   return `
 <main style="max-width: 1000px; margin: 0 auto; padding: 24px 16px;">
-  <h1 style="margin: 0 0 8px; font-size: 34px; line-height: 1.15;">${h1}</h1>
+  <!-- SEO FIXED: Swapped H1 for styled P tag to prevent conflict with core client app shell rendering -->
+  <p style="margin: 0 0 8px; font-size: 34px; font-weight: bold; line-height: 1.15; color: #0b1220; text-transform: uppercase; display: block;">${headingText}</p>
   <p style="margin: 0 0 12px; font-size: 18px;">
     Need a reliable ${svc.name.toLowerCase()} in <strong>${townName}</strong>? RKM Plumbing & Heating provides fast local callouts across North West Leicestershire.
   </p>
@@ -279,14 +277,12 @@ if (!fs.existsSync(sitemapPath)) {
   process.exit(1);
 }
 
-// Homepage updates
 let homepageHtml = fs.readFileSync(homepagePath, "utf8");
 homepageHtml = ensureCanonical(homepageHtml, DOMAIN + "/");
 homepageHtml = homepageSchemaTweaks(homepageHtml);
 fs.writeFileSync(homepagePath, homepageHtml, "utf8");
 console.log('fix-landing-heads: updated public/index.html');
 
-// Get towns from sitemap
 const sitemapXml = fs.readFileSync(sitemapPath, "utf8");
 const townSlugs = getTownSlugsFromSitemap(sitemapXml);
 
@@ -295,7 +291,6 @@ if (!townSlugs.length) {
   process.exit(0);
 }
 
-// Template shell = homepage output
 const template = fs.readFileSync(homepagePath, "utf8");
 
 let generated = 0;
@@ -311,7 +306,6 @@ for (const town of townSlugs) {
 
     let html = template;
 
-    // Head
     html = setTitle(html, svcName + " " + townName + " | 24/7 Service | RKM");
     html = setMetaDescription(
       html,
@@ -320,7 +314,6 @@ for (const town of townSlugs) {
     html = ensureCanonical(html, DOMAIN + route);
     html = setDataRoute(html, route);
 
-    // Body SEO content
     const seoBlock = seoHtmlFor(service, town, townSlugs);
     html = injectSeoBlock(html, seoBlock);
     html = removeNoscript(html);

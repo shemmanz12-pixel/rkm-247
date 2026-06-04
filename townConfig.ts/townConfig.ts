@@ -152,11 +152,11 @@ export const locations: Record<string, TownData> = {
     soilType: "Clay / Loam",
     floodRisk: "River Mease proximity creates localized alerts.",
     insuranceNotes: "Properties near the River Mease may require specific flood prevention valves.",
-    typicalCallouts: ["Factory toilet block unblocking", "Home tap replacements", "Gas safety checks"],
+    typicalCallouts: ["Factory toilet block unblocking", "Home tap replacements", "Legionella checks"],
     authorityParagraphs: [
       "Measham serves as a bridge between the industrial heritage of the Midlands and the rural National Forest. This mix sees our engineers attending complex commercial heating failures in the Westminster Industrial Estate as often as residential leaks on the High Street.",
       "The River Mease catchment area affects the water table here. We often advise homeowners on Bosworth Road regarding backflow prevention valves for their drainage systems to protect against surcharging during heavy rainfall.",
-      "With a high density of rental properties in the town centre, we provide rapid landlord gas safety certificates and tenant emergency response services, ensuring DE12 7 properties remain compliant and safe."
+      "With a high density of rental properties in the town centre, we provide rapid legionella checks and tenant emergency response services, ensuring DE12 7 properties remain compliant and safe."
     ]
   },
   'markfield': {
