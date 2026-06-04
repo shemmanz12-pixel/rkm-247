@@ -57,10 +57,12 @@ export default defineConfig(({ mode }) => {
       // Only generate the sitemap during the main client build, not the library build
       !isLibBuild && generateSitemap(),
     ],
-    // ADDED: Force Vite to bundle react-router modules into the SSR bundle directly
-    // This stops it from generating raw require('react-router-dom') calls that break commonJS boundaries
+    // ALIGNED: Explicitly manage the modules passing through the build engine
     ssr: {
-      noExternal: ['react-router-dom', 'react-router', '@remix-run/router'],
+      // Force Vite to bundle routing and meta components to avoid CommonJS/ESM runtime boundary crashes
+      noExternal: ['react-router-dom', 'react-router', '@remix-run/router', 'react-helmet-async'],
+      // Keep only standard core React engines externalized to prevent multiple instance state errors
+      external: ['react', 'react-dom'],
     },
     build: {
       lib: isLibBuild
@@ -73,7 +75,8 @@ export default defineConfig(({ mode }) => {
         : undefined,
       outDir: isLibBuild ? 'dist-routes' : 'dist/client',
       rollupOptions: {
-        // ... rollup options if needed
+        // Match settings configuration across environments
+        external: isLibBuild ? [] : ['react', 'react-dom'],
       },
     },
     resolve: {
