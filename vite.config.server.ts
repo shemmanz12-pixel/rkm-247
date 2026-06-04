@@ -24,20 +24,21 @@ export default defineConfig({
       fileName: () => 'entry-server.cjs', // Explicitly name the output file to match the actual output
     },
     rollupOptions: {
-      // 2. Externalize core React libraries
-      // This prevents the dreaded "Multiple instances of React" error during the SSG build
-      external: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+      // 2. ONLY externalize raw react core to prevent multiple instance conflicts.
+      // Removed 'react-router-dom' and 'react-helmet-async' from here so they get bundled!
+      external: ['react', 'react-dom'],
     },
     // 3. Disabled minification for the server build
-    // Minifying the SSG script just slows down your build time. The end-user never downloads this file.
     minify: false,
     emptyOutDir: true,
   },
   ssr: {
-    // Ensure Node doesn't try to bundle these into the CJS file
-    external: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+    // FORCE Vite to pull router modules into the compilation bundle.
+    // This stops them from creating raw runtime require() statements that crash under Node 20.
+    noExternal: ['react-router-dom', 'react-router', '@remix-run/router', 'react-helmet-async'],
+    external: ['react', 'react-dom'],
   },
   define: {
-    'global': 'globalThis',
+    global: 'globalThis',
   },
 });
