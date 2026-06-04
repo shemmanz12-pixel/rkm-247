@@ -12,22 +12,27 @@ interface State {
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
-  public state: State = {
+  public override state: State = {
     hasError: false,
     error: null,
     errorInfo: null
   };
 
   public static getDerivedStateFromError(error: Error): State {
+    // This immediately falls back to your error page UI layout
     return { hasError: true, error, errorInfo: null };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
-    (this as unknown as React.Component<Props, State>).setState({ error, errorInfo });
+    // FIXED: Clean standard React class state assignment without illegal unknown components casting
+    this.setState({
+      error,
+      errorInfo
+    });
   }
 
-  public render() {
+  public override render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-red-50 p-6 flex flex-col items-center justify-center text-slate-900 font-sans">
@@ -45,12 +50,12 @@ class ErrorBoundary extends React.Component<Props, State> {
             <div className="bg-white p-8 rounded-2xl shadow-2xl border-2 border-red-100 overflow-hidden">
                <h2 className="font-black text-red-600 mb-2 uppercase tracking-wider text-sm">Error Message</h2>
                <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8 font-mono text-sm text-red-900 break-words">
-                 {this.state.error?.toString()}
+                 {this.state.error?.toString() || "Unknown Error State"}
                </div>
                
                <h2 className="font-black text-slate-900 mb-2 uppercase tracking-wider text-sm">Where it happened (Stack Trace)</h2>
-               <div className="bg-slate-900 text-gold-400 p-6 rounded-xl text-xs font-mono overflow-auto max-h-[400px] leading-relaxed">
-                 {this.state.errorInfo?.componentStack}
+               <div className="bg-slate-900 text-amber-400 p-6 rounded-xl text-xs font-mono overflow-auto max-h-[400px] leading-relaxed">
+                 {this.state.errorInfo?.componentStack || this.state.error?.stack || "No Component Stack Captured (Hydration Boundary Fail)"}
                </div>
             </div>
             
