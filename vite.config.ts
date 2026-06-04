@@ -57,6 +57,11 @@ export default defineConfig(({ mode }) => {
       // Only generate the sitemap during the main client build, not the library build
       !isLibBuild && generateSitemap(),
     ],
+    // ADDED: Force Vite to bundle react-router modules into the SSR bundle directly
+    // This stops it from generating raw require('react-router-dom') calls that break commonJS boundaries
+    ssr: {
+      noExternal: ['react-router-dom', 'react-router', '@remix-run/router'],
+    },
     build: {
       lib: isLibBuild
         ? {
