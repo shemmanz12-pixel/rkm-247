@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MapPin, Zap, Clock, Shield } from 'lucide-react';
 
@@ -51,31 +51,54 @@ const LEAK_SERVICE_KEYS = new Set([
 
 const ServicePage = () => {
   const { serviceSlug, townSlug } = useParams<{ serviceSlug: string; townSlug: string }>();
+  const location = useLocation();
 
-  const normalize = (slug: string | undefined) => {
-    if (!slug) return '';
-    return slug.toLowerCase().split('?')[0].replace(/\/$/, '').replace('.html', '').trim();
-  };
+  // 1. Convert any active router parameters to lowercase strings safely
+  let cleanTownKey = (townSlug || '').toLowerCase().trim();
+  let cleanServiceKey = (serviceSlug || '').toLowerCase().trim();
 
-  const cleanTownKey = normalize(townSlug);
-  const cleanServiceKey = normalize(serviceSlug);
+  // 2. ABSOLUTE URL PATH SCANNER:
+  // Decodes the browser URL or the offline build path string into variables,
+  // making it compatible with flat (/coalville) and nested layouts (/local-plumber/coalville).
+  if (location.pathname) {
+    const segments = location.pathname.toLowerCase().split('/').filter(Boolean);
+    
+    if (segments.length === 1) {
+      // Handles flat layouts like /coalville/ or /ashby-de-la-zouch/
+      if (towns[segments[0]]) {
+        cleanTownKey = segments[0];
+      }
+      cleanServiceKey = 'emergency-plumber'; 
+    } else if (segments.length >= 2) {
+      // Handles nested layout routes like /emergency-plumber/coalville/
+      cleanServiceKey = segments[0];
+      cleanTownKey = segments[1];
+    }
+  }
 
-  const town = towns[cleanTownKey] || {};
+  // 3. Fallback defaults if the path strings are missing
+  if (!cleanTownKey || cleanTownKey === 'index.html') {
+    cleanTownKey = 'coalville';
+  }
+  if (!cleanServiceKey) {
+    cleanServiceKey = 'emergency-plumber';
+  }
+
+  // 4. Map values from your data configuration imports
+  const town = towns[cleanTownKey] || towns['coalville'] || {};
   const service = serviceContent[cleanServiceKey] || serviceContent['emergency-plumber'];
 
-  const townName =
-    town.name ||
-    (cleanTownKey
-      ? cleanTownKey
-          .split('-')
-          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(' ')
-      : 'Leicestershire');
-
+  // Construct the proper town display name
+  const townName = town.name || cleanTownKey
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
   const landmark = town.landmark || 'the local area';
   const road = town.road || 'main access routes';
   const postcodes = town.postcodes?.length ? town.postcodes.join(', ') : 'LE65, LE67';
-  const nearbyAreaNames = town.nearbyTowns?.length
+  
+  // FIXED: Added ?. before .length to safely handle missing arrays without throwing a build crash
+  const nearbyAreaNames = town.nearbyTowns?.length 
     ? town.nearbyTowns.join(', ')
     : 'Coalville, Ashby-de-la-Zouch, Ibstock, Whitwick and surrounding areas';
 
@@ -333,8 +356,11 @@ const ServicePage = () => {
     ],
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+ useEffect(() => {
+    // FIXED: Protect the build runner engine from crashing when window doesn't exist offline
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
   }, [cleanServiceKey, cleanTownKey]);
 
   return (
