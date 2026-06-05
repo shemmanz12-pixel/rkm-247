@@ -1,5 +1,6 @@
 // 1. DEFINE THE STRUCTURE (Type Safety)
 export interface TownData {
+  nearbyTowns?: string[];
   // Existing fields
   name: string;
   phone?: string; 
