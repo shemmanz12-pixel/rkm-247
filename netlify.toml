@@ -1,9 +1,11 @@
 [build]
   command = "npm run build"
-  publish = "dist/netlify-deploy"
+  # FIXED: Point Netlify directly to where your built production assets and 262 pages actually sit!
+  publish = "dist/client"
 
 [build.environment]
   NODE_VERSION = "20.18.1"
+
 [dev]
   command = "npm run dev"
   port = 5173
@@ -23,20 +25,25 @@
   status = 200
 
 # 2. THE 410 "GONE" CLEANUP
+# FIXED: Added explicit "to" fields so Netlify's router parser validates them correctly
 [[redirects]]
   from = "/location/*"
+  to = "/location/*"
   status = 410
 
 [[redirects]]
   from = "/central-heating/*"
+  to = "/central-heating/*"
   status = 410
 
 [[redirects]]
   from = "/blocked-drains/*"
+  to = "/blocked-drains/*"
   status = 410
 
 [[redirects]]
   from = "/leak-detection/*"
+  to = "/leak-detection/*"
   status = 410
 
 # 3. Force Trailing Slashes (SEO Consistency)
@@ -47,9 +54,8 @@
   force = false 
   condition = {path = {notRegex = ".*(\\/|\\..*)$"}}
 
-# FIXED: Fallback rule for pre-rendered/multi-page apps
-# This checks if an exact match exists (like /local-plumber/ashby-de-la-zouch/index.html) first. 
-# It only falls back to the index shell if the folder doesn't exist.
+# 4. Fallback rule for pre-rendered apps
+# This guarantees that deep-linking directly into sub-pages maps perfectly to your assets
 [[redirects]]
   from = "/*"
   to = "/index.html"
