@@ -31,14 +31,24 @@ const routesToPrerender = allRoutes.filter(route => {
 (async () => {
   console.log(`\n🚀 RKM SEO Engine: Prerendering ${routesToPrerender.length} clean pages...\n`);
 
-  for (const url of routesToPrerender) {
+  for (const rawUrl of routesToPrerender) {
+    // FIXED: Enforce absolute leading slash formatting on the URL string 
+    // before passing it to the server bundle to guarantee perfect metadata extraction
+    let url = rawUrl;
+    if (!url.startsWith('/')) {
+      url = '/' + url;
+    }
+    if (url !== '/' && url.endsWith('/')) {
+      url = url.slice(0, -1);
+    }
+
     const cleanPath = url.replace(/^\/|\/$/g, '');
     const expectedCanonical = url === '/' ? `${base}/` : `${base}/${cleanPath}/`;
     
-    // Execute the React Server Render bundle
+    // Execute the React Server Render bundle using the explicitly normalized path string
     const { html: appHtml, helmet } = render(url);
 
-    // FIX: Read freshly inside the loop from dist/client/index.html to capture Vite's production compiled JS asset paths automatically!
+    // Read freshly inside the loop from dist/client/index.html to capture Vite's production compiled JS asset paths automatically
     let finalHtml = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
 
     // 2. SANITIZATION: Clean out default metadata placeholders to prevent duplication
