@@ -1,4 +1,4 @@
-const n = {
+const o = {
   "local-plumber": {
     title: "Local Plumber",
     metaTitle: "Local Plumber",
@@ -84,7 +84,8 @@ const n = {
     authorityParagraphs: [
       "Ashby de la Zouch requires a delicate approach to plumbing, particularly within the conservation area near the Castle. Many properties here utilize complex unvented hot water systems to cope with high demand, which requires our specialized G3-qualified engineers.",
       "The water hardness levels in Ashby are noticeably higher than in the surrounding Charnwood villages. We frequently install scale reducers and powerflush heating systems along Market Street to combat the calcification that damages heat exchangers.",
-      "From the historic townhouses near the Bath Grounds to the modern executive homes on the Smisby Road outskirts, our team understands the disparity in plumbing architecture. We carry stock suitable for both imperial copper sizes found in older homes and modern metric plastic fittings."
+      "From the historic townhouses near the Bath Grounds to the modern executive homes on the Smisby Road outskirts, our team understands the disparity in plumbing architecture. We carry stock suitable for both imperial copper sizes found in older homes and modern metric plastic fittings.",
+      "Drain unblocking in Ashby de la Zouch often involves navigating the town's historic Victorian brick sewers, particularly within the conservation area around the Castle and The Bath Grounds. Our engineers utilize non-destructive CCTV drain surveys to accurately identify blockages caused by root ingress or collapsed clay pipes without excavating heritage properties. From clearing heavy grease build-ups in commercial kitchen drains along Market Street to resolving overflowing residential soakaways on the Smisby Road outskirts, we bring high-pressure water jetting capabilities directly to your door."
     ]
   },
   ibstock: {
@@ -164,10 +165,11 @@ const n = {
     soilType: "Clay / Loam",
     floodRisk: "River Mease proximity creates localized alerts.",
     insuranceNotes: "Properties near the River Mease may require specific flood prevention valves.",
-    typicalCallouts: ["Factory toilet block unblocking", "Home tap replacements", "Heating checks"],
+    typicalCallouts: ["Factory toilet block unblocking", "Home tap replacements", "Legionella checks"],
     authorityParagraphs: [
       "Measham serves as a bridge between the industrial heritage of the Midlands and the rural National Forest. This mix sees our engineers attending complex commercial heating failures in the Westminster Industrial Estate as often as residential leaks on the High Street.",
-      "The River Mease catchment area affects the water table here. We often advise homeowners on Bosworth Road regarding backflow prevention valves for their drainage systems to protect against surcharging during heavy rainfall."
+      "The River Mease catchment area affects the water table here. We often advise homeowners on Bosworth Road regarding backflow prevention valves for their drainage systems to protect against surcharging during heavy rainfall.",
+      "With a high density of rental properties in the town centre, we provide rapid legionella checks and tenant emergency response services, ensuring DE12 7 properties remain compliant and safe."
     ]
   },
   markfield: {
@@ -194,7 +196,8 @@ const n = {
     typicalCallouts: ["Cold water storage tank replacement", "Shower replacements", "Burst pipes"],
     authorityParagraphs: [
       "Markfield's elevated position near Hill Hole Quarry means properties here are exposed to colder ambient temperatures, increasing the risk of loft pipe freezing. We strongly recommend upgraded lagging for all roof-space plumbing in LE67 9.",
-      "The housing stock, particularly the 1970s estates off Main Street, is now reaching the age where galvanized steel pipework and original copper cylinders require replacement. We specialize in system upgrades that respect the existing fabric of these buildings."
+      "The housing stock, particularly the 1970s estates off Main Street, is now reaching the age where galvanized steel pipework and original copper cylinders require replacement. We specialize in system upgrades that respect the existing fabric of these buildings.",
+      "For the rural properties on the fringe of the village towards the M1, we maintain expertise in septic tank drainage fields, which struggle with the non-porous rocky soil if not regularly maintained."
     ]
   },
   // --- THE VILLAGES (A-Z) ---
@@ -205,7 +208,24 @@ const n = {
     road: "Occupation Road",
     postcodes: ["DE11"],
     description: "Serving Albert Village. We cover homes near the Lake and the primary school area.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Terraced Cottages", "New Eco-homes"],
+    commonProblems: ["Slow draining sinks", "Garden drainage issues"],
+    drainageTypes: ["Separate Systems", "Soakaways"],
+    heatingTypes: ["Gas Combi", "Heat Pumps (New builds)"],
+    propertyAgeProfile: "Early 20th century mixed with very modern sustainable housing.",
+    commercialAreas: ["None (Residential/Leisure)"],
+    nearbyAreas: ["Woodville", "Church Gresley", "Moira"],
+    waterPressureNotes: "Good pressure throughout.",
+    soilType: "Reclaimed Land / Clay",
+    floodRisk: "Managed risk due to proximity to the Lake and reservoirs.",
+    insuranceNotes: "Check for clay shrinkage clauses.",
+    typicalCallouts: ["Kitchen tap repairs", "Bathroom refits"],
+    authorityParagraphs: [
+      "Albert Village has seen significant regeneration, transforming from industrial land to a residential haven. The new plumbing systems in the eco-homes near the lake differ vastly from the older terraces on Occupation Road, requiring versatile engineers.",
+      "We often tackle garden drainage issues here. The reclaimed nature of the land can lead to compaction, causing surface water logging that threatens air bricks. We install French drains to alleviate this specific local problem.",
+      "Heating efficiency is a priority for residents here. We frequently upgrade controls and thermostats to match the energy-conscious profile of the newer properties in the village."
+    ]
   },
   bagworth: {
     name: "Bagworth",
@@ -214,7 +234,24 @@ const n = {
     road: "Station Road",
     postcodes: ["LE67 1"],
     description: "Serving Bagworth. We cover the village and properties near the Community Centre and Heath Woods.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Post-war Semis", "Bungalows"],
+    commonProblems: ["Back boiler issues", "Radiator sludge"],
+    drainageTypes: ["Mains Drainage", "Some Septic (Outlying)"],
+    heatingTypes: ["Gas Central Heating", "Solid Fuel Conversions"],
+    propertyAgeProfile: "Mid-20th Century dominance.",
+    commercialAreas: ["Small local retail"],
+    nearbyAreas: ["Thornton", "Ellistown"],
+    waterPressureNotes: "Average mains pressure.",
+    soilType: "Clay / Coalfield regeneration",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Powerflushing", "Thermostatic valve replacement"],
+    authorityParagraphs: [
+      "In Bagworth, many of the post-war properties were originally fitted with back boilers. We are currently managing a wave of upgrades to modern condensing boilers, improving efficiency for residents along Station Road.",
+      "The regeneration of the Heath Woods area has shifted the water table slightly. We sometimes encounter rising damp issues which can be mistaken for plumbing leaks; our moisture mapping tools help distinguish between the two.",
+      "Sludge buildup in heating systems is common in the older looped pipework found in Bagworth's bungalows. Our powerflushing service is highly active here to restore radiator output."
+    ]
   },
   "bardon-hill": {
     name: "Bardon Hill",
@@ -223,7 +260,24 @@ const n = {
     road: "Beveridge Lane",
     postcodes: ["LE67 1"],
     description: "Commercial and residential plumbing for LE67 1, near the Bardon Truck Park and Birch Tree pub.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Quarry Cottages", "Large Logistics Warehouses"],
+    commonProblems: ["Vibration related leaks", "Industrial blockage"],
+    drainageTypes: ["Heavy Duty Industrial", "Residential Mains"],
+    heatingTypes: ["Industrial HVAC", "Gas Combi"],
+    propertyAgeProfile: "19th Century cottages vs 21st Century Industry.",
+    commercialAreas: ["Bardon Hill Industrial Estate"],
+    nearbyAreas: ["Coalville", "Ellistown"],
+    waterPressureNotes: "High flow rates to service industrial needs.",
+    soilType: "Granite / Rock",
+    floodRisk: "Runoff management is key in industrial zones.",
+    insuranceNotes: "Commercial liability focus.",
+    typicalCallouts: ["Urinal sensors", "Burst main pipes", "Shift-work emergency calls"],
+    authorityParagraphs: [
+      "Bardon Hill is a unique environment where heavy industry meets residential living. The heavy goods traffic near Beveridge Lane can actually cause ground vibration affecting older lead water supply pipes, leading to underground fractures we specialize in repairing.",
+      "For the logistics hubs, we provide 24/7 reactive plumbing. We understand that a blocked toilet block in a distribution centre can halt operations, so our response times to the Bardon Industrial Estate are prioritized.",
+      "Residential properties here are often robust granite-built cottages. Drilling for new waste pipes requires diamond-tipped core drills, standard equipment for our team operating in this rock-heavy locale."
+    ]
   },
   battram: {
     name: "Battram",
@@ -232,7 +286,24 @@ const n = {
     road: "Wood Road",
     postcodes: ["LE67"],
     description: "Local plumbing for Battram. We attend properties near the Woods and the surrounding rural lanes.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Rural Terraces", "Farmhouses"],
+    commonProblems: ["Septic tank overflow", "Oil line leaks"],
+    drainageTypes: ["Off-grid Sewerage", "Soakaways"],
+    heatingTypes: ["Oil Fired", "LPG", "Solid Fuel"],
+    propertyAgeProfile: "Older rural stock.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Ellistown", "Ibstock"],
+    waterPressureNotes: "Can be lower at the end of the line.",
+    soilType: "Clay / Loam",
+    floodRisk: "Low, but rural ditch blockage causes issues.",
+    insuranceNotes: "Environmental cover for oil leaks recommended.",
+    typicalCallouts: ["Oil boiler repair", "Septic tank investigation"],
+    authorityParagraphs: [
+      "Battram's secluded nature means many properties are off the main gas grid. We are the go-to specialists for oil boiler servicing and repair in this hamlet, carrying the specific spares required for Grant and Worcester oil systems.",
+      "Drainage here often relies on septic tanks and soakaways due to the distance from main sewers. We provide camera surveys to check the integrity of these older systems, particularly important given the clay soil which can impede drainage fields.",
+      "The rural water supply along Wood Road can suffer from pressure fluctuations. We frequently install accumulator tanks in larger properties to ensure showers provide a consistent powerful flow."
+    ]
   },
   blackfordby: {
     name: "Blackfordby",
@@ -241,7 +312,25 @@ const n = {
     road: "Main Street",
     postcodes: ["DE11 8"],
     description: "Covering DE11 8. We fix plumbing issues for homes near The Black Lion and the village school.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Character Cottages", "Infill Detached"],
+    commonProblems: ["Draughty pipework", "Old cistern failures"],
+    drainageTypes: ["Mains", "Some localized soakaways"],
+    heatingTypes: ["Gas System Boilers"],
+    propertyAgeProfile: "Historic village centre with 1980s additions.",
+    commercialAreas: ["Village Pubs"],
+    nearbyAreas: ["Ashby", "Moira", "Woodville"],
+    waterPressureNotes: "Good, consistent gravity pressure.",
+    soilType: "Clay",
+    floodRisk: "Hilltop village, low risk.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Ball valve replacement", "Radiator leaks"],
+    authorityParagraphs: [
+      "Blackfordby sits on higher ground, which generally protects it from flooding but exposes plumbing to wind chill. We spend many winters insulating condensate pipes and loft tanks in the exposed properties near the Black Lion.",
+      "The village retains many character properties where aesthetic integration of modern plumbing is key. We are experts at concealing pipework in the older cottages along Main Street, ensuring bathrooms look period-correct but function with modern reliability.",
+      "With the local school nearby, we prioritize morning emergency calls to ensure families aren't left without water during the school run rush. Our local knowledge of the shortcuts allows us to bypass rush hour traffic on the A511.",
+      "Drainage in these older village layouts often involves shared runs. We use CCTV drain cameras to locate blockages rapidly, resolving disputes and clearing pipes with high-pressure jetting before wastewater backs up."
+    ]
   },
   boundary: {
     name: "Boundary",
@@ -250,7 +339,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["DE11"],
     description: "Serving the Boundary area between Woodville and Ashby. Fast response along the main road.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Roadside Terraces", "Semi-detached"],
+    commonProblems: ["Traffic vibration leaks", "Main sewer blockages"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Gas Combi"],
+    propertyAgeProfile: "Mixed 20th Century.",
+    commercialAreas: ["Car Sales", "Workshops"],
+    nearbyAreas: ["Woodville", "Smisby"],
+    waterPressureNotes: "High mains pressure.",
+    soilType: "Clay",
+    floodRisk: "Surface water on main road.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Burst pipes", "Tap washers"],
+    authorityParagraphs: [
+      "Situated along the busy Ashby Road, properties in Boundary experience higher levels of ground vibration. We frequently repair compression joints that have worked loose over time in roadside properties.",
+      "The ribbon development nature of Boundary means drainage runs are often long and shared. We are equipped with high-pressure jetting units capable of clearing these extended runs that often suffer from silt buildup.",
+      "Speed is of the essence here. Being located on a primary route allows us to attend plumbing emergencies in Boundary often within minutes of a call, preventing minor leaks from becoming major structural issues."
+    ]
   },
   "breedon-on-the-hill": {
     name: "Breedon on the Hill",
@@ -259,7 +365,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["DE73"],
     description: "Specialist plumbing for Breedon. We serve properties near the famous hilltop church and the Three Horseshoes.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Limestone Cottages", "Large Country Homes"],
+    commonProblems: ["Low water pressure", "Hard water scale"],
+    drainageTypes: ["Septic Tanks", "Soakaways"],
+    heatingTypes: ["Oil Fired", "LPG", "Electric"],
+    propertyAgeProfile: "Historic, Listed Buildings.",
+    commercialAreas: ["Garden Centre", "Golf Club"],
+    nearbyAreas: ["Tonge", "Worthington", "Melbourne"],
+    waterPressureNotes: "Significantly lower at the top of the hill.",
+    soilType: "Limestone",
+    floodRisk: "Zero (Hilltop), but runoff affects downhill neighbours.",
+    insuranceNotes: "Thatched properties require specific hot work permits.",
+    typicalCallouts: ["Shower pump installation", "Oil tank replacement"],
+    authorityParagraphs: [
+      "Breedon's limestone geology and elevation define its plumbing needs. The water pressure near the Priory Church can be low, making pumped showers a necessity rather than a luxury. We specialize in negative head pump installations for these specific homes.",
+      "Many properties here are built from the local stone and are off the gas grid. Our team is fully qualified in oil boiler maintenance and LPG conversions, essential services for keeping Breedon's historic cottages warm.",
+      "Drainage in limestone areas works differently; soakaways can be highly effective but must be sited correctly to avoid contamination. We provide expert advice on compliance with the General Binding Rules for septic tanks in this sensitive geological area."
+    ]
   },
   coleorton: {
     name: "Coleorton",
@@ -268,7 +391,25 @@ const n = {
     road: "The Moorlands",
     postcodes: ["LE67 8"],
     description: "Specialist plumbing for LE67 8, attending properties near the Kings Arms and Coleorton Hall.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Estate Cottages", "Large Detached", "Farm Conversions"],
+    commonProblems: ["Old lead supply pipes", "Boiler lockouts"],
+    drainageTypes: ["Septic Tanks", "Private Treatment Plants"],
+    heatingTypes: ["Oil", "LPG", "Biomass"],
+    propertyAgeProfile: "19th Century Estate Village.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Newbold", "Swannington"],
+    waterPressureNotes: "Variable.",
+    soilType: "Clay / Coal Measures",
+    floodRisk: "Low.",
+    insuranceNotes: "High value properties require specific leak detection clauses.",
+    typicalCallouts: ["Leak detection", "Luxury bathroom install"],
+    authorityParagraphs: [
+      "Coleorton is a dispersed settlement with a high concentration of older, substantial properties. We frequently perform 'Trace and Access' leak detection here, where pipework is often buried beneath thick flagstone floors or within heritage walls.",
+      "The heating systems in the larger homes near Coleorton Hall are complex, often involving multiple zones and cylinders. Our advanced heating engineers are adept at balancing these large systems to ensure even heat distribution.",
+      "Given the rural setting, mice and rodent damage to PEX pipework in lofts is surprisingly common here. We replace damaged sections with copper to provide a rodent-proof long-term solution.",
+      "Because many Coleorton properties are situated on large plots with mature trees, root ingress into clay drainage pipes is a common issue. We utilize specialist root-cutting tools and high-pressure jetting to clear these blockages and restore full flow."
+    ]
   },
   "copt-oak": {
     name: "Copt Oak",
@@ -277,7 +418,24 @@ const n = {
     road: "Whitwick Road",
     postcodes: ["LE67"],
     description: "High-ground plumbing for LE67. We attend properties near the Copt Oak pub and the M1 junction.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Isolated Farmhouses", "Roadside Cottages"],
+    commonProblems: ["Wind chill freezing", "Water supply interruption"],
+    drainageTypes: ["Septic Tanks"],
+    heatingTypes: ["Solid Fuel", "Oil"],
+    propertyAgeProfile: "Old Rural.",
+    commercialAreas: ["Service Station", "Radio Masts"],
+    nearbyAreas: ["Markfield", "Woodhouse Eaves"],
+    waterPressureNotes: "Can be affected by reservoir proximity.",
+    soilType: "Rocky",
+    floodRisk: "None (High point of county).",
+    insuranceNotes: "Storm damage risk.",
+    typicalCallouts: ["Burst pipe emergency", "Tank repairs"],
+    authorityParagraphs: [
+      "As one of the highest points in Leicestershire, Copt Oak bears the brunt of winter weather. Our primary focus here is frost protection; we install heavy-duty lagging and trace heating elements to prevent pipe bursts in exposed farm buildings.",
+      "The isolated nature of properties near the Whitwick Road means reliable heating is a safety issue, not just comfort. We offer priority breakdown cover for vulnerable residents in this area during snow events.",
+      "Water supply here often comes via long private service pipes. We have the equipment to repair these deep-buried heavy gauge pipes without needing to excavate the entire length of the driveway."
+    ]
   },
   "donington-le-heath": {
     name: "Donington le Heath",
@@ -286,7 +444,25 @@ const n = {
     road: "Manor Road",
     postcodes: ["LE67 2"],
     description: "Local plumbing for LE67 2, covering the area around the historic Manor House.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["1950s Semis", "Historic Stone"],
+    commonProblems: ["Cast iron waste cracks", "Immersion heater failure"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Gas Central Heating"],
+    propertyAgeProfile: "Medieval core with 20th-century surround.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Hugglescote", "Coalville"],
+    waterPressureNotes: "Standard.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Cylinder thermostat", "Dripping taps"],
+    authorityParagraphs: [
+      "Working near the 13th-century Manor House reminds us of the history in the soil here. In the surrounding older properties, we often find lead supply pipes that need upgrading to modern MDPE for health and pressure reasons.",
+      "The post-war housing stock on Manor Road is robust but now requires modernization. We are busy replacing original galvanized steel water tanks in lofts which are reaching the end of their corrosion-free life.",
+      "Donington le Heath has a tight-knit community feel. Our reputation here is built on honest advice—we won't recommend a full boiler replacement if a simple PCB repair will safely extend the unit's life.",
+      "For properties bordering the historic grounds, tree roots frequently breach older clay drainage pipes. We provide comprehensive CCTV drain inspections and high-pressure jetting to clear blockages and assess the structural integrity of the sewer lines."
+    ]
   },
   donisthorpe: {
     name: "Donisthorpe",
@@ -295,7 +471,24 @@ const n = {
     road: "Church Street",
     postcodes: ["DE12"],
     description: "Serving Donisthorpe. We cover homes near the Woodland Park and the Halfway House.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Mining Terraces", "Modern Eco-builds", "Bungalows"],
+    commonProblems: ["Drainage subsidence", "Solar thermal glitches"],
+    drainageTypes: ["Mains", "Surface Water Separation"],
+    heatingTypes: ["Gas Combi", "Solar Thermal"],
+    propertyAgeProfile: "Regenerated mining village.",
+    commercialAreas: ["Leisure / Tourism"],
+    nearbyAreas: ["Moira", "Oakthorpe"],
+    waterPressureNotes: "Good.",
+    soilType: "Restored Colliery Land",
+    floodRisk: "Low, excellent drainage in park areas.",
+    insuranceNotes: "Subsidence history in older zones.",
+    typicalCallouts: ["Unblocking drains", "Radiator valve replacement"],
+    authorityParagraphs: [
+      "Donisthorpe's transformation into a green tourism hub has introduced modern eco-plumbing technologies to the area. We are experienced in servicing the solar thermal hot water systems found in the newer properties near the Woodland Park.",
+      "The older mining terraces on Church Street often share a single water supply pipe. When pressure drops occur, we coordinate with neighbours to identify if the issue is a shared leak or a municipal supply problem.",
+      "Drainage around the former colliery land can be prone to shifting. We use flexible couplings when repairing underground clay pipes here to allow for natural ground movement without breaking the seal."
+    ]
   },
   ellistown: {
     name: "Ellistown",
@@ -304,7 +497,24 @@ const n = {
     road: "Beveridge Lane",
     postcodes: ["LE67 1"],
     description: "Covering LE67 1. We fix leaks and plumbing issues near the Ellistown Inn and South Leicestershire College.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Terraced Housing", "New Developments"],
+    commonProblems: ["Blocked drains", "Shower leaks"],
+    drainageTypes: ["Combined Sewers"],
+    heatingTypes: ["Gas Combi"],
+    propertyAgeProfile: "Working class Victorian to Modern.",
+    commercialAreas: ["Industrial Parks nearby"],
+    nearbyAreas: ["Battram", "Ibstock"],
+    waterPressureNotes: "Variable due to industrial draw.",
+    soilType: "Clay",
+    floodRisk: "Surface water pooling.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Toilet repairs", "Sink unblocking"],
+    authorityParagraphs: [
+      "Ellistown is a busy residential hub where we see a high turnover of rental properties. We provide fast turnaround on tap repairs and silicone seal replacements to keep properties tenant-ready.",
+      "The proximity to major industrial estates can sometimes cause minor fluctuations in mains water pressure. We install pressure reducing valves (PRVs) and shock arrestors to stop 'water hammer' noise in residential pipes.",
+      "With the college nearby, there is a high demand for robust, low-maintenance plumbing solutions. We often recommend non-concussive taps and heavy-duty flush mechanisms for the high-traffic washrooms in the area."
+    ]
   },
   griffydam: {
     name: "Griffydam",
@@ -313,7 +523,24 @@ const n = {
     road: "Top Road",
     postcodes: ["LE67 8"],
     description: "Local plumbing for LE67 8, covering the village and homes near The Griffin Inn.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Hillside Cottages", "Detached"],
+    commonProblems: ["Air locks", "Low pressure"],
+    drainageTypes: ["Septic", "Soakaway"],
+    heatingTypes: ["Oil", "LPG"],
+    propertyAgeProfile: "Rural / Historic.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Peggs Green", "Worthington"],
+    waterPressureNotes: "Low due to elevation.",
+    soilType: "Clay / Rock",
+    floodRisk: "Runoff risk to lower properties.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Boiler breakdown", "Pump installation"],
+    authorityParagraphs: [
+      "Griffydam's name itself relates to a historic water source, but today the issue is often getting water 'up' the hill. We install high-performance booster pumps to ensure power showers function correctly in Top Road properties.",
+      "The steep gradients here mean guttering and downpipes must be in perfect condition to handle storm runoff. We repair and replace cast iron and plastic rainwater goods to protect the foundations of these hillside homes.",
+      "Heating oil theft is a concern in rural areas like this. We install lockable tank valves and sonic level monitors for our Griffydam customers to provide security and peace of mind."
+    ]
   },
   heather: {
     name: "Heather",
@@ -322,7 +549,24 @@ const n = {
     road: "Swepstone Road",
     postcodes: ["LE67 6"],
     description: "Serving LE67 6. We attend plumbing jobs near the Queen's Head and properties around Sence Valley.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Village Terraces", "Farmhouses"],
+    commonProblems: ["Ditch drainage backup", "Agri-runoff"],
+    drainageTypes: ["Mains", "Septic"],
+    heatingTypes: ["Gas", "Solid Fuel"],
+    propertyAgeProfile: "Historic village.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Ibstock", "Normanton"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay",
+    floodRisk: "Localized road flooding.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Drain clearance", "Tap replacement"],
+    authorityParagraphs: [
+      "Heather is known for its scarecrow festival, but for us, it's known for its clay soil drainage challenges. We regularly jet drains along Swepstone Road where agricultural runoff can cause silt accumulation in residential soakaways.",
+      "Many of the older properties here still utilize solid fuel stoves with back boilers. Our team includes engineers experienced in these gravity-fed systems, ensuring safety and efficiency for the traditional heating methods.",
+      "We provide a comprehensive plumbing service for the village, from fixing dripping taps in the cottages near the Queen's Head to full bathroom installations in the larger farmhouses on the outskirts."
+    ]
   },
   hugglescote: {
     name: "Hugglescote",
@@ -331,7 +575,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["LE67 2"],
     description: "Plumbing repairs for LE67 2. We cover the new developments and older terraces near The Gate Inn and The Bear and Swan.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Victorian Red Brick", "New Build Estates"],
+    commonProblems: ["New build snagging", "Old pipe corrosion"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Combi Boilers", "Heat Pumps"],
+    propertyAgeProfile: "Rapidly expanding: Old core with massive new growth.",
+    commercialAreas: ["Local Shops", "Doctors Surgery"],
+    nearbyAreas: ["Coalville", "Donington le Heath"],
+    waterPressureNotes: "Stable.",
+    soilType: "Clay",
+    floodRisk: "River Sence flood plain nearby.",
+    insuranceNotes: "Check flood excess near the river.",
+    typicalCallouts: ["Boiler repair", "New build warranty work"],
+    authorityParagraphs: [
+      "Hugglescote is seeing massive expansion, and we are right there to support it. For the new builds off Ashby Road, we offer 'snagging' inspections to identify and fix poor plumbing installations before warranties expire.",
+      "In the older Victorian properties near The Gate Inn, we deal with the legacy of iron pipework. We use non-invasive electronic leak detection to find corrosion points under concrete floors without destroying the property.",
+      "The River Sence runs through the area, and we advise homeowners on non-return valves for their drainage. This simple installation prevents river water backing up into the sewage system during flood events."
+    ]
   },
   leicestershire: {
     name: "Leicestershire",
@@ -340,7 +601,24 @@ const n = {
     road: "The M1 Corridor",
     postcodes: ["LE"],
     description: "We are proud to serve North West Leicestershire, providing trusted plumbing across the entire county.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Urban Terraces", "Suburban Semis", "Rural Cottages"],
+    commonProblems: ["Hard water (East)", "Soft water (West)", "Variable pressure"],
+    drainageTypes: ["All types"],
+    heatingTypes: ["Gas", "Oil", "LPG", "Electric"],
+    propertyAgeProfile: "Diverse across the county.",
+    commercialAreas: ["All major business parks"],
+    nearbyAreas: ["Derbyshire Border", "Nottinghamshire Border"],
+    waterPressureNotes: "Regionally variable.",
+    soilType: "Varies from Clay to Granite.",
+    floodRisk: "River Soar and Trent valleys.",
+    insuranceNotes: "County-wide coverage.",
+    typicalCallouts: ["Emergency response", "Planned maintenance"],
+    authorityParagraphs: [
+      "Serving the wider Leicestershire area requires a diverse skill set. Our vans are stocked to handle the hard water scale issues common in the east of the county, as well as the acidic water corrosion sometimes found in the Charnwood granite areas.",
+      "We navigate the M1 corridor daily, allowing us to provide rapid response times from Loughborough to Ashby. Our logistics planning ensures that a plumber is never far from your LE postcode, regardless of traffic conditions.",
+      "From the industrial heritage of the Coalville coalfields to the agricultural heartlands of the west, we understand the specific infrastructure of the county. We are the trusted local experts for North West Leicestershire's unique plumbing landscape."
+    ]
   },
   lount: {
     name: "Lount",
@@ -349,7 +627,24 @@ const n = {
     road: "Nottingham Road",
     postcodes: ["LE65 1"],
     description: "Serving LE65 1 and residents near the Ferrers Arms.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Roadside Cottages", "Waste Facility buildings"],
+    commonProblems: ["Vibration leaks", "Septic issues"],
+    drainageTypes: ["Septic", "Mains"],
+    heatingTypes: ["Oil", "Gas"],
+    propertyAgeProfile: "Pre-war.",
+    commercialAreas: ["Recycling Centre"],
+    nearbyAreas: ["Ashby", "Worthington"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Leak repair", "Toilet unblocking"],
+    authorityParagraphs: [
+      "Lount is a small community with big infrastructure nearby. The heavy traffic on the Nottingham Road can affect underground water mains leading to residential properties; we are experts in quick excavation and repair of these supply pipes.",
+      "For residents near the Ferrers Arms, we offer comprehensive plumbing maintenance. We understand that in smaller hamlets, word of mouth is everything, and our reputation is built on reliability and fair pricing.",
+      "We also support the commercial operations in the area, providing sanitation maintenance and emergency water supply repairs to ensure local businesses continue to operate smoothly."
+    ]
   },
   moira: {
     name: "Moira",
@@ -358,7 +653,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["DE12 6"],
     description: "Serving Moira. We cover the new estates near the National Forest and older homes near the Furnace.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Canalside Cottages", "Modern Estates"],
+    commonProblems: ["Damp in older homes", "New build plumbing faults"],
+    drainageTypes: ["Mains", "Canal overflow management"],
+    heatingTypes: ["Gas Combi", "Wood Burner links"],
+    propertyAgeProfile: "Industrial heritage meets National Forest regeneration.",
+    commercialAreas: ["Conkers", "Youth Hostel"],
+    nearbyAreas: ["Donisthorpe", "Ashby"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay / Reclaimed",
+    floodRisk: "Ashby Canal proximity.",
+    insuranceNotes: "Check proximity to canal for flood excess.",
+    typicalCallouts: ["Shower repairs", "Radiator additions"],
+    authorityParagraphs: [
+      "Moira's location in the heart of the National Forest attracts families to its new developments. We are the local experts for these modern heating systems, often fixing poor original installations of unvented cylinders in the newer estates.",
+      "Near the historic Moira Furnace and canal, high water tables can cause drainage backup. We provide regular jetting services to keep surface water drains clear and prevent damp from threatening these heritage properties.",
+      "The hard water in this area can shorten the life of electric showers and kettles. We frequently install whole-house water conditioners in Moira homes to protect appliances and improve water quality."
+    ]
   },
   "newbold-coleorton": {
     name: "Newbold Coleorton",
@@ -367,7 +679,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["LE67 8"],
     description: "Covering LE67 8. Rural plumbing near The Cross Keys.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Rural Cottages", "School House conversions"],
+    commonProblems: ["Rodent damage to pipes", "Oil tank leaks"],
+    drainageTypes: ["Septic Tanks"],
+    heatingTypes: ["Oil", "Solid Fuel"],
+    propertyAgeProfile: "19th Century Rural.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Worthington", "Coleorton"],
+    waterPressureNotes: "Variable.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Oil leak coverage essential.",
+    typicalCallouts: ["Boiler service", "Pipe repair"],
+    authorityParagraphs: [
+      "In the rural lanes of Newbold Coleorton, reliability is key. We offer annual maintenance contracts for oil boilers and septic tanks, ensuring that residents off the main grid don't face mid-winter emergencies.",
+      "The older housing stock here often features exposed pipework in outbuildings which is prone to freezing. We provide winter-proofing services, upgrading insulation to modern standards to protect against the rural chill.",
+      "We attend many plumbing repairs near the Cross Keys, often helping renovate bathrooms in older cottages where uneven floors and walls require custom pipework solutions rather than off-the-shelf fixes."
+    ]
   },
   "normanton-le-heath": {
     name: "Normanton le Heath",
@@ -376,7 +705,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["LE67 2"],
     description: "Rural plumbing for LE67 2. We cover the outlying properties and farms near the darker lanes of Normanton.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Farmhouses", "Converted Barns"],
+    commonProblems: ["Silt in water supply", "Septic drainage fields"],
+    drainageTypes: ["Septic", "Cesspits"],
+    heatingTypes: ["Oil", "Biomass"],
+    propertyAgeProfile: "Old Agricultural.",
+    commercialAreas: ["Farms"],
+    nearbyAreas: ["Packington", "Heather"],
+    waterPressureNotes: "Low / Private supplies.",
+    soilType: "Clay",
+    floodRisk: "Field runoff.",
+    insuranceNotes: "Check cesspit liability.",
+    typicalCallouts: ["Pump repair", "Blockage clearance"],
+    authorityParagraphs: [
+      "Normanton le Heath is one of the most rural spots we cover. We understand the specific needs of farm plumbing, from repairing cattle trough supplies to servicing high-capacity farmhouse boilers.",
+      "Drainage here is almost exclusively off-grid. We specialize in the maintenance of cesspits and septic tanks, ensuring that drainage fields in the heavy clay soil continue to percolate correctly to avoid environmental issues.",
+      "For barn conversions in the area, we offer bespoke heating design. High ceilings and large volumes require careful calculation of BTU output, often involving underfloor heating systems which we install and maintain."
+    ]
   },
   oakthorpe: {
     name: "Oakthorpe",
@@ -385,7 +731,24 @@ const n = {
     road: "Measham Road",
     postcodes: ["DE12"],
     description: "Local plumbing for Oakthorpe. We handle repairs for properties near the Leisure Centre and village hall.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Village Terraces", "Council Housing"],
+    commonProblems: ["Bathroom leaks", "Radiator corrosion"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Gas Combi"],
+    propertyAgeProfile: "Mixed Village.",
+    commercialAreas: ["Leisure Centre"],
+    nearbyAreas: ["Measham", "Donisthorpe"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Shower installation", "Toilet repair"],
+    authorityParagraphs: [
+      "Oakthorpe is a close community where we do a lot of repeat work. Whether it's fixing a leaking radiator in the terraces on Measham Road or upgrading a bathroom near the Leisure Centre, we treat every home with respect.",
+      "We see a lot of older 'system' boilers here that are due for replacement. We help residents switch to modern combi boilers, freeing up space by removing the old hot water cylinders from airing cupboards.",
+      "The village hall is the heart of the community, and we are proud to support local infrastructure. We provide priority service for community buildings to ensure events aren't cancelled due to plumbing mishaps."
+    ]
   },
   osgathorpe: {
     name: "Osgathorpe",
@@ -394,7 +757,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["LE12"],
     description: "Serving the Osgathorpe community. We attend rural properties near the Storey Arms.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Limestone Cottages", "Large Gardens"],
+    commonProblems: ["Guttering overflow", "Root intrusion"],
+    drainageTypes: ["Septic", "Soakaways"],
+    heatingTypes: ["Oil", "LPG"],
+    propertyAgeProfile: "Historic Conservation Area.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Belton", "Thringstone"],
+    waterPressureNotes: "Moderate.",
+    soilType: "Loam",
+    floodRisk: "Road flooding in dip.",
+    insuranceNotes: "Conservation area restrictions.",
+    typicalCallouts: ["Root removal", "Gutter repair"],
+    authorityParagraphs: [
+      "Osgathorpe is a picturesque village, but the tree-lined streets often lead to root intrusion in drainage pipes. We use high-pressure root cutting equipment to clear drains without the need for unsightly excavation in manicured gardens.",
+      "Many homes here are listed or in a conservation area. We are experienced in sympathetic plumbing repairs that respect the heritage of the building, using materials that blend in with the traditional limestone construction.",
+      "We frequently attend to stormwater issues near the Storey Arms. The topography directs water through the village, so ensuring gullies and soakaways are clear is critical to preventing property ingress during storms."
+    ]
   },
   packington: {
     name: "Packington",
@@ -403,7 +783,24 @@ const n = {
     road: "High Street",
     postcodes: ["LE65 1"],
     description: "Serving LE65 1. We attend leaks and repairs near The Bull & Lion on High Street.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Large Detached", "Period Cottages"],
+    commonProblems: ["Hard water scale", "Shower pressure"],
+    drainageTypes: ["Mains", "Septic (Outskirts)"],
+    heatingTypes: ["Gas", "Oil (Farms)"],
+    propertyAgeProfile: "Affluent mix of Old and New.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Ashby", "Normanton"],
+    waterPressureNotes: "Generally Good.",
+    soilType: "Clay / Loam",
+    floodRisk: "Gilwiskaw Brook flood zone.",
+    insuranceNotes: "Flood risk near the brook.",
+    typicalCallouts: ["Water softener install", "Boiler repair"],
+    authorityParagraphs: [
+      "Packington is an area where we install a high number of water softeners. The hard water here can wreak havoc on expensive bathroom fittings and boiler heat exchangers, making softening essential for protection.",
+      "Properties near the Gilwiskaw Brook require vigilance regarding drainage. We install non-return valves to prevent brook water from entering the domestic sewage system during high water levels.",
+      "From the High Street to the outlying farms, we cover the full spectrum of Packington's plumbing. We are just as comfortable repairing a luxury shower mixer as we are fixing a barn supply pipe."
+    ]
   },
   "peggs-green": {
     name: "Peggs Green",
@@ -412,7 +809,24 @@ const n = {
     road: "Nottingham Road",
     postcodes: ["LE67 8"],
     description: "Serving LE67 8. We cover the residential stretch near the New Inn and Coleorton border.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Ribbon Development", "Bungalows"],
+    commonProblems: ["Driveway leaks", "Sewer connections"],
+    drainageTypes: ["Mains", "Septic mix"],
+    heatingTypes: ["Gas", "Oil"],
+    propertyAgeProfile: "Mid-20th Century.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Griffydam", "Thringstone"],
+    waterPressureNotes: "Variable.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Stopcock relocation", "Leak detection"],
+    authorityParagraphs: [
+      "Peggs Green sits along a busy transport route, meaning driveway mains water pipes are subjected to ground movement. We are experts in 'moling' new water pipes underground to replace leaking ones without digging up your entire driveway.",
+      "We often find that older bungalows in the area have outdated electrical bonding on their gas and water pipes. Our engineers always check your earth bonding during visits to ensure your home meets current safety standards.",
+      "The mix of drainage types here can be confusing for homeowners. We offer a mapping service to establish exactly where your drains go and whose responsibility they are—essential information for property sales."
+    ]
   },
   ravenstone: {
     name: "Ravenstone",
@@ -421,7 +835,24 @@ const n = {
     road: "Beeswax Lane",
     postcodes: ["LE67 2"],
     description: "Based locally for LE67 2. Fast response to plumbing issues near The Kings Arms and the Beeswax Lane area.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Modern Estates", "Historic Village Core"],
+    commonProblems: ["New build settling", "Blocked toilets"],
+    drainageTypes: ["Modern PVC", "Clay"],
+    heatingTypes: ["Gas Combi", "Heat Pumps"],
+    propertyAgeProfile: "Significant recent expansion.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Coalville", "Ibstock"],
+    waterPressureNotes: "High.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Emergency isolation", "Radiator repair"],
+    authorityParagraphs: [
+      "Ravenstone has expanded rapidly, and we are the local choice for the new estates off Beeswax Lane. We understand the specific 'micro-bore' pipework used in these modern homes and carry the correct fittings to repair them efficiently.",
+      "In the older part of the village near The Kings Arms, we deal with more traditional plumbing issues like updating cast iron soil stacks. We blend modern PVC durability with the aesthetic requirements of older brickwork.",
+      "We offer a fast-response service for Ravenstone. Being situated between Coalville and Ibstock means we can usually attend emergencies here within the hour, minimizing water damage from burst pipes."
+    ]
   },
   shellbrook: {
     name: "Shellbrook",
@@ -430,7 +861,24 @@ const n = {
     road: "Ashby Road",
     postcodes: ["LE65"],
     description: "Fast repairs for the LE65 outskirts along the Ashby Road.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Roadside Detached", "Cottages"],
+    commonProblems: ["Traffic vibration damage", "Septic tanks"],
+    drainageTypes: ["Septic", "Mains"],
+    heatingTypes: ["Gas", "Oil"],
+    propertyAgeProfile: "Mixed.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Ashby", "Norris Hill"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Pipe repair", "Boiler fault"],
+    authorityParagraphs: [
+      "Shellbrook is a small but busy area on the outskirts of Ashby. The heavy traffic on the main road can cause ground compaction affecting water supply pipes. We use trenchless technology where possible to repair these without disrupting the road or driveways.",
+      "Many properties here have large gardens with extensive drainage runs. We provide CCTV drain surveys to identify root ingress or collapse in these long pipe sections, saving homeowners from expensive excavation guesswork.",
+      "We provide a crucial bridge between the town services of Ashby and the rural needs of the Blackfordby border, offering a versatile service that covers both mains gas and oil boiler repair."
+    ]
   },
   sinope: {
     name: "Sinope",
@@ -439,7 +887,24 @@ const n = {
     road: "A511",
     postcodes: ["LE67"],
     description: "Covering properties along the A511 in Sinope. Fast access for main road residents.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Ribbon Development", "Detached"],
+    commonProblems: ["Mains noise", "Supply pipe leaks"],
+    drainageTypes: ["Mains", "Septic"],
+    heatingTypes: ["Gas", "Oil"],
+    propertyAgeProfile: "Mixed.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Coalville", "Ashby"],
+    waterPressureNotes: "High pressure from trunk main.",
+    soilType: "Clay",
+    floodRisk: "Road runoff.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Stopcock replacement", "Noise reduction"],
+    authorityParagraphs: [
+      "Sinope's location on the A511 trunk road means residents often complain of noisy pipes due to high mains pressure. We install pressure reducing valves and acoustic pipe insulation to bring peace and quiet to these roadside homes.",
+      "Emergency access here is excellent, allowing us to reach you quickly. However, roadside repairs require careful safety planning; our engineers are trained to work safely in environments near fast-moving traffic.",
+      "We often handle upgrades to water supply pipes here. Old lead or iron pipes are prone to splitting under vibration; we replace them with durable MDPE, ensuring a clean and reliable water supply for decades."
+    ]
   },
   smisby: {
     name: "Smisby",
@@ -448,7 +913,24 @@ const n = {
     road: "Main Street",
     postcodes: ["LE65 2"],
     description: "Rural plumbing support for LE65 2, covering properties near The Smisby Arms.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Village Cottages", "Large detached"],
+    commonProblems: ["Septic tank maintenance", "Oil boiler lockout"],
+    drainageTypes: ["Septic Tanks", "Mains (partial)"],
+    heatingTypes: ["Oil", "LPG", "Electric"],
+    propertyAgeProfile: "Historic Village.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Ashby", "Boundary"],
+    waterPressureNotes: "Moderate.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Check environmental clauses for oil.",
+    typicalCallouts: ["Oil tank inspection", "Blockage clearance"],
+    authorityParagraphs: [
+      "Smisby is a jewel of a village where we do a lot of heritage work. The older cottages often have non-standard plumbing sizes; we carry the imperial fittings necessary to repair these without needing to replumb the whole house.",
+      "With no mains gas in the village, oil boilers are the standard. Our OFTEC registered engineers provide the annual servicing required to keep these boilers efficient and to validate your home insurance.",
+      "Septic tank management is a big part of our work in Smisby. We help residents understand the new General Binding Rules, ensuring their discharge systems are legal and environmentally sound."
+    ]
   },
   snibston: {
     name: "Snibston",
@@ -457,7 +939,25 @@ const n = {
     road: "Chiswell Drive",
     postcodes: ["LE67 3"],
     description: "Serving LE67 3 properties bordering Snibston Colliery Park. We handle residential leaks and pipe repairs.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["New Build Estates", "Ex-Colliery Housing"],
+    commonProblems: ["Ground settlement", "Shower pressure"],
+    drainageTypes: ["Modern Plastic", "Clay"],
+    heatingTypes: ["Gas Combi", "District Heating (Rare)"],
+    propertyAgeProfile: "Regeneration area.",
+    commercialAreas: ["Retail Park"],
+    nearbyAreas: ["Coalville", "Ravenstone"],
+    waterPressureNotes: "Good.",
+    soilType: "Reclaimed Colliery Land",
+    floodRisk: "Managed drainage in park.",
+    insuranceNotes: "Subsidence checks on older stock.",
+    typicalCallouts: ["Leak detection", "Tap repair"],
+    authorityParagraphs: [
+      "Snibston's regeneration from colliery to country park has created a mix of housing. In the new estates off Chiswell Drive, we often fix builder errors like cross-threaded radiator valves or poorly sealed shower trays.",
+      "The ground here has a history of movement. We use flexible piping solutions where possible to prevent future leaks caused by settlement, particularly in the extensions added to older properties.",
+      "We are the local experts for the residential areas bordering the Colliery Park. We know which streets have high pressure and which struggle, allowing us to recommend the right shower pump or boiler for your specific home.",
+      "The reclaimed nature of the colliery land can lead to drainage dips where silt accumulates over time. We offer routine high-pressure drain jetting to clear these potential blockages before they cause external overflows."
+    ]
   },
   "stanton-under-bardon": {
     name: "Stanton under Bardon",
@@ -466,7 +966,24 @@ const n = {
     road: "Main Street",
     postcodes: ["LE67 9"],
     description: "Serving LE67 9, specifically homes near The Plough Inn and the Cliffe Hill area.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Village Terraces", "Bungalows"],
+    commonProblems: ["Quarry dust in tanks", "Vibration leaks"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Gas", "Solid Fuel"],
+    propertyAgeProfile: "Mixed.",
+    commercialAreas: ["Quarry Industries"],
+    nearbyAreas: ["Markfield", "Bagworth"],
+    waterPressureNotes: "Good.",
+    soilType: "Granite / Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Tank cleaning", "Pipe repair"],
+    authorityParagraphs: [
+      "Living near the quarry in Stanton under Bardon has its quirks. We recommend sealed heating systems and unvented hot water cylinders here to prevent quarry dust from entering open loft tanks and causing sludge in the system.",
+      "The heavy blasting nearby can occasionally disturb rigid pipework. We replace old rigid lead or iron connections with modern flexible couplings that can absorb vibration without cracking.",
+      "We provide robust plumbing services for the village, understanding that the community values durability over high-tech gadgets. Our repairs near The Plough Inn are built to last."
+    ]
   },
   "staunton-harold": {
     name: "Staunton Harold",
@@ -475,7 +992,24 @@ const n = {
     road: "The Drive",
     postcodes: ["LE65"],
     description: "Specialist plumbing for the Staunton Harold estate and surrounding garden centre areas.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Estate Cottages", "Manor House"],
+    commonProblems: ["Heritage restrictions", "Limescale"],
+    drainageTypes: ["Private Systems", "Septic"],
+    heatingTypes: ["Biomass", "Oil", "LPG"],
+    propertyAgeProfile: "Historic / Listed.",
+    commercialAreas: ["Garden Centre", "Artisan Workshops"],
+    nearbyAreas: ["Lount", "Melbourne"],
+    waterPressureNotes: "Variable.",
+    soilType: "Clay / Loam",
+    floodRisk: "Lake proximity.",
+    insuranceNotes: "Listed building specialist cover.",
+    typicalCallouts: ["Commercial WC repair", "Boiler service"],
+    authorityParagraphs: [
+      "Staunton Harold is a unique environment requiring sensitive plumbing. We work with the specific constraints of Grade I and II listed buildings, ensuring that any pipework we install is discreet and reversible.",
+      "The garden centre and artisan workshops have high footfall commercial plumbing needs. We provide out-of-hours maintenance to these businesses to ensure their public facilities remain operational without disrupting trade.",
+      "Heating these large, old buildings is a challenge. We have experience with the large-scale biomass and oil systems often used on country estates, providing the specialist maintenance they require."
+    ]
   },
   swannington: {
     name: "Swannington",
@@ -484,7 +1018,24 @@ const n = {
     road: "Main Street",
     postcodes: ["LE67 8"],
     description: "Your local Swannington plumber. We cover LE67 8, attending leaks near The Robin Hood pub and homes around Hough Mill.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Mining Cottages", "Detached"],
+    commonProblems: ["Spring water ingress", "Pump failure"],
+    drainageTypes: ["Mains", "Soakaways"],
+    heatingTypes: ["Gas", "Solid Fuel"],
+    propertyAgeProfile: "Historic Industrial.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Whitwick", "Thringstone"],
+    waterPressureNotes: "Variable due to hills.",
+    soilType: "Clay / Coal",
+    floodRisk: "Surface water from hills.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Sump pump install", "Leak repair"],
+    authorityParagraphs: [
+      "Swannington's steep valley location often leads to high water tables in basements and cellars. We specialize in installing and maintaining sump pumps to keep these lower-ground areas dry and usable.",
+      "The historic 'Incline' area has some unique plumbing layouts dating back to the mining era. We enjoy the challenge of updating these properties, replacing old lead pipes while preserving the character of the cottages.",
+      "We are frequently called to properties near Hough Mill to deal with storm damage to external plumbing. We recommend and install heavy-duty guttering and downpipes capable of handling the rapid runoff from the Swannington hills."
+    ]
   },
   thringstone: {
     name: "Thringstone",
@@ -493,7 +1044,24 @@ const n = {
     road: "Loughborough Road",
     postcodes: ["LE67 8"],
     description: "Serving LE67 8. We attend plumbing emergencies near The Rose & Crown and properties around Grace Dieu Priory.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Council Estates", "Forest edge cottages"],
+    commonProblems: ["Blocked drains (Roots)", "Boiler age"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["Gas Combi"],
+    propertyAgeProfile: "Mixed 20th Century.",
+    commercialAreas: ["Local Shops"],
+    nearbyAreas: ["Whitwick", "Osgathorpe"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay / Rock mix",
+    floodRisk: "Grace Dieu Brook.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Unblocking", "Boiler swap"],
+    authorityParagraphs: [
+      "Thringstone sits on the edge of the Charnwood Forest, and tree root ingress into drainage systems is a major issue here. We use specialized cutting tools to clear roots from clay pipes near the Priory woods.",
+      "We attend many calls in the Loughborough Road area for boiler breakdowns. Many systems here are 15-20 years old; we provide honest assessments on whether to repair or upgrade to a modern high-efficiency model.",
+      "Our team is well-known in the local community centre and football club area. We pride ourselves on being the friendly local face you can trust for everything from a dripping tap to a full bathroom renovation."
+    ]
   },
   tonge: {
     name: "Tonge",
@@ -502,7 +1070,24 @@ const n = {
     road: "Moor Lane",
     postcodes: ["DE73"],
     description: "Rural plumbing services for Tonge and the surrounding hamlets.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Farmhouses", "Cottages"],
+    commonProblems: ["Septic tank emptying", "Frozen pipes"],
+    drainageTypes: ["Septic", "Cesspit"],
+    heatingTypes: ["Oil", "LPG"],
+    propertyAgeProfile: "Rural Historic.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Breedon", "Wilson"],
+    waterPressureNotes: "Low.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Check septic liability.",
+    typicalCallouts: ["Tank repair", "Emergency water"],
+    authorityParagraphs: [
+      "Tonge is a quiet hamlet where plumbing self-sufficiency is often required. We provide emergency water supply services for when private supply pipes fail, ensuring you aren't left stranded.",
+      "The Cloud Trail nearby brings walkers, but for residents, the concern is often drainage. We manage the maintenance of septic tanks in Tonge, ensuring they function correctly despite the heavy clay soil.",
+      "We treat Tonge with the same priority as the big towns. If your oil boiler fails in the middle of winter, our 4x4 response vehicles ensure we can get to your remote property even in bad weather."
+    ]
   },
   willesley: {
     name: "Willesley",
@@ -511,7 +1096,24 @@ const n = {
     road: "Willesley Road",
     postcodes: ["LE65 2"],
     description: "Plumbing cover for LE65 2, serving the residential area near Willesley Park Golf Club.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Large Detached", "Executive Homes"],
+    commonProblems: ["Megaflo servicing", "Multiple bathroom balancing"],
+    drainageTypes: ["Mains"],
+    heatingTypes: ["System Boilers", "Unvented Cylinders"],
+    propertyAgeProfile: "Modern / 1990s.",
+    commercialAreas: ["Golf Club"],
+    nearbyAreas: ["Ashby", "Packington"],
+    waterPressureNotes: "High.",
+    soilType: "Clay",
+    floodRisk: "Low / Managed lake.",
+    insuranceNotes: "High value buildings.",
+    typicalCallouts: ["Cylinder service", "Power shower repair"],
+    authorityParagraphs: [
+      "Willesley is characterized by large executive homes with complex plumbing needs. We specialize in servicing unvented 'Megaflo' cylinders, a legal requirement for safety and warranty preservation in these properties.",
+      "Homes here often feature multiple bathrooms, which can lead to pressure drops if not balanced correctly. We install accumulator tanks and booster pumps to ensuring that the ensuite shower works perfectly even when the family bathroom is in use.",
+      "We also support the Golf Club with commercial plumbing services. We understand the high standards expected in this area and deliver a white-glove service that respects your property and privacy."
+    ]
   },
   wilson: {
     name: "Wilson",
@@ -520,7 +1122,24 @@ const n = {
     road: "Main Street",
     postcodes: ["DE73"],
     description: "Covering the village of Wilson. We attend properties near the Bulls Head and golf club.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Red Brick Farm", "Cottages"],
+    commonProblems: ["Agri-drainage", "Oil supply"],
+    drainageTypes: ["Septic"],
+    heatingTypes: ["Oil", "LPG"],
+    propertyAgeProfile: "Rural.",
+    commercialAreas: ["Golf / Leisure"],
+    nearbyAreas: ["Melbourne", "Breedon"],
+    waterPressureNotes: "Moderate.",
+    soilType: "Clay",
+    floodRisk: "Low.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Oil line repair", "Boiler lockout"],
+    authorityParagraphs: [
+      "Wilson may be small, but its plumbing needs are specific. We regularly service the oil-fired boilers that heat the homes near The Bulls Head, ensuring they run efficiently and cleanly.",
+      "Drainage in Wilson often interfaces with agricultural land. We are experienced in distinguishing between domestic drainage issues and field runoff problems, helping you resolve disputes effectively.",
+      "We provide a discreet and professional service for the high-end properties in the area. Our engineers are trained to work cleanly and quietly, minimizing disruption to your peaceful village life."
+    ]
   },
   worthington: {
     name: "Worthington",
@@ -529,9 +1148,26 @@ const n = {
     road: "Main Street",
     postcodes: ["LE65 1"],
     description: "Serving LE65 1. We handle plumbing jobs near The Malt Shovel and the Cloud Trail.",
-    mapSrc: e
+    mapSrc: e,
+    housingTypes: ["Village Terraces", "Detached"],
+    commonProblems: ["Storm drain capacity", "Old lead pipes"],
+    drainageTypes: ["Mains", "Septic (Outskirts)"],
+    heatingTypes: ["Gas", "Oil"],
+    propertyAgeProfile: "Historic.",
+    commercialAreas: ["None"],
+    nearbyAreas: ["Newbold", "Griffydam"],
+    waterPressureNotes: "Good.",
+    soilType: "Clay",
+    floodRisk: "Cloud Trail runoff.",
+    insuranceNotes: "Standard.",
+    typicalCallouts: ["Leak detection", "Radiator valve swap"],
+    authorityParagraphs: [
+      "Worthington sits at the bottom of the Cloud Trail, meaning effective storm drainage is vital. We keep the village's gullies and soakaways flowing freely to prevent surface water from threatening homes on Main Street.",
+      "The Malt Shovel is a local landmark, and the surrounding properties share its historic character. We are skilled in retrofitting modern bathroom suites into these older homes, dealing with the quirky pipe runs and uneven walls found in period properties.",
+      "Whether you are on the gas grid in the village centre or using oil on the outskirts, our team is qualified to help. We offer a one-stop-shop for all heating and plumbing needs in Worthington."
+    ]
   },
-  // --- ADDED: Additional Charnwood-area towns provided by user ---
+  // --- NEW CHARNWOOD EXPANSION ---
   quorn: {
     name: "Quorn",
     postcode: "LE12",
@@ -556,7 +1192,12 @@ const n = {
     localSpice: "Your local specialist near the historic Buttercross and Mountsorrel Quarry.",
     landmark: "The Buttercross",
     metaDescription: "Trusted local support in Mountsorrel. Expert service near the granite heritage sites. Contact our 01509 447469 line for fast response.",
-    mapSrc: e
+    mapSrc: e,
+    authorityParagraphs: [
+      "Mountsorrel's proximity to the granite quarry means heavy traffic and ground vibration, which can occasionally loosen compression joints in older residential pipework. We specialize in robust, vibration-resistant plumbing upgrades for homes near the main routes.",
+      "Drainage in this area requires heavy-duty solutions. We utilize high-pressure water jetting to clear blockages and silt buildup in the localized sewer systems, ensuring wastewater flows freely away from properties near the River Soar.",
+      "For heating, we regularly upgrade the older heating systems in the village's historic cottages, installing high-efficiency combi boilers that reduce energy bills while navigating the complexities of thick granite walls."
+    ]
   },
   "barrow-upon-soar": {
     name: "Barrow upon Soar",
@@ -582,7 +1223,12 @@ const n = {
     localSpice: "Reliable local experts serving residents near Sileby Mill and the Brook.",
     landmark: "Sileby Mill",
     metaDescription: "Need a local expert in Sileby? We serve the whole LE12 area near the Brook. Reach us locally at 01509 447469.",
-    mapSrc: e
+    mapSrc: e,
+    authorityParagraphs: [
+      "Sileby's industrial past has left a legacy of mixed plumbing infrastructure. We frequently replace aging lead supply pipes with modern MDPE, improving water pressure and flow rates for properties around King Street.",
+      "Properties near the Sileby Brook face unique drainage challenges, particularly during heavy rainfall. We install non-return valves and conduct CCTV drain surveys to prevent localized flooding and identify root ingress from the surrounding greenery.",
+      "With a high density of terraced housing, space-saving heating solutions are highly requested. We are experts at relocating boilers to lofts or installing compact, powerful combi systems to maximize living space."
+    ]
   },
   "woodhouse-eaves": {
     name: "Woodhouse Eaves",
@@ -623,9 +1269,14 @@ const n = {
     localSpice: "Your trusted partner serving the quiet village of Cossington and near the Meadows.",
     landmark: "Cossington Meadows",
     metaDescription: "Local support for the Cossington community. Reliable service near the nature reserve. Dial 01509 447469.",
-    mapSrc: e
+    mapSrc: e,
+    authorityParagraphs: [
+      "Cossington's affluent, older housing stock often features bespoke or imperial plumbing fittings. We carry the specialized adapters required to repair these systems sympathetically, preserving the heritage of the homes along Main Street.",
+      "Due to the proximity to Cossington Meadows and a high water table, soakaways and septic drainage fields require careful management. We provide expert unblocking and maintenance to ensure these off-grid drainage solutions function flawlessly.",
+      "Heating large, detached properties in the village demands serious boiler output. We frequently service and balance multi-zone heating systems and unvented hot water cylinders to ensure consistent heat and shower pressure throughout the home."
+    ]
   }
-}, i = Object.keys(n), s = Object.keys(t), r = [
+}, s = Object.keys(o), n = Object.keys(t), a = [
   "/",
   "/about",
   "/reviews",
@@ -634,11 +1285,11 @@ const n = {
   "/faq",
   "/privacy-policy"
 ];
-i.forEach((a) => {
-  r.push(`/${a}`), s.forEach((o) => {
-    r.push(`/${a}/${o}`);
+s.forEach((r) => {
+  a.push(`/${r}`), n.forEach((i) => {
+    a.push(`/${r}/${i}`);
   });
 });
 export {
-  r as default
+  a as default
 };

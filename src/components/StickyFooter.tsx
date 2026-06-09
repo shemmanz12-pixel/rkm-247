@@ -3,8 +3,10 @@ import { Phone, Calendar } from 'lucide-react';
 
 const StickyFooter = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // Add a mount state
 
   useEffect(() => {
+    setIsMounted(true); // Tell React the component has mounted in the browser
     const handleScroll = () => {
       // Only show after scrolling down 100px
       setIsVisible(window.scrollY > 100);
@@ -13,10 +15,15 @@ const StickyFooter = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!isVisible) return null;
+  // Remove the `if (!isVisible) return null;` line entirely!
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 md:hidden animate-in slide-in-from-bottom duration-300">
+    <div 
+      className={`fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 md:hidden transition-transform duration-300 ${
+        /* Use CSS translation to hide/show instead of React rendering */
+        isVisible && isMounted ? 'translate-y-0' : 'translate-y-full' 
+      }`}
+    >
       <div className="flex gap-3">
         
         {/* BOOK BUTTON - NOW ON THE LEFT */}
