@@ -16,6 +16,7 @@ import Services from '../components/Services';
 
 import { towns } from '../townConfig';
 import { serviceContent } from '../data/serviceData';
+import About from '../components/About';
 
 const DRAINAGE_SERVICE_KEYS = new Set([
   'drain-unblocking',
@@ -97,10 +98,8 @@ const ServicePage = () => {
   const road = town.road || 'main access routes';
   const postcodes = town.postcodes?.length ? town.postcodes.join(', ') : 'LE65, LE67';
   
-  // FIXED: Added ?. before .length to safely handle missing arrays without throwing a build crash
-  const nearbyAreaNames = town.nearbyTowns?.length 
-    ? town.nearbyTowns.join(', ')
-    : 'Coalville, Ashby-de-la-Zouch, Ibstock, Whitwick and surrounding areas';
+  // FIXED: Use fallback for nearby area names
+  const nearbyAreaNames = 'Coalville, Ashby-de-la-Zouch, Ibstock, Whitwick and surrounding areas';
 
   const isDrainagePage = DRAINAGE_SERVICE_KEYS.has(cleanServiceKey);
   const isHeatingPage = HEATING_SERVICE_KEYS.has(cleanServiceKey);
@@ -120,7 +119,7 @@ const ServicePage = () => {
     : `${service.title} in ${townName} | RKM Plumbing & Heating`;
 
   const metaDesc =
-    town.metaDescription ||
+    town.description ||
     (isDrainagePage
       ? `${service.title} in ${townName}. We clear blocked drains, sinks, toilets, showers and outside drains across ${postcodes}. Fast local response from RKM Plumbing & Heating with no call out fee.`
       : isHeatingPage
@@ -139,8 +138,7 @@ const ServicePage = () => {
     ? `Fast ${service.title.toLowerCase()} in ${townName} for burst pipes, urgent leaks, blocked toilets, no water and emergency plumbing repairs across ${postcodes}.`
     : isLeakPage
     ? `Professional ${service.title.toLowerCase()} in ${townName} for hidden water leaks, damp-related plumbing issues, pipework faults and trace and access support across ${postcodes}.`
-    : town.localSpice ||
-      `Providing expert plumbing across ${townName}, covering ${road} and all surrounding ${postcodes} areas.`;
+    : `Providing expert plumbing across ${townName}, covering ${road} and all surrounding ${postcodes} areas.`;
 
   const bodyParagraphs = useMemo(() => {
     if (isDrainagePage) {
@@ -196,60 +194,46 @@ const ServicePage = () => {
     town.authorityParagraphs,
   ]);
 
+ // 1. NEARBY LINKS (Auto-groups by matching Postcode Prefix)
   const nearbyLinks = useMemo(() => {
-    const candidates = [
-      'coalville',
-      'ashby-de-la-zouch',
-      'ibstock',
-      'castle-donington',
-      'whitwick',
-      'measham',
-      'ellistown',
-    ];
+    
+    const currentPrefix = town.postcodes[0].split(' ')[0]; 
 
-    return candidates
-      .filter(slug => slug !== cleanTownKey && towns[slug])
+    return Object.entries(towns)
+      .filter(([, t]) => t.name !== town.name && t.postcodes.some(pc => pc.startsWith(currentPrefix)))
       .slice(0, 6)
-      .map(slug => ({
+      .map(([slug, t]) => ({
         slug,
-        name: towns[slug].name || slug,
+        name: `Local Plumber ${t.name}`,
         url: `/${cleanServiceKey}/${slug}/`,
       }));
-  }, [cleanTownKey, cleanServiceKey]);
+  }, [town.postcodes, cleanServiceKey]);
 
+  // 2. HUB LINKS (Auto-generates Region based on Postcode Letters)
   const supportingHubLinks = useMemo(() => {
     const links = [];
+    const areaCode = town.postcodes[0].substring(0, 2); // e.g., "LE", "DE", "B7"
+    
+    // Assign regions dynamically based on postcode area
+    let hubName = 'North West Leicestershire';
+    if (areaCode === 'DE') hubName = 'South Derbyshire';
+    if (areaCode === 'B7' || areaCode === 'CV') hubName = 'Tamworth & Warwickshire';
+    if (town.postcodes[0].startsWith('LE11') || town.postcodes[0].startsWith('LE12')) hubName = 'Loughborough District';
+    
+    const hubSlug = hubName.toLowerCase().replace(/\s+/g, '-').replace('&', 'and');
 
-    if (isDrainagePage) {
-      links.push({
-        name: `Drain Unblocking North West Leicestershire`,
-        url: `/drain-unblocking/north-west-leicestershire/`,
-      });
-    }
-
-    if (isHeatingPage) {
-      links.push({
-        name: `Central Heating Repairs North West Leicestershire`,
-        url: `/central-heating-repairs/north-west-leicestershire/`,
-      });
-    }
-
-    if (isEmergencyPage) {
-      links.push({
-        name: `Emergency Repairs North West Leicestershire`,
-        url: `/emergency-repairs/north-west-leicestershire/`,
-      });
-    }
-
-    if (isLeakPage) {
-      links.push({
-        name: `Leak Detection North West Leicestershire`,
-        url: `/leak-detection/north-west-leicestershire/`,
-      });
-    }
+    if (isDrainagePage) links.push({ name: `Drain Unblocking ${hubName}`, url: `/drain-unblocking/${hubSlug}/` });
+    if (isHeatingPage) links.push({ name: `Central Heating Repairs ${hubName}`, url: `/central-heating-repairs/${hubSlug}/` });
+    if (isEmergencyPage) links.push({ name: `Emergency Repairs ${hubName}`, url: `/emergency-repairs/${hubSlug}/` });
+    if (isLeakPage) links.push({ name: `Leak Detection ${hubName}`, url: `/leak-detection/${hubSlug}/` });
 
     return links;
-  }, [isDrainagePage, isHeatingPage, isEmergencyPage, isLeakPage]);
+  }, [isDrainagePage, isHeatingPage, isEmergencyPage, isLeakPage, town.postcodes]);
+ 
+// Helper to format "01530 654 062" into "+441530654062" for Google Schema
+  const schemaPhone = town.phone 
+    ? `+44${town.phone.replace(/^0/, '').replace(/\s+/g, '')}` 
+    : '+441530654062';
 
   const schemaData = {
     '@context': 'https://schema.org',
@@ -261,7 +245,7 @@ const ServicePage = () => {
         url: 'https://rkm247.co.uk/',
         logo: 'https://rkm247.co.uk/logo-square.webp',
         image: 'https://rkm247.co.uk/team-photo.webp',
-        telephone: '+441530654062',
+        telephone: schemaPhone,
         priceRange: '££',
         address: {
           '@type': 'PostalAddress',
@@ -271,13 +255,7 @@ const ServicePage = () => {
           postalCode: 'LE67 2JH',
           addressCountry: 'GB',
         },
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: 52.7237,
-          longitude: -1.3668,
-        },
         areaServed: [
-          { '@type': 'Place', name: 'Coalville' },
           { '@type': 'Place', name: 'North West Leicestershire' },
           { '@type': 'Place', name: townName },
         ],
@@ -307,7 +285,7 @@ const ServicePage = () => {
           '@type': 'ServiceChannel',
           servicePhone: {
             '@type': 'ContactPoint',
-            telephone: '+441530654062',
+            telephone: schemaPhone,
             contactType: 'customer service',
             areaServed: `${townName}, Leicestershire`,
           },
@@ -380,7 +358,9 @@ const ServicePage = () => {
         </script>
       </Helmet>
 
-      <Header />
+      {/* ✅ Added dynamic phone to Header */}
+      <Header customPhone={town.phone} />
+      
       <Hero town={cleanTownKey} service={cleanServiceKey} />
 
       <main className="flex-grow">
@@ -775,15 +755,22 @@ const ServicePage = () => {
           </div>
         </section>
 
+        <About />
         <Process />
         <Services />
         <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
         <MapSection townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
         <FAQ townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
-        <ContactSection />
+        <ContactSection customPhone={town.phone} />
       </main>
 
-      <Footer />
+      {/* ✅ Added dynamic location data to Footer */}
+      <Footer 
+        customPhone={town.phone}
+        townName={townName}
+        postcodeLabel={town.postcodes ? town.postcodes[0] : 'LE67 2JH'}
+        roadName={road}
+      />
     </div>
   );
 };

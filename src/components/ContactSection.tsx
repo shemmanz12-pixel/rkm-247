@@ -1,8 +1,11 @@
-// React import not required with the new jsx transform when not referencing React directly
 import { Phone, Mail, Clock } from 'lucide-react';
-import BookingCard from './BookingCard'; // REUSING THE CARD
+import BookingCard from './BookingCard';
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  customPhone?: string;
+}
+
+const ContactSection = ({ customPhone = "01530 654 062" }: ContactSectionProps) => {
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -24,8 +27,11 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">Call for Assistance</p>
-                  <a href="tel:01530654062" className="text-3xl font-black text-slate-900 hover:text-gold-500 transition-colors block mb-2">
-                    01530 654 062
+                  <a 
+                    href={`tel:${customPhone.replace(/\s+/g, '')}`} 
+                    className="text-3xl font-black text-slate-900 hover:text-gold-500 transition-colors block mb-2"
+                  >
+                    {customPhone}
                   </a>
                   <span className="bg-gold-500 text-slate-900 text-xs font-bold px-3 py-1 rounded uppercase">
                     Call Now — Emergency Plumber

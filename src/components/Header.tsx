@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar } from 'lucide-react'; // Added Calendar icon
 
-const Header = () => {
+// Added interface for dynamic props to avoid messing with standard page behaviors
+interface HeaderProps {
+  customPhone?: string;
+}
+
+const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -88,12 +93,13 @@ const Header = () => {
               <span>Book Online</span>
             </a>
 
+            {/* DYNAMIC TRACKING LINK LAYER */}
             <a 
-              href="tel:01530654062" 
+              href={`tel:${customPhone.replace(/\s+/g, '')}`} 
               className="bg-[#A6892C] hover:bg-[#c4a030] text-slate-900 px-6 py-3 rounded-lg font-black flex items-center gap-2 transition-all transform hover:-translate-y-0.5 shadow-md"
             >
               <Phone className="w-4 h-4" />
-              <span>01530 654 062</span>
+              <span>{customPhone}</span>
             </a>
           </nav>
 
@@ -134,12 +140,13 @@ const Header = () => {
                Book Online
              </a>
 
+            {/* DYNAMIC MOBILE CALL TO ACTION */}
             <a 
-              href="tel:01530654062" 
+              href={`tel:${customPhone.replace(/\s+/g, '')}`} 
               className="bg-[#A6892C] text-slate-900 text-center py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2"
             >
               <Phone className="w-5 h-5" />
-              Call 01530 654 062
+              Call {customPhone}
             </a>
           </div>
         </div>

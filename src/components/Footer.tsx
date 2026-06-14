@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Phone, MapPin, Shield, CheckCircle, Percent, GraduationCap } from 'lucide-react';
 
-const Footer = () => {
+interface FooterProps {
+  customPhone?: string;
+  townName?: string;
+  postcodeLabel?: string;
+  roadName?: string;
+}
+
+const Footer = ({
+  customPhone = "01530 654 062",
+  townName = "Coalville",
+  postcodeLabel = "LE67 2JH",
+  roadName = "Hodgetts Street"
+}: FooterProps) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,7 +27,7 @@ const Footer = () => {
               RKM Plumbing & Heating
             </h3>
             <p className="text-gray-400 mb-8 leading-relaxed text-sm">
-              RKM Plumbing & Heating Services is a specialist <strong>24/7 emergency plumbing company</strong> based in <strong>Coalville</strong>. We provide rapid 60-minute response for burst pipes, leaks, and heating failures across North West Leicestershire.
+              RKM Plumbing & Heating Services is a specialist <strong>24/7 emergency plumbing company</strong> proudly responding directly within <strong>{townName}</strong>. We provide rapid 60-minute response for burst pipes, leaks, and heating failures across the regional district area.
             </p>
 
             {/* OAP DISCOUNT BOX - High conversion element */}
@@ -24,7 +36,7 @@ const Footer = () => {
                 <Percent className="w-5 h-5 text-[#A6892C]" />
                 <span className="text-[#A6892C] font-bold text-lg">10% OAP Discount</span>
               </div>
-              <p className="text-gray-500 text-xs font-medium">Available for all seniors in the LE65, LE67, DE11 & DE12 areas.</p>
+              <p className="text-gray-500 text-xs font-medium">Available for all seniors across our network coverage locations.</p>
             </div>
           </div>
 
@@ -43,7 +55,7 @@ const Footer = () => {
                 <CheckCircle className="w-6 h-6 text-[#A6892C] flex-shrink-0" />
                 <div>
                   <span className="text-white font-bold block mb-1 uppercase text-xs tracking-widest">24/7 Rapid Response</span>
-                  <span className="text-gray-400 text-sm">On-site within 60 minutes for emergencies in Ashby, Coalville, and Ibstock.</span>
+                  <span className="text-gray-400 text-sm">On-site within 60 minutes for sudden line breaks and emergencies inside {townName}.</span>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -62,23 +74,23 @@ const Footer = () => {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <Phone className="w-5 h-5 text-[#A6892C]" />
-                <a href="tel:01530654062" className="text-2xl font-black hover:text-[#A6892C] transition-colors tracking-tight">
-                  01530 654 062
+                <a href={`tel:${customPhone.replace(/\s+/g, '')}`} className="text-2xl font-black hover:text-[#A6892C] transition-colors tracking-tight">
+                  {customPhone}
                 </a>
               </div>
               <div className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-[#A6892C] mt-1" />
                 <span className="text-gray-300 text-lg leading-snug">
-                  Hodgetts Street,<br/>
-                  Coalville, Leicestershire,<br/>
-                  LE67 2JH
+                  {roadName},<br/>
+                  {townName}, United Kingdom,<br/>
+                  {postcodeLabel}
                 </span>
               </div>
               
               <div className="mt-8 pt-8 border-t border-gray-800">
-                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2 text-[#A6892C]">Primary Coverage:</p>
+                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2 text-[#A6892C]">Local Matrix Coverage:</p>
                 <p className="text-gray-500 text-xs leading-relaxed">
-                  Coalville, Ashby De La Zouch, Whitwick, Ibstock, Measham, Markfield, Ellistown, and all surrounding NW Leicestershire villages.
+                  Now running dynamic responsive fields across all adjacent roads and service vectors bordering {townName}.
                 </p>
               </div>
             </div>
@@ -94,7 +106,7 @@ const Footer = () => {
               </div>
               <div className="text-center md:text-left">
                 <h4 className="text-white font-black text-sm uppercase tracking-tight">Regional Training Standards</h4>
-                <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] mt-1 font-bold">Approved Emergency Response: North West Leicestershire</p>
+                <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] mt-1 font-bold">Approved Emergency Response Matrix Control</p>
               </div>
             </div>
             
@@ -135,7 +147,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#A6892C] animate-pulse"></span>
-            <p className="text-gray-400 tracking-[0.3em]">NW Leicestershire</p>
+            <p className="text-gray-400 tracking-[0.3em]">{townName}</p>
           </div>
         </div>
       </div>

@@ -8,7 +8,8 @@ import { MapPin, ChevronRight } from 'lucide-react';
 import { towns } from '../townConfig'; 
 
 const Locations = () => {
-  // Sort towns alphabetically by name for better user experience
+  // Directly sort and process towns from your master object config
+  // This ensures your UI updates instantly whenever you expand your master config file!
   const sortedTowns = Object.entries(towns).sort((a, b) => 
     a[1].name.localeCompare(b[1].name)
   );
@@ -17,7 +18,7 @@ const Locations = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       <Helmet>
         <title>All Service Locations | RKM Plumbing & Heating</title>
-        <meta name="description" content="Find your local RKM Plumbing & Heating engineer. We cover Coalville, Ashby-de-la-Zouch, and all surrounding areas in North West Leicestershire with a 60-minute response." />
+        <meta name="description" content="Find your local RKM Plumbing & Heating engineer. We cover Leicestershire, Derbyshire, and Warwickshire with a 24/7 rapid emergency response." />
         <link rel="canonical" href="https://rkm247.co.uk/locations/" />
       </Helmet>
 
@@ -28,17 +29,17 @@ const Locations = () => {
           <div className="max-w-7xl mx-auto">
             
             {/* Header Section */}
-            <div className="mb-12 border-l-4 border-[#A6892C] pl-6">
+            <div className="mb-12 border-l-4 border-amber-600 pl-6">
               <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 uppercase tracking-tight">
                 Areas <span className="text-[#A6892C]">We Cover</span>
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl">
-                RKM provides 24/7 emergency response and expert plumbing across 40+ locations. 
+                RKM provides 24/7 emergency response and expert plumbing across our entire expanded network.
                 Select your area below to see local services and response times.
               </p>
             </div>
 
-            {/* Responsive Grid for 40+ Towns */}
+            {/* Responsive Grid for All Towns */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {sortedTowns.map(([slug, data]) => (
                 <div 
@@ -53,7 +54,6 @@ const Locations = () => {
                   </div>
                   
                   <nav className="flex flex-col space-y-1.5">
-                    {/* Link paths updated to ensure consistency with SSG structure */}
                     <Link to={`/local-plumber/${slug}/`} className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-[#A6892C] p-2 rounded-lg hover:bg-slate-50 transition-all">
                       Local Plumber <ChevronRight className="w-3 h-3" />
                     </Link>
@@ -78,7 +78,7 @@ const Locations = () => {
             <div className="mt-16 bg-slate-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
                <div className="relative z-10">
                  <h2 className="text-3xl font-black uppercase mb-4">Don't see your area listed?</h2>
-                 <p className="text-slate-400 mb-8 max-w-xl mx-auto">We cover a 20-mile radius around Coalville, including all LE67, LE65, DE11, and DE12 postcodes.</p>
+                 <p className="text-slate-400 mb-8 max-w-xl mx-auto">We provide full dynamic response assets across our entire regional plumbing grid map.</p>
                  <a href="tel:01530654062" className="inline-block bg-[#A6892C] text-slate-900 font-black px-10 py-4 rounded-xl hover:bg-white transition-colors">
                     Call 01530 654 062
                  </a>

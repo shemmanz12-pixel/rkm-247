@@ -1,26 +1,28 @@
-import { serviceContent } from './data/serviceData'; 
-import { towns } from './townConfig'; // Corrected path to src folder
+// src/ssg-routes.ts
+import { towns } from './townConfig'; // Make sure this path points to your single master towns file
 
-const services = Object.keys(serviceContent);
-const areas = Object.keys(towns);
-
-const routes: string[] = [
-    '/',
-    '/about',
-    '/reviews',
-    '/services',
-    '/locations',
-    '/faq',
-    '/privacy-policy'
+// Standard core static pages
+const coreRoutes = [
+  '/',
+  '/about',
+  '/services',
+  '/reviews',
+  '/faq',
+  '/locations' // This is the main grid page you were looking at!
 ];
 
-services.forEach((service) => {
-    routes.push(`/${service}`);
-    areas.forEach((area) => {
-        // Generates clean paths like /local-plumber/ashby-de-la-zouch
-        // No "in-" prefix ensures townKey matches towns[area]
-        routes.push(`/${service}/${area}`);
-    });
+// Dynamically generate all 5 landing variations for every village in your dictionary
+const dynamicTownRoutes: string[] = [];
+
+Object.keys(towns).forEach((slug) => {
+  dynamicTownRoutes.push(`/local-plumber/${slug}/`);
+  dynamicTownRoutes.push(`/emergency-plumber/${slug}/`);
+  dynamicTownRoutes.push(`/heating-engineer/${slug}/`);
+  dynamicTownRoutes.push(`/drain-unblocking/${slug}/`);
+  dynamicTownRoutes.push(`/leak-detection/${slug}/`);
 });
 
-export default routes;
+// Merge them together to fuel your Vite build script and Sitemap builder automatically
+const ssgRoutes = [...coreRoutes, ...dynamicTownRoutes];
+
+export default ssgRoutes;

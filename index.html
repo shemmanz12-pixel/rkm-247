@@ -11,65 +11,35 @@
 
     <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/625a90f2a3dadcc1705b822c6269b3cd/script.js"></script>
     
+    <!-- GENERIC BASELINE TITLES & METAS (React Helmet will override these per page) -->
     <title>24/7 Local & Emergency Plumber | RKM Plumbing & Heating Services</title>
-    <meta name="description" content="Expert local plumbers in Coalville & NW Leicestershire. 24/7 emergency response, drainage & heating repairs. No call-out fee. Trusted local engineers." />
+    <meta name="description" content="Expert local plumbers offering 24/7 emergency response, drainage & heating repairs. No call-out fee. Trusted local engineers near you." />
     
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rkm247.co.uk/" />
-    <meta property="og:title" content="24/7 Local & Emergency Plumber Coalville | RKM Plumbing" />
-    <meta property="og:description" content="Rapid 60-minute emergency response in Coalville and Ashby. No call-out charge. Local experts you can trust." />
+    <meta property="og:title" content="24/7 Local & Emergency Plumber | RKM Plumbing" />
+    <meta property="og:description" content="Rapid 60-minute emergency response. No call-out charge. Local plumbing and heating experts you can trust." />
     <meta property="og:image" content="https://rkm247.co.uk/team-photo.webp" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RKM Plumbing & Heating | Coalville 24/7" />
+    <meta name="twitter:title" content="RKM Plumbing & Heating | 24/7 Emergency Response" />
     <meta name="twitter:image" content="https://rkm247.co.uk/logo-square.webp" />
     
     <link rel="icon" href="/logo-square.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="/logo-square.webp">
     
+    <!-- BRAND SCHEMA ONLY (Removed physical local markers so it doesn't conflict with local pages) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": ["LocalBusiness","PlumbingService"],
-      "@id": "https://rkm247.co.uk/#business",
+      "@type": "Organization",
+      "@id": "https://rkm247.co.uk/#organization",
       "name": "RKM Plumbing & Heating Services LTD",
       "url": "https://rkm247.co.uk/",
       "logo": "https://rkm247.co.uk/logo-square.webp",
       "image": "https://rkm247.co.uk/team-photo.webp",
-      "telephone": "+441530654062",
-      "priceRange": "££",
       "email": "plumbersnearme.rkm@outlook.com",
-      "description": "RKM Plumbing & Heating Services LTD provides 24/7 emergency response in North West Leicestershire. We are local specialists in leak detection, heating diagnostics, and drainage.",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Emergency Plumbing & Heating Services",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Emergency Pipe Repair" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drain Unblocking & Jetting" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Heating & Boiler Diagnostics" }},
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Trace and Access Leak Detection" }}
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Hodgetts Street",
-        "addressLocality": "Coalville",
-        "addressRegion": "Leicestershire",
-        "postalCode": "LE67 2JH",
-        "addressCountry": "GB"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 52.7237,
-        "longitude": -1.3668
-      },
-      "areaServed": [
-        { "@type": "City", "name": "Coalville" },
-        { "@type": "City", "name": "Ashby-de-la-Zouch" },
-        { "@type": "City", "name": "Whitwick" },
-        { "@type": "City", "name": "Ibstock" },
-        { "@type": "City", "name": "Measham" }
-      ],
+      "description": "RKM Plumbing & Heating Services LTD provides 24/7 emergency response, leak detection, heating diagnostics, and drainage services.",
       "sameAs": [
         "https://maps.app.goo.gl/hgp9JFbxQPbibPrd6",
         "https://share.google/3XtXaKCXHVDlgzSLh",
@@ -87,18 +57,18 @@
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
     
-    <!-- CHANGE THIS LINE: Point from main.tsx to entry-client.tsx -->
    <script type="module" src="/src/entry-client.tsx"></script>
 </head>
 <body>
     <a href="#main-content" class="sr-only">Skip to main content</a>
     <div id="root"></div>
 
+    <!-- GENERIC NOSCRIPT FALLBACK -->
     <noscript>
       <main id="main-content" style="padding:40px;max-width:900px;margin:0 auto;text-align:center;border-bottom:5px solid #A6892C;">
-        <p style="font-size: 2em; font-weight: bold; margin-top: 0.67em; margin-bottom: 0.67em; color: #1a1a1a; text-transform: uppercase;">Local & Emergency Plumber Coalville | 24/7 Response</p>
+        <p style="font-size: 2em; font-weight: bold; margin-top: 0.67em; margin-bottom: 0.67em; color: #1a1a1a; text-transform: uppercase;">Local & Emergency Plumber | 24/7 Response</p>
         <p><strong>RKM Plumbing & Heating Services LTD</strong></p>
-        <p>Expert Plumbing, Heating & Drainage engineers based in Hodgetts Street, Coalville, Leicestershire, LE67 2JH.</p>
+        <p>Expert Plumbing, Heating & Drainage engineers.</p>
         
         <div style="background:#f4f4f4;padding:25px;border-radius:15px;margin:25px 0;text-align:left;">
           <h2>Why Choose RKM 24/7?</h2>
@@ -106,11 +76,9 @@
             <li><strong>60-Minute Response:</strong> Rapid arrival for burst pipes and leaks.</li>
             <li><strong>£0 Call Out Fee:</strong> Fair local pricing with no hidden costs.</li>
             <li><strong>Drainage Specialists:</strong> High-pressure jetting and CCTV surveys.</li>
-            <li><strong>Areas Covered:</strong> Coalville, Ashby, Whitwick, Ibstock, and all LE65/LE67.</li>
+            <li><strong>Local Coverage:</strong> Fast dispatch to your area.</li>
           </ul>
         </div>
-        
-        <p style="font-size:1.4rem;">Emergency Help: <a href="tel:01530654062">01530 654 062</a></p>
       </main>
     </noscript>
 </body>

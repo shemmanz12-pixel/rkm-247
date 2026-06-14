@@ -1,17 +1,33 @@
-// React import not required with the new jsx transform when not referencing React directly
 import { useParams } from 'react-router-dom';
-// ADDED: Phone and Calendar for the new CTA buttons
 import { CheckCircle, MapPin, ShieldCheck, Droplets, Wrench, Zap, Phone, Calendar } from 'lucide-react';
+import { towns } from '../townConfig';
 
-const About = () => {
-  const { town } = useParams();
+interface AboutProps {
+  customPhone?: string;
+  townSlugOverride?: string;
+}
+
+const About = ({ customPhone, townSlugOverride }: AboutProps) => {
+  const params = useParams();
+  
+  // Use the override if provided (for landing pages), otherwise use the router param, otherwise fallback
+  const activeSlug = townSlugOverride || params.townSlug || params.town;
   
   const formatName = (slug: string | undefined) => {
     if (!slug) return 'Coalville & Leicestershire';
     return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   };
 
-  const townName = formatName(town);
+  const townKey = (activeSlug || '').toLowerCase();
+  const townName = formatName(activeSlug);
+  
+  // Look up the town data from our config
+  const localTownData = towns[townKey];
+  
+  // THIS IS THE FIX: Automatically pull the phone number based on the town!
+  // If the town isn't in the config, it uses customPhone, or falls back to Coalville.
+  const displayPhone = localTownData?.phone || customPhone || "01530 654 062";
+  const coverageString = localTownData?.postcodes?.join(', ') || 'surrounding';
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -56,11 +72,11 @@ const About = () => {
                   <p className="font-bold text-slate-900 uppercase text-sm tracking-widest">Drainage Specialist Division</p>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  Our expertise extends deep into <strong>specialist drainage solutions</strong>. We provide the most comprehensive <strong>drain unblocking in {townName}</strong>, utilizing <strong>high-pressure water jetting</strong> and <strong>professional CCTV drain surveys</strong> to clear main sewer lines, toilets, and external stacks. With a "Repair First" philosophy and <strong>OAP discounts</strong>, RKM remains the trusted choice for 24-hour drainage and plumbing support throughout Leicestershire.
+                  Our expertise extends deep into <strong>specialist drainage solutions</strong>. We provide the most comprehensive <strong>drain unblocking in {townName}</strong>, utilizing <strong>high-pressure water jetting</strong> and <strong>professional CCTV drain surveys</strong> to clear main sewer lines, toilets, and external stacks. With a "Repair First" philosophy and <strong>OAP discounts</strong>, RKM remains the trusted choice for 24-hour drainage and plumbing support throughout the area.
                 </p>
               </div>
 
-              {/* --- NEW ADDITION: Heating Specialist Block (Balances the Drainage one) --- */}
+              {/* Heating Specialist Block */}
               <div className="bg-slate-50 p-6 rounded-xl border-l-4 border-slate-800 mt-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Wrench className="w-5 h-5 text-slate-800" />
@@ -96,15 +112,16 @@ const About = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#A6892C] mt-1 flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <strong>RKM Local Service Area:</strong> Serving <strong>{townName}</strong>, Ashby-de-la-Zouch, Coalville, Ibstock, Markfield, Whitwick, and all LE67 & LE65 postcodes.
+                  <strong>RKM Local Service Area:</strong> Serving <strong>{townName}</strong> and all {coverageString} regions directly.
                 </p>
               </div>
             </div>
 
-            {/* --- NEW ADDITION: Action Buttons --- */}
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <a href="tel:01530654062" className="flex-1 bg-slate-900 text-white px-6 py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
-                <Phone className="w-5 h-5" /> Call 01530 654 062
+              {/* Uses dynamicPhone instead of customPhone */}
+              <a href={`tel:${displayPhone.replace(/\s+/g, '')}`} className="flex-1 bg-slate-900 text-white px-6 py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                <Phone className="w-5 h-5" /> Call {displayPhone}
               </a>
               <a href="https://calendar.app.google/pbb7EJraxjMQd1xS9" className="flex-1 bg-[#A6892C] text-slate-900 px-6 py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-[#b5952f] transition-colors shadow-lg shadow-[#A6892C]/20">
                 <Calendar className="w-5 h-5" /> Book Online

@@ -2,8 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { towns } from '../townConfig';
 
-const MY_MAP_EMBED = 'https://www.google.com/maps/d/u/0/embed?mid=1obhs_FPtXngr_klCMB3xNwzIRqvXMN0';
-
 interface MapSectionProps {
   townSlug?: string;
   serviceSlug?: string;
@@ -86,6 +84,9 @@ const MapSection = ({ townSlug, serviceSlug }: MapSectionProps) => {
     return () => obs.disconnect();
   }, []);
 
+  // Generate a dynamic Google Maps Embed URL based on the location name
+  const dynamicMapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(locationName + ', UK')}&t=&z=12&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <section id="map" className="py-24 bg-white border-t border-gray-100 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -116,7 +117,7 @@ const MapSection = ({ townSlug, serviceSlug }: MapSectionProps) => {
         >
           {iframeLoaded ? (
             <iframe
-              src={MY_MAP_EMBED}
+              src={dynamicMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -133,7 +134,7 @@ const MapSection = ({ townSlug, serviceSlug }: MapSectionProps) => {
 
           <noscript>
             <iframe
-              src={MY_MAP_EMBED}
+              src={dynamicMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}

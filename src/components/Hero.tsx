@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Phone, Calendar, Star, MapPin } from 'lucide-react';
 import { towns } from '../townConfig';
@@ -17,34 +17,28 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   const townKey = normalize(townSlug);
   const serviceKey = normalize(serviceSlug);
 
-  // Check if we are on a specific landing page
   const isLandingPage = !!townKey || !!serviceKey;
 
-  // Data Lookup
   const townData = towns[townKey] || {};
   const serviceData = serviceContent[serviceKey] || serviceContent['emergency-plumber'];
 
-  // Final strings with safety fallbacks to prevent "undefined"
   const displayLocation = townData.name || formatName(townKey) || 'Leicestershire';
   const serviceLabel = serviceData.title || "Plumbing & Heating";
   const phone = townData.phone || '01530 654 062';
   const landmark = townData.landmark || 'the local area';
   const road = townData.road || 'main routes';
 
-  // Build Hero Content
-  const localSpice = townData.localSpice
+  const localSpice = (townData as any).localSpice
     || `Serving ${displayLocation} near ${landmark}, covering ${road} and all surrounding areas.`;
 
   const heroDescription = townData.description
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
-  const metaDescription = townData.metaDescription
+  const metaDescription = (townData as any).metaDescription
     || `${serviceLabel} in ${displayLocation}. ${heroDescription}`;
 
-  // SEO: Dynamic title
   const pageTitle = `${serviceLabel} in ${displayLocation} | RKM Plumbing & Heating`;
 
-  // JSON-LD Schema
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -60,6 +54,28 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
     "areaServed": displayLocation,
     "url": `https://rkm247.co.uk/${serviceKey}/${townKey}`
   };
+
+  // --- SLIDESHOW LOGIC ---
+  // You can expand this array with any real project photos you have in your public folder
+  const images = [
+    "/team-photo.webp",
+    "/bathroom.webp",
+    "/Outside-Tap-Install.webp",
+    "/Boiler-Install.webp",
+    "/Drain-Unblocking.webp",
+    "/Drainage-CCTV-Survey.webp",
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000); // Changes image every 4 seconds
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   return (
     <>
@@ -99,7 +115,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 )}
               </div>
 
-              {/* HEADLINE - DYNAMICALLY UPDATED FOR TOWN */}
+              {/* HEADLINE */}
               <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
                 {isLandingPage ? (
                   <>
@@ -113,7 +129,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 )}
               </h1>
 
-              {/* LOCAL SPICE (Only on landing pages) */}
+              {/* LOCAL SPICE */}
               {isLandingPage && (
                 <p className="text-[#A6892C] font-bold uppercase text-sm tracking-widest mb-4">
                   {localSpice}
@@ -145,27 +161,53 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 </a>
               </div>
 
-              {/* MOBILE TEAM PHOTO */}
+              {/* MOBILE SLIDESHOW */}
               <div className="mt-10 lg:hidden">
-                <img
-                  src="/team-photo.webp"
-                  alt={`RKM Plumbing Engineers in ${displayLocation}`}
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white"
-                />
+                <div className="relative w-full aspect-[4/3] rounded-2xl shadow-2xl border-4 border-white overflow-hidden">
+                   {images.map((img, index) => (
+                    <img
+                      key={img}
+                      src={img}
+                      alt={`RKM Plumbing Work ${index + 1}`}
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                        index === currentImageIndex ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
             </div>
 
-            {/* RIGHT: DESKTOP PHOTO */}
+            {/* RIGHT: DESKTOP SLIDESHOW */}
             <div className="relative hidden lg:block">
               <div className="relative w-full aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
-                <img 
-                  src="/team-photo.webp" 
-                  alt={`RKM Plumbing & Heating Specialists serving ${displayLocation}`} 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                {images.map((img, index) => (
+                  <img 
+                    key={img}
+                    src={img} 
+                    alt={`RKM Plumbing Work in ${displayLocation}`} 
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                      index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                    }`}
+                  />
+                ))}
               </div>
               <div className="absolute inset-0 border-2 border-[#A6892C] rounded-[3rem] -z-10 translate-x-6 translate-y-6"></div>
+              
+              {/* Slideshow Indicators */}
+               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all ${
+                      index === currentImageIndex ? "bg-[#A6892C] scale-125" : "bg-white/50"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
           </div>
