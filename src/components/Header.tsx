@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Calendar } from 'lucide-react'; // Added Calendar icon
+import { Menu, X, Phone, Calendar } from 'lucide-react';
 
-// Added interface for dynamic props to avoid messing with standard page behaviors
 interface HeaderProps {
   customPhone?: string;
 }
@@ -12,22 +11,25 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // 1. Handle Scroll (Change header style on scroll)
   useEffect(() => {
+    // SSG Safety Check: Only run this if we are actually in a web browser
+    if (typeof window === 'undefined') return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+
+    // Initial check on load
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 2. Close menu automatically when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
-  // 3. CORRECTED NAVIGATION LINKS
-  // Updated to point to your new dedicated SEO pages
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/#services' },
@@ -36,7 +38,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
     { name: 'About', path: '/#about' },
     { name: 'FAQ', path: '/#faq' },
   ];
-
 
   return (
     <header 
@@ -47,11 +48,15 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           
-          {/* LOGO */}
           <Link 
             to="/" 
             className="flex items-center gap-3 group"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => {
+              // SSG Safety Check for onClick handlers
+              if (typeof window !== 'undefined') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
           >
             <img 
               src="/logo-square.webp" 
@@ -68,7 +73,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
             </div>
           </Link>
 
-          {/* DESKTOP NAV */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link 
@@ -82,7 +86,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
               </Link>
             ))}
             
-            {/* ADDED: BOOK ONLINE BUTTON (Matches your design) */}
             <a 
               href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
               target="_blank"
@@ -93,7 +96,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
               <span>Book Online</span>
             </a>
 
-            {/* DYNAMIC TRACKING LINK LAYER */}
             <a 
               href={`tel:${customPhone.replace(/\s+/g, '')}`} 
               className="bg-[#A6892C] hover:bg-[#c4a030] text-slate-900 px-6 py-3 rounded-lg font-black flex items-center gap-2 transition-all transform hover:-translate-y-0.5 shadow-md"
@@ -103,7 +105,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
             </a>
           </nav>
 
-          {/* MOBILE MENU BUTTON */}
           <button 
             className="lg:hidden text-slate-900 p-2"
             onClick={() => setIsOpen(!isOpen)}
@@ -114,7 +115,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
         </div>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
       {isOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl animate-in slide-in-from-top-5">
           <div className="flex flex-col p-6 gap-4">
@@ -140,7 +140,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
                Book Online
              </a>
 
-            {/* DYNAMIC MOBILE CALL TO ACTION */}
             <a 
               href={`tel:${customPhone.replace(/\s+/g, '')}`} 
               className="bg-[#A6892C] text-slate-900 text-center py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2"
