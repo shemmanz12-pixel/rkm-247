@@ -54,30 +54,23 @@ const ServicePage = () => {
   const { serviceSlug, townSlug } = useParams<{ serviceSlug: string; townSlug: string }>();
   const location = useLocation();
 
-  // 1. Convert any active router parameters to lowercase strings safely
   let cleanTownKey = (townSlug || '').toLowerCase().trim();
   let cleanServiceKey = (serviceSlug || '').toLowerCase().trim();
 
-  // 2. ABSOLUTE URL PATH SCANNER:
-  // Decodes the browser URL or the offline build path string into variables,
-  // making it compatible with flat (/coalville) and nested layouts (/local-plumber/coalville).
   if (location.pathname) {
     const segments = location.pathname.toLowerCase().split('/').filter(Boolean);
     
     if (segments.length === 1) {
-      // Handles flat layouts like /coalville/ or /ashby-de-la-zouch/
       if (towns[segments[0]]) {
         cleanTownKey = segments[0];
       }
       cleanServiceKey = 'emergency-plumber'; 
     } else if (segments.length >= 2) {
-      // Handles nested layout routes like /emergency-plumber/coalville/
       cleanServiceKey = segments[0];
       cleanTownKey = segments[1];
     }
   }
 
-  // 3. Fallback defaults if the path strings are missing
   if (!cleanTownKey || cleanTownKey === 'index.html') {
     cleanTownKey = 'coalville';
   }
@@ -85,11 +78,9 @@ const ServicePage = () => {
     cleanServiceKey = 'emergency-plumber';
   }
 
-  // 4. Map values from your data configuration imports
   const town = towns[cleanTownKey] || towns['coalville'] || {};
   const service = serviceContent[cleanServiceKey] || serviceContent['emergency-plumber'];
 
-  // Construct the proper town display name
   const townName = town.name || cleanTownKey
     .split('-')
     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
@@ -98,7 +89,6 @@ const ServicePage = () => {
   const road = town.road || 'main access routes';
   const postcodes = town.postcodes?.length ? town.postcodes.join(', ') : 'LE65, LE67';
   
-  // FIXED: Use fallback for nearby area names
   const nearbyAreaNames = 'Coalville, Ashby-de-la-Zouch, Ibstock, Whitwick and surrounding areas';
 
   const isDrainagePage = DRAINAGE_SERVICE_KEYS.has(cleanServiceKey);
@@ -194,9 +184,7 @@ const ServicePage = () => {
     town.authorityParagraphs,
   ]);
 
- // 1. NEARBY LINKS (Auto-groups by matching Postcode Prefix)
   const nearbyLinks = useMemo(() => {
-    
     const currentPrefix = town.postcodes[0].split(' ')[0]; 
 
     return Object.entries(towns)
@@ -209,12 +197,10 @@ const ServicePage = () => {
       }));
   }, [town.postcodes, cleanServiceKey]);
 
-  // 2. HUB LINKS (Auto-generates Region based on Postcode Letters)
   const supportingHubLinks = useMemo(() => {
     const links = [];
-    const areaCode = town.postcodes[0].substring(0, 2); // e.g., "LE", "DE", "B7"
+    const areaCode = town.postcodes[0].substring(0, 2); 
     
-    // Assign regions dynamically based on postcode area
     let hubName = 'North West Leicestershire';
     if (areaCode === 'DE') hubName = 'South Derbyshire';
     if (areaCode === 'B7' || areaCode === 'CV') hubName = 'Tamworth & Warwickshire';
@@ -230,7 +216,6 @@ const ServicePage = () => {
     return links;
   }, [isDrainagePage, isHeatingPage, isEmergencyPage, isLeakPage, town.postcodes]);
  
-// Helper to format "01530 654 062" into "+441530654062" for Google Schema
   const schemaPhone = town.phone 
     ? `+44${town.phone.replace(/^0/, '').replace(/\s+/g, '')}` 
     : '+441530654062';
@@ -334,8 +319,7 @@ const ServicePage = () => {
     ],
   };
 
- useEffect(() => {
-    // FIXED: Protect the build runner engine from crashing when window doesn't exist offline
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
@@ -358,12 +342,12 @@ const ServicePage = () => {
         </script>
       </Helmet>
 
-      {/* ✅ Added dynamic phone to Header */}
       <Header customPhone={town.phone} />
       
       <Hero town={cleanTownKey} service={cleanServiceKey} />
 
       <main className="flex-grow">
+        {/* INFO BAR */}
         <section className="py-4 bg-slate-900 text-white overflow-hidden">
           <div className="container mx-auto px-4 flex flex-wrap justify-center gap-6 text-[10px] md:text-xs font-black uppercase tracking-widest">
             <div className="flex items-center gap-2 text-[#A6892C]">
@@ -378,9 +362,15 @@ const ServicePage = () => {
           </div>
         </section>
 
+        {/* TRUST BADGES */}
         <TrustBadges />
 
-        <section className="py-16 bg-white">
+        {/* --- ABOUT SECTION MOVED HERE --- */}
+        <About />
+        {/* -------------------------------- */}
+
+        {/* SEO TEXT BLOCK */}
+        <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-8 uppercase leading-tight">
@@ -755,7 +745,6 @@ const ServicePage = () => {
           </div>
         </section>
 
-        <About />
         <Process />
         <Services />
         <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
@@ -764,7 +753,6 @@ const ServicePage = () => {
         <ContactSection customPhone={town.phone} />
       </main>
 
-      {/* ✅ Added dynamic location data to Footer */}
       <Footer 
         customPhone={town.phone}
         townName={townName}

@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Phone, Calendar } from 'lucide-react';
 import { towns } from '../townConfig'; 
 
 const StickyFooter = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  
   const params = useParams();
   const location = useLocation();
 
+  // Route matching logic
   const pathParts = location.pathname.split('/').filter(Boolean);
   const slugFromPath = pathParts[pathParts.length - 1]; 
   const activeSlug = params.townSlug || params.town || slugFromPath || '';
@@ -17,26 +15,10 @@ const StickyFooter = () => {
   const cleanTownKey = normalize(activeSlug);
   const customPhone = towns[cleanTownKey]?.phone || "01530 654 062";
 
-  useEffect(() => {
-    // 1. SSG Safety Check: Only run this if we are actually in a web browser
-    if (typeof window === 'undefined') return;
-
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 50);
-    };
-    
-    // Initial check on load
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div 
-      className={`fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-[100] transition-transform duration-300 ease-in-out ${
-        isVisible ? 'translate-y-0' : 'translate-y-full' 
-      }`}
+      // Removed the scroll-hiding logic. Added pb-[max(0.75rem,env(safe-area-inset-bottom))] for iPhones.
+      className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-[100]"
     >
       <div className="flex gap-3 max-w-4xl mx-auto">
         <a 

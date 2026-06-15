@@ -56,14 +56,13 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   };
 
   // --- SLIDESHOW LOGIC ---
-  // You can expand this array with any real project photos you have in your public folder
   const images = [
     "/team-photo.webp",
     "/bathroom.webp",
-    "/Outside-Tap-Install.webp",
-    "/Boiler-Install.webp",
-    "/Drain-Unblocking.webp",
-    "/Drainage-CCTV-Survey.webp",
+    "/outside-tap-install.webp",
+    "/boiler-install.webp",
+    "/drain-unblocking.webp",
+    "/drainage-cctv-survey.webp",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -129,16 +128,17 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 )}
               </h1>
 
-              {/* LOCAL SPICE */}
+              {/* HERO DESCRIPTION (ABOUT TEXT) NOW COMES FIRST */}
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
+                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across North West Leicestershire. We arrive in 60 minutes or less.'}
+              </p>
+
+              {/* LOCAL SPICE (SEO TEXT) NOW COMES SECOND */}
               {isLandingPage && (
-                <p className="text-[#A6892C] font-bold uppercase text-sm tracking-widest mb-4">
+                <p className="text-[#A6892C] font-bold uppercase text-sm tracking-widest mb-10">
                   {localSpice}
                 </p>
               )}
-
-              <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg font-medium">
-                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across North West Leicestershire. We arrive in 60 minutes or less.'}
-              </p>
 
               {/* BUTTONS ROW */}
               <div className="flex flex-col sm:flex-row gap-4">
