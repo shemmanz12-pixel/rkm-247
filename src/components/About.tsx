@@ -1,9 +1,9 @@
-'use client';
+'use client'; 
 
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { CheckCircle, Phone, Calendar, MapPin } from 'lucide-react';
+import { CheckCircle, Phone, Calendar } from 'lucide-react';
 import { towns } from '../townConfig'; 
+import Slideshow from './slideshow'; // <--- NOTICE THE LOWERCASE 's' HERE
 
 const RKM_GUARANTEES = [
   'Available 24/7 for emergency callouts',
@@ -32,19 +32,17 @@ const About = () => {
     ? serviceSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) 
     : 'Plumbing & Heating';
 
-  // --- DYNAMIC SLIDESHOW LOGIC ---
+  // --- DYNAMIC IMAGE ROUTING ---
   const normalizedService = (serviceSlug || '').toLowerCase();
   let images: string[] = [];
 
   if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('blockage')) {
-    // Drainage Images
     images = [
       "/drain-unblocking.webp",
       "/drainage-cctv-survey.webp",
       "/unblocked-drain.webp",
     ];
   } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas')) {
-    // Heating Images (Team photo removed)
     images = [
       "/boiler-install.webp",
       "/two-port-valve.webp",
@@ -52,7 +50,6 @@ const About = () => {
       "/shower-pump.webp"
     ];
   } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
-    // Plumbing Images (Team photo removed)
     images = [
       "/bathroom.webp",
       "/outside-tap-install.webp",
@@ -60,7 +57,6 @@ const About = () => {
       "/shower-pump.webp"
     ];
   } else {
-    // Fallback/General Images (Team photo removed)
     images = [
       "/bathroom.webp",
       "/boiler-install.webp",
@@ -70,68 +66,19 @@ const About = () => {
     ];
   }
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // Reset index if the URL/service changes so we don't get out-of-bounds errors
-  useEffect(() => {
-    setCurrentImageIndex(0);
-  }, [serviceSlug]);
-
-  // Slideshow Timer
-  useEffect(() => {
-    // Prevent interval from running if there are no images
-    if (images.length === 0) return;
-    
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000); // Changes image every 4 seconds
-    return () => clearInterval(timer);
-  }, [images.length]);
-
   return (
     <section className="py-16 lg:py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
-          {/* LEFT: SLIDESHOW */}
+          {/* LEFT: ISOLATED SLIDESHOW COMPONENT */}
           <div className="order-2 lg:order-1 relative">
-            <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white group">
-              
-              {/* Slideshow Images */}
-              {images.map((img, index) => (
-                <img 
-                  key={img}
-                  src={img} 
-                  alt={`RKM ${displayService} Portfolio ${index + 1}`}
-                  loading="lazy"
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                    index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-                  }`}
-                />
-              ))}
-
-              {/* Location Tag Overlay */}
-              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl z-30">
-                <MapPin className="w-4 h-4 text-[#A6892C]" />
-                Serving {displayLocation}
-              </div>
-
-              {/* Slideshow Indicators */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
-                {images.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === currentImageIndex ? "bg-[#A6892C] scale-150" : "bg-white/60"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
+            
+            <Slideshow 
+              images={images} 
+              displayService={displayService} 
+              displayLocation={displayLocation} 
+            />
 
             {/* Decorative Offset Border (Desktop Only) */}
             <div className="absolute inset-0 border-2 border-[#A6892C] rounded-[2rem] -z-10 translate-x-4 translate-y-4 hidden lg:block transition-transform duration-500 group-hover:translate-x-5 group-hover:translate-y-5"></div>
