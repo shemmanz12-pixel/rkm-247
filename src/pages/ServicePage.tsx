@@ -369,6 +369,10 @@ const ServicePage = () => {
         <About />
         {/* -------------------------------- */}
 
+        <Process />
+        <Services />
+        <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
+
         {/* SEO TEXT BLOCK */}
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
@@ -745,9 +749,6 @@ const ServicePage = () => {
           </div>
         </section>
 
-        <Process />
-        <Services />
-        <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
         <MapSection townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
         <FAQ townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
         <ContactSection customPhone={town.phone} />

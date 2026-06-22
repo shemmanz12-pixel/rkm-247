@@ -92,7 +92,7 @@ const About = () => {
             
             <h3 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
               Trusted {displayService} Experts <br />
-              <span className="text-gray-500 text-3xl md:text-4xl">in {displayLocation}</span>
+              <span className="text-[#A6892C] text-3xl md:text-4xl">in {displayLocation}</span>
             </h3>
             
             {/* HEAVY SEO PARAGRAPH 1: General Authority */}
