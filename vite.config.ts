@@ -76,7 +76,9 @@ export default defineConfig(({ mode }) => {
       outDir: isLibBuild ? 'dist-routes' : 'dist/client',
       rollupOptions: {
         // Match settings configuration across environments
-        external: isLibBuild ? [] : ['react', 'react-dom'],
+        // NOTE: Do NOT externalize react/react-dom for the browser client build.
+        // Bare specifiers like "react" cannot be resolved by browsers without an importmap.
+        external: isLibBuild ? ['react', 'react-dom'] : [],
       },
     },
     resolve: {
