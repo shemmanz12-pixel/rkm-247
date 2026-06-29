@@ -7,7 +7,7 @@ const Process = () => {
       number: "01",
       icon: Phone, 
       title: 'Contact Us', 
-      desc: 'Call 01530 654 062. We answer 24/7 immediately.' 
+      desc: 'Call RKM PLumbing & Heating Services. We answer 24/7 immediately.' 
     },
     { 
       number: "02",
@@ -25,7 +25,7 @@ const Process = () => {
       number: "04",
       icon: CheckCircle, 
       title: 'Job Done', 
-      desc: 'You only pay when the work is complete and you are happy.' 
+      desc: 'Pay on completion and payment to be paid same day.' 
     }
   ];
 
