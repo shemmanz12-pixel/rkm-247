@@ -1,54 +1,62 @@
 // React import not required with the new jsx transform when not referencing React directly
-import { Link, useParams } from 'react-router-dom';
 import { Wrench, Phone, Droplets, Flame, Search, ArrowRight } from 'lucide-react';
 
 const Services = () => {
-  // 1. GET CURRENT TOWN
-  const { town } = useParams(); 
-  const currentTown = town || 'coalville';
+
+  // 1. YOUR DESIGNATED PHONE NUMBER (Hides natively inside the link tag protocol until clicked)
+  const PHONE_NUMBER = "07848969229"; 
+
+  // 2. YOUR GOOGLE CALENDAR LINK
+  const CALENDAR_LINK = "https://calendar.app.google/pbb7EJraxjMQd1xS9";
 
   const services = [
     {
-      icon: Wrench,
-      title: "General Plumbing",
-      desc: "Leaking pipes, tap repairs, toilet fixes, and general maintenance for your home.",
-      slug: "general-plumbing", 
-      linkText: "Book A Visit"
+      icon: Flame,
+      title: "Heating Engineer",
+      desc: "Boiler Installs and Repairs, Radiator replacements, system flushing, and thermostat upgrades for efficiency.",
+      actionText: "Call Us Now",
+      href: `tel:${PHONE_NUMBER}`,
+      isExternal: false
     },
     {
       icon: Phone,
       title: "Emergency Plumber",
       desc: "Rapid assistance for burst pipes and leak repairs when you need us most.",
-      slug: "emergency-plumber",
-      linkText: "Book A Visit"
+      actionText: "Call Us Now",
+      href: `tel:${PHONE_NUMBER}`,
+      isExternal: false
     },
     {
       icon: Droplets,
       title: "Drains Unblocking",
-      desc: "Specialist unblocking for toilets, sinks, and main drains using high-pressure jetting.",
-      slug: "blocked-drains",
-      linkText: "Book A Visit"
-    },
-    {
-      icon: Flame,
-      title: "Heating Engineer",
-      desc: "Radiator replacements, system flushing, and thermostat upgrades for efficiency.",
-      slug: "heating-engineer",
-      linkText: "Book A Visit"
+      desc: "Specialist Drain unblocking for manholes, soil stacks, and main drains using high-pressure jetting.",
+      actionText: "Call Us Now",
+      href: `tel:${PHONE_NUMBER}`,
+      isExternal: false
     },
     {
       icon: Wrench,
-      title: "New Install Plumbing",
-      desc: "Dishwasher and washing machine installs, sink replacements, and tap upgrades.",
-      slug: "new-install",
-      linkText: "Book A Visit"
+      title: "General Plumbing",
+      desc: "Leaking pipes, tap repairs, toilet fixes, and general maintenance for your home.",
+      actionText: "Book Online",
+      href: CALENDAR_LINK,
+      isExternal: true
     },
     {
       icon: Search,
       title: "Leak Detection",
       desc: "Visual plumbing inspections and trace & access to find hidden leaks.",
-      slug: "leak-detection",
-      linkText: "Book A Visit"
+      actionText: "Book Online",
+      href: CALENDAR_LINK,
+      isExternal: true
+    },
+    {
+      icon: Wrench,
+      title: "New Install Plumbing",
+      desc: "Dishwasher and washing machine installs, sink replacements, and tap upgrades.",
+      actionText: "Book Online",
+      href: CALENDAR_LINK,
+      isExternal: true
     }
   ];
 
@@ -68,12 +76,13 @@ const Services = () => {
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Link 
+            <a 
               key={index} 
-              // 🔥 CRITICAL FIX: Changed from '/location/...' to dynamic service URL
-              // Example Result: /central-heating/coalville
-              to={`/${service.slug}/${currentTown}`} 
-              className="relative z-30 block bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-start border border-gray-100"
+              href={service.href}
+              // Opens calendar in a new tab; calls natively from current tab
+              target={service.isExternal ? "_blank" : "_self"}
+              rel={service.isExternal ? "noopener noreferrer" : ""}
+              className="relative z-30 block bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-start border border-gray-100 cursor-pointer"
             >
               <div className="bg-[#A6892C] w-16 h-16 rounded-lg flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
                 <service.icon className="w-8 h-8 text-slate-900" />
@@ -88,10 +97,10 @@ const Services = () => {
               </p>
 
               <div className="mt-auto flex items-center text-[#c5a021] font-bold text-sm uppercase tracking-wider group-hover:text-[#A6892C]">
-                {service.linkText} 
+                {service.actionText} 
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </div>
