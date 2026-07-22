@@ -39,7 +39,7 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [location.hash]);
 
-  // Homepage Specific Schema (Matches your HTML source)
+  // Homepage Specific Schema
   const homeSchema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness","PlumbingService"],
@@ -52,10 +52,10 @@ const Home = () => {
     "priceRange": "££",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Hodgetts Street",
+      "streetAddress": "12 Primrose Walk",
       "addressLocality": "Coalville",
       "addressRegion": "Leicestershire",
-      "postalCode": "LE67 2JH",
+      "postalCode": "LE67 2PA",
       "addressCountry": "GB"
     }
   };
@@ -63,8 +63,9 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Plumbing Services | Local & Emergency Plumbing 24/7 | RKM Plumbing</title>
-        <meta name="description" content="RKM Plumbing & Heating provides 24/7 local plumbing, drainage and heating services across Coalville and a 20-mile radius of North West Leicestershire. No call out fee." />
+        {/* OPTIMIZED: Front-loaded local keywords for "Plumber Coalville" searches */}
+        <title>24/7 Emergency Plumber Coalville & Ashby De La Zouch | RKM Plumbing & Heating</title>
+        <meta name="description" content="Need a plumber in Coalville? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654062." />
         <link rel="canonical" href="https://rkm247.co.uk/" />
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>
@@ -72,7 +73,7 @@ const Home = () => {
       <Header />
 
       <main>
-        {/* Hero often contains the main H1 for the homepage */}
+        {/* Make sure Hero.tsx contains: <h1>24/7 Emergency Plumber in Coalville & Leicestershire</h1> */}
         <Hero />
 
         {/* Dynamic component showing recent jobs */}

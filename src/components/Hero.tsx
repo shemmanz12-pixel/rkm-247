@@ -21,7 +21,8 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   const townData = towns[townKey] || {};
   const serviceData = serviceContent[serviceKey] || serviceContent['emergency-plumber'];
 
-  const displayLocation = townData.name || formatName(townKey) || 'Leicestershire';
+  // FIX 1: Default location for homepage set to 'Coalville' instead of generic 'Leicestershire'
+  const displayLocation = townData.name || formatName(townKey) || 'Coalville';
   const serviceLabel = serviceData.title || "Plumbing & Heating";
   const phone = townData.phone || '01530 654 062';
   const landmark = townData.landmark || 'the local area';
@@ -34,9 +35,17 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
   const metaDescription = (townData as any).metaDescription
-    || `${serviceLabel} in ${displayLocation}. ${heroDescription}`;
+    || `24/7 Emergency Plumber in ${displayLocation} & North West Leicestershire. Fast 60-minute response for leaks, burst pipes, and heating. No call-out fee.`;
 
-  const pageTitle = `${serviceLabel} in ${displayLocation} | RKM Plumbing & Heating`;
+  // FIX 2: Front-load "Coalville" for homepage searches
+  const pageTitle = isLandingPage 
+    ? `${serviceLabel} in ${displayLocation} | RKM Plumbing & Heating`
+    : `24/7 Emergency Plumber Coalville & Ashby De La Zouch | RKM Plumbing & Heating Services`;
+
+  // FIX 3: Fix double-slash URL bug on homepage
+  const schemaUrl = isLandingPage 
+    ? `https://rkm247.co.uk/${serviceKey}/${townKey}`
+    : "https://rkm247.co.uk/";
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -51,7 +60,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
     },
     "description": metaDescription,
     "areaServed": displayLocation,
-    "url": `https://rkm247.co.uk/${serviceKey}/${townKey}`
+    "url": schemaUrl
   };
 
   // --- DYNAMIC SINGLE IMAGE LOGIC ---
@@ -62,7 +71,6 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   } else if (serviceKey.includes('boiler') || serviceKey.includes('heating') || serviceKey.includes('gas')) {
     heroImage = "/boiler-install.webp";
   } else if (serviceKey.includes('plumb') || serviceKey.includes('leak') || serviceKey.includes('emergency')) {
-    // Specifically targeting plumber, emergency plumber, leak detection
     heroImage = "/team-photo.webp";
   }
 
@@ -94,7 +102,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <div className="bg-black text-white px-5 py-2 rounded-full inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider shadow-md">
                   <Star className="w-3 h-3 text-[#A6892C] fill-[#A6892C]" />
-                  Local Expert Since 2004
+                  Local 24/7 Emergency Engineers
                 </div>
                 {isLandingPage && (
                   <div className="bg-[#A6892C]/10 text-[#A6892C] px-5 py-2 rounded-full inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider border border-[#A6892C]/20">
@@ -104,7 +112,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 )}
               </div>
 
-              {/* HEADLINE */}
+              {/* HEADLINE: FIX 4 - Include Coalville & Leicestershire directly in H1 for Homepage */}
               <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
                 {isLandingPage ? (
                   <>
@@ -113,14 +121,15 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                   </>
                 ) : (
                   <>
-                    Local Emergency Plumber & <span className="text-[#A6892C]">Heating Specialist</span>
+                    24/7 Emergency Plumber <br />
+                    <span className="text-[#A6892C]">in Coalville & Leicestershire</span>
                   </>
                 )}
               </h1>
 
               {/* HERO DESCRIPTION */}
               <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
-                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across North West Leicestershire. We arrive in 60 minutes or less.'}
+                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville and North West Leicestershire. We arrive in 60 minutes or less.'}
               </p>
 
               {/* LOCAL SPICE */}
