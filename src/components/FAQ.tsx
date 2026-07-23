@@ -39,7 +39,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       .filter(Boolean)
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
       .join(' ') ||
-    'Leicestershire';
+    'Coalville & Ashby-de-la-Zouch';
 
   const postcodes = townData?.postcodes?.length
     ? townData.postcodes.join(', ')

@@ -22,7 +22,7 @@ const About = () => {
   const townData = towns[cleanTownKey] || {};
   
   // SEO Variables with smart fallbacks
-  const displayLocation = townData.name || (cleanTownKey ? cleanTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'North West Leicestershire');
+  const displayLocation = townData.name || (cleanTownKey ? cleanTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'Coalville & Ashby-de-la-Zouch');
   const customPhone = townData.phone || "01530 654 062";
   const landmark = townData.landmark || "the local town centre";
   const road = townData.road || "main transport routes";
