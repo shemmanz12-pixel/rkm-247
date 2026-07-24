@@ -122,14 +122,14 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 ) : (
                   <>
                     24/7 Emergency Plumber <br />
-                    <span className="text-[#A6892C]">in Coalville & Leicestershire</span>
+                    <span className="text-[#A6892C]">in Coalville & Ashby De La Zouch</span>
                   </>
                 )}
               </h1>
 
               {/* HERO DESCRIPTION */}
               <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
-                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville and North West Leicestershire. We arrive in 60 minutes or less.'}
+                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville, Ashby De La Zouch and North West Leicestershire. We arrive in 60 minutes or less.'}
               </p>
 
               {/* LOCAL SPICE */}
