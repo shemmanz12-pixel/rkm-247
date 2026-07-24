@@ -56,6 +56,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
   };
 
   const faqSets = useMemo(() => {
+    // FAQ set for Drain Unblocking
     const drainFAQs: FAQItem[] = [
       {
         question: `Do you provide drain unblocking in ${townName}?`,
@@ -63,7 +64,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `How quickly can you attend a blocked drain in ${townName}?`,
-        answer: `Because we are based near Coalville, we can usually provide a fast local response to blocked drains in ${townName} and surrounding areas, including ${postcodes}.`,
+        answer: `Because we are based locally near Coalville, we can usually provide a rapid local response to blocked drains in ${townName} and surrounding areas, including ${postcodes}.`,
       },
       {
         question: `Do you clear blocked outside drains in ${townName}?`,
@@ -83,14 +84,19 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
     ];
 
+    // FAQ set for Emergency Plumbing
     const emergencyPlumberFAQs: FAQItem[] = [
       {
-        question: `Do you provide emergency plumber callouts in ${townName}?`,
-        answer: `Yes, we provide emergency plumber callouts in ${townName} and surrounding areas for urgent leaks, burst pipes, no water, blocked toilets and other plumbing emergencies.`,
+        question: `Do you offer a 24 hour emergency plumber in ${townName}?`,
+        answer: `Yes, we provide 24/7 emergency plumber callouts across ${townName} and surrounding areas for urgent leaks, burst pipes, no water, blocked toilets and severe plumbing emergencies.`,
       },
       {
         question: `How quickly can an emergency plumber attend in ${townName}?`,
-        answer: `Because we are based near Coalville, we can usually provide a rapid response in ${townName} and surrounding areas, including ${postcodes}.`,
+        answer: `Because we are locally based near Coalville, we can usually provide a rapid response in ${townName} and surrounding areas, including ${postcodes}.`,
+      },
+      {
+        question: `How much do emergency plumbers charge per hour in ${townName}?`,
+        answer: `Emergency plumbing rates in ${townName} vary depending on the time of callout, severity of the job, and required parts. We always offer £0 call-out fees and provide clear, upfront pricing before starting any work.`,
       },
       {
         question: `What plumbing emergencies do you deal with in ${townName}?`,
@@ -102,14 +108,11 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `Do you cover homes and businesses in ${townName}?`,
-        answer: `Yes, we provide emergency plumbing services for homeowners, landlords and businesses across ${townName} and surrounding areas.`,
-      },
-      {
-        question: `Do you cover North West Leicestershire for emergency plumber callouts?`,
-        answer: `Yes, we cover ${townName} and wider North West Leicestershire, including nearby areas such as ${nearbyTowns}.`,
+        answer: `Yes, we provide emergency plumbing services for homeowners, landlords and local businesses across ${townName} and surrounding areas like ${nearbyTowns}.`,
       },
     ];
 
+    // FAQ set for Leak Detection
     const leakDetectionFAQs: FAQItem[] = [
       {
         question: `Do you provide leak detection in ${townName}?`,
@@ -121,15 +124,15 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `What are the signs of a hidden water leak in ${townName}?`,
-        answer: `Common signs include damp patches, low water pressure, unexplained water usage, musty smells, staining and the sound of running water when no taps are in use.`,
+        answer: `Common signs include damp patches, low water pressure, unexplained water usage on your meter, musty smells, staining and the sound of running water when no taps are in use.`,
       },
       {
         question: `Do you repair leaks after detecting them in ${townName}?`,
-        answer: `Yes, once the source of the leak is identified, we can usually carry out the plumbing repair or advise on the next steps needed.`,
+        answer: `Yes, once the source of the leak is identified, we carry out the required plumbing repair to protect your home from water damage.`,
       },
       {
         question: `How quickly can you attend a leak detection job in ${townName}?`,
-        answer: `We provide a fast local response in ${townName} and surrounding areas, including ${postcodes}, especially where active leaks may be causing damage.`,
+        answer: `We provide a fast local response in ${townName} and surrounding areas, including ${postcodes}, especially where active leaks may be causing property damage.`,
       },
       {
         question: `Do you charge a call out fee for leak detection in ${townName}?`,
@@ -137,10 +140,11 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
     ];
 
+    // FAQ set for Heating & Boiler Service
     const heatingFAQs: FAQItem[] = [
       {
-        question: `Do you provide heating repairs in ${townName}?`,
-        answer: `Yes, we provide heating repairs in ${townName} and surrounding areas, helping with heating faults, radiator issues, pressure problems and loss of heating or hot water.`,
+        question: `Do you provide boiler servicing and heating repairs in ${townName}?`,
+        answer: `Yes, we offer boiler servicing and heating repairs in ${townName} and surrounding areas, helping with heating faults, boiler breakdowns, pressure issues, and radiator maintenance.`,
       },
       {
         question: `Can you fix radiators not heating properly in ${townName}?`,
@@ -148,7 +152,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `Do you help with low boiler pressure and heating faults in ${townName}?`,
-        answer: `Yes, we attend common heating system faults in ${townName}, including low pressure, poor circulation, thermostat issues and no heating or hot water.`,
+        answer: `Yes, we attend common heating system faults in ${townName}, including low boiler pressure, poor circulation, thermostat issues and loss of heating or hot water.`,
       },
       {
         question: `How quickly can you attend a heating issue in ${townName}?`,
@@ -159,35 +163,40 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
         answer: `Yes, we cover ${townName} and wider North West Leicestershire, including nearby areas such as ${nearbyTowns}.`,
       },
       {
-        question: `Do you charge a call out fee for heating repairs in ${townName}?`,
+        question: `Do you charge a call out fee for boiler servicing or heating repairs in ${townName}?`,
         answer: `No. We offer £0 call out fees in ${townName}. You only pay for the work carried out.`,
       },
     ];
 
+    // General Plumbing FAQs (Search Queries with General Pricing Answers)
     const plumbingFAQs: FAQItem[] = [
       {
-        question: `Do you provide plumbing services in ${townName}?`,
-        answer: `Yes, we provide local plumbing services in ${townName} and surrounding areas for leaks, taps, toilets, pipework, blockages and general plumbing repairs.`,
+        question: `How much do UK plumbers charge per hour in ${townName}?`,
+        answer: `Plumbing charges in ${townName} vary depending on the specific job, complexity, and materials required. We offer competitive local rates with £0 call-out fees and provide upfront quotes prior to starting work.`,
       },
       {
-        question: `How quickly can a local plumber attend in ${townName}?`,
-        answer: `Because we are based near Coalville, we can usually provide a fast local response in ${townName} and surrounding areas, including ${postcodes}.`,
+        question: `How much would a plumber charge for 3 hours of work in ${townName}?`,
+        answer: `The cost for 3 hours of plumbing work in ${townName} varies depending on the nature of the issue, parts involved, and whether specialized equipment is needed. We inspect the issue first and provide an honest, transparent quote.`,
+      },
+      {
+        question: `Are you an independent plumber covering ${townName}?`,
+        answer: `Yes, we are a fully independent local plumbing and heating business based near Coalville. We pride ourselves on providing high quality, honest, and personal service to clients in ${townName}, ${nearbyTowns}, and ${postcodes}.`,
+      },
+      {
+        question: `How can I avoid dodgy plumbers in ${townName}?`,
+        answer: `Always choose an established local plumber with verified customer reviews, clear contact information, transparent pricing, fully insured services, and £0 hidden call-out fees.`,
+      },
+      {
+        question: `Do you offer bathroom fitting and new build plumbing in ${townName}?`,
+        answer: `Yes, in addition to everyday repairs and emergency callouts, we handle bathroom fitting, sanitary installations, full bathroom refurbishments, and new build plumbing projects across ${townName}.`,
       },
       {
         question: `Do you charge a call out fee for plumbing jobs in ${townName}?`,
-        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the plumbing work carried out.`,
+        answer: `No. We offer £0 call out fees in ${townName}. You only pay for the actual plumbing or heating work carried out.`,
       },
       {
-        question: `Do you cover homes and businesses in ${townName}?`,
-        answer: `Yes, we support homeowners, landlords and businesses across ${townName} and surrounding areas.`,
-      },
-      {
-        question: `What areas do you cover near ${townName}?`,
-        answer: `We cover ${townName}, nearby areas such as ${nearbyTowns}, and surrounding postcode areas including ${postcodes}.`,
-      },
-      {
-        question: `Do you also deal with blocked toilets and drainage problems in ${townName}?`,
-        answer: `Yes, alongside general plumbing we also attend blocked toilets, blocked sinks and drainage issues in ${townName}.`,
+        question: `What areas near ${townName} do you cover?`,
+        answer: `We cover ${townName}, nearby locations including ${nearbyTowns}, and postcode districts including ${postcodes}.`,
       },
     ];
 
@@ -219,7 +228,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       'emergency-plumber': {
         heading: `${townName} Emergency Plumber FAQ`,
-        subheading: `Trusted Local Emergency Plumbing Advice For ${townName}`,
+        subheading: `Trusted 24/7 Local Emergency Plumbing Advice For ${townName}`,
         items: emergencyPlumberFAQs,
       },
       'leak-detection': {
@@ -228,8 +237,8 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
         items: leakDetectionFAQs,
       },
       heating: {
-        heading: `${townName} Heating FAQ`,
-        subheading: `Trusted Local Heating Repair Advice For ${townName}`,
+        heading: `${townName} Heating & Boiler FAQ`,
+        subheading: `Trusted Local Heating & Boiler Servicing Advice For ${townName}`,
         items: heatingFAQs,
       },
       'heating-repairs': {
@@ -239,12 +248,12 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       plumber: {
         heading: `${townName} Plumbing FAQ`,
-        subheading: `Trusted Local Plumbing Advice For ${townName}`,
+        subheading: `Trusted Local Independent Plumbing Advice For ${townName}`,
         items: plumbingFAQs,
       },
       default: {
         heading: `${townName} Plumbing FAQ`,
-        subheading: `Trusted Local Plumbing Advice For ${townName}`,
+        subheading: `Trusted Local Plumbing & Heating Advice For ${townName}`,
         items: plumbingFAQs,
       },
     };

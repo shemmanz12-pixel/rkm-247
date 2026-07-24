@@ -11,8 +11,8 @@ interface FooterProps {
 const Footer = ({
   customPhone = "01530 654 062",
   townName = "Coalville",
-  postcodeLabel = "LE67 2JH",
-  roadName = "Hodgetts Street"
+  postcodeLabel = "LE67 2PA",
+  roadName = "Primrose Walk"
 }: FooterProps) => {
   const currentYear = new Date().getFullYear();
 

@@ -35,7 +35,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
   const metaDescription = (townData as any).metaDescription
-    || `24/7 Emergency Plumber in ${displayLocation} & North West Leicestershire. Fast 60-minute response for leaks, burst pipes, and heating. No call-out fee.`;
+    || `24/7 Emergency Plumber in ${displayLocation} Ashby De la Zouch & North West Leicestershire. Fast 60-minute response for Blocked Drains, Emergency Plumbing, Boiler Installs, and Central Heating. No call-out fee.`;
 
   // FIX 2: Front-load "Coalville" for homepage searches
   const pageTitle = isLandingPage 
