@@ -6,11 +6,11 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import LiveActivity from '../components/LiveActivity';
+import About from '../components/About';
+import Reviews from '../components/Reviews';
 import TrustBadges from '../components/TrustBadges';
 import Services from '../components/Services';
 import Process from '../components/Process';
-import About from '../components/About';
-import Reviews from '../components/Reviews';
 import AreasCovered from '../components/AreasCovered';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
@@ -31,7 +31,6 @@ const Home = () => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    // Small timeout ensures the SSG-rendered content is fully processed by React
     const timer = setTimeout(() => {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
@@ -63,25 +62,35 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        {/* OPTIMIZED: Front-loaded local keywords for "Plumber Coalville" searches */}
         <title>24/7 Emergency Plumber Coalville & Ashby De La Zouch | RKM Plumbing & Heating</title>
         <meta name="description" content="Need a plumber in Coalville? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654062." />
         <link rel="canonical" href="https://rkm247.co.uk/" />
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>
 
+      {/* 1. HEADER (Top Navigation) */}
       <Header />
 
       <main>
-        {/* Make sure Hero.tsx contains: <h1>24/7 Emergency Plumber in Coalville & Leicestershire</h1> */}
+        {/* 2. HERO (Primary Value Prop & Immediate Phone CTA) */}
         <Hero />
 
-        {/* Dynamic component showing recent jobs */}
+        {/* 3. LIVE ACTIVITY (Urgency & Real-time Local Proof) */}
         <LiveActivity />
 
+        {/* 4. ABOUT (Local Authority, Landmarks & Team Guarantee) */}
+        <section id="about" className="scroll-mt-20">
+          <About />
+        </section>
+
+        {/* 5. REVIEWS (Social Proof & 5-Star Testimonials) */}
+        <section id="reviews" className="scroll-mt-20">
+          <Reviews />
+        </section>
+
+        {/* --- REST OF THE PAGE --- */}
         <TrustBadges />
 
-        {/* Using standard IDs for hash navigation and clean spacing */}
         <section id="services" className="scroll-mt-20">
           <div className="-mx-4 sm:mx-0">
             <Services />
@@ -90,14 +99,6 @@ const Home = () => {
 
         <section id="process" className="scroll-mt-20">
           <Process />
-        </section>
-
-        <section id="about" className="scroll-mt-20">
-          <About />
-        </section>
-
-        <section id="reviews" className="scroll-mt-20">
-          <Reviews />
         </section>
 
         <section id="areas-covered" className="scroll-mt-20">

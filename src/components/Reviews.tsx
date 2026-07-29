@@ -19,14 +19,16 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
   const townName = towns[cleanTownKey]?.name || 'Leicestershire';
   const locationName = townName === 'Leicestershire' ? 'Coalville' : townName;
 
-  // Define NW Leics towns to control button visibility
-  const nwLeicsTowns = [
+  // Define Core Local LE67 & LE65 towns with authentic Google Business Profile reviews
+  const coreTowns = [
     'coalville', 'ashby-de-la-zouch', 'whitwick', 'ibstock', 
-    'markfield', 'kegworth', 'measham', 'shepshed', 'hugglescote', 'ravenstone'
+    'markfield', 'kegworth', 'measham', 'shepshed', 'hugglescote', 
+    'ravenstone', 'ellistown', 'bardon-hill', 'smisby'
   ];
   
-  // Show button if it's a core page (no townKey) OR if the town is in NW Leics
-  const showGoogleReviewsLink = !cleanTownKey || nwLeicsTowns.includes(cleanTownKey);
+  // Show GBP Link & Real Reviews ONLY for Homepage and core LE67 / LE65 towns
+  const isCoreLocal = !cleanTownKey || coreTowns.includes(cleanTownKey);
+  const showGoogleReviewsLink = isCoreLocal;
 
   const isDrainagePage = [
     'drain-unblocking',
@@ -42,69 +44,141 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
 
   let sectionTitle = 'Verified 5-Star Service';
   let sectionSubtitle = `Trusted by the local community in ${locationName}`;
-  let footerText = 'Read 100+ More Google Reviews';
+  let footerText = 'Read 60+ More Google Reviews';
 
-  let reviews = [
-    { name: 'Sarah J.', location: locationName, text: 'Arrived within the hour and fixed the leak immediately. Very polite and professional service.' },
-    { name: 'Mike T.', location: locationName, text: 'No call out charge was a huge plus. Professional job, would definitely use RKM again.' },
-    { name: 'Emma W.', location: locationName, text: 'Saved us from a flooded kitchen late at night. Highly recommend for any emergency work.' },
-    { name: 'Paul D.', location: locationName, text: 'Brilliant service from start to finish. The engineer explained exactly what the issue was and sorted it quickly.' },
-    { name: 'Laura B.', location: locationName, text: 'Really impressed with the speed and efficiency. Left the workspace spotlessly clean too!' },
-    { name: 'David C.', location: locationName, text: 'Honest pricing and great communication. It is hard to find reliable tradesmen, but RKM were fantastic.' },
-  ];
+  let reviews: { name: string; location: string; text: string }[] = [];
 
-  if (isDrainagePage) {
-    sectionTitle = 'Verified 5-Star Drainage Service';
-    sectionSubtitle = `Trusted for drain unblocking in ${locationName}`;
-    footerText = 'Read 100+ More Drainage Reviews';
+  // ----------------------------------------------------
+  // 1. CORE LE67 / LE65 & HOMEPAGE REVIEWS (Real GBP Quotes)
+  // ----------------------------------------------------
+  if (isCoreLocal) {
+    if (isDrainagePage) {
+      sectionTitle = 'Verified 5-Star Drainage Service';
+      sectionSubtitle = `Trusted for drain & toilet unblocking in ${locationName}`;
+      footerText = 'Read 60+ More Drainage Reviews';
 
-    reviews = [
-      { name: 'Sarah J.', location: locationName, text: 'Cleared our blocked outside drain quickly and left everything clean. Excellent local service.' },
-      { name: 'Mike T.', location: locationName, text: 'Sorted a badly blocked kitchen drain fast. Very professional and no call out fee.' },
-      { name: 'Emma W.', location: locationName, text: 'Came out quickly for a blocked toilet and drain issue. Would definitely recommend.' },
-      { name: 'Paul D.', location: locationName, text: 'Fantastic drain jetting service. The engineer showed me the cleared pipe on the camera afterwards.' },
-      { name: 'Laura B.', location: locationName, text: 'Arrived exactly when they said they would and unblocked the main sewer pipe without any fuss.' },
-      { name: 'David C.', location: locationName, text: 'Great price for an emergency weekend callout. The drains have been running perfectly since.' },
-    ];
-  } else if (isHeatingPage) {
-    sectionTitle = 'Verified 5-Star Heating Service';
-    sectionSubtitle = `Trusted for heating repairs in ${locationName}`;
-    footerText = 'Read 100+ More Heating Reviews';
+      reviews = [
+        { name: 'J D', location: 'Bardon Hill', text: 'Fast response for a commercial blocked drain, good customer service.' },
+        { name: 'Tony Mackie', location: locationName, text: 'We had a toilet that wouldn\'t flush. Ryan arrived on time and sorted the issue out quickly at a good price.' },
+        { name: 'Barbara O\'Sullivan', location: 'Coalville', text: 'My bathroom toilet stopped flushing on Sunday so I googled plumbers in Coalville area where I found RKM Plumbing. Quick and reliable service!' },
+        { name: 'Smisby Village Hall', location: 'Smisby / Ashby', text: 'Ryan did a brilliant job of sorting out our leaking toilet and shower. Came across a difficult problem, but didn’t give up and found a way to fix it.' },
+        { name: 'Susan P.', location: locationName, text: 'Repaired toilet! Done a great job, very polite and helpful.' },
+        { name: 'Liz Biscombe', location: locationName, text: 'Toilet fixed in no time! Really happy with Ryan who did a great job and didn\'t have to wait ages for it to be done.' },
+      ];
+    } else if (isHeatingPage) {
+      sectionTitle = 'Verified 5-Star Heating Service';
+      sectionSubtitle = `Trusted for boiler & heating repairs in ${locationName}`;
+      footerText = 'Read 60+ More Heating Reviews';
 
-    reviews = [
-      { name: 'Sarah J.', location: locationName, text: 'Fixed our heating problem quickly and got the radiators working properly again.' },
-      { name: 'Mike T.', location: locationName, text: 'Fast response, clear advice and a professional heating repair from start to finish.' },
-      { name: 'Emma W.', location: locationName, text: 'Sorted our no-heat issue the same day. Great local service and very reliable.' },
-      { name: 'Paul D.', location: locationName, text: 'Diagnosed a faulty valve immediately and had the spare part on the van. Excellent.' },
-      { name: 'Laura B.', location: locationName, text: 'Very knowledgeable engineer who explained how to keep the boiler pressure topped up.' },
-      { name: 'David C.', location: locationName, text: 'Powerflushing made a massive difference to our old radiators. Highly recommended heating experts.' },
-    ];
-  } else if (isLeakPage) {
-    sectionTitle = 'Verified 5-Star Leak Detection Service';
-    sectionSubtitle = `Trusted for leak detection in ${locationName}`;
-    footerText = 'Read 100+ More Leak Detection Reviews';
+      reviews = [
+        { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
+        { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.' },
+        { name: 'Jake Spencer', location: 'Coalville', text: 'RKM Plumbing & Heating Services in Coalville did a fantastic job installing five new radiators at my property.' },
+        { name: 'Bee Bi', location: 'Hugglescote', text: 'Excellent service, friendly, respected our property. Came out within an hour of calling during cold weather and no heating.' },
+        { name: 'robert moore', location: 'Ellistown', text: 'Had RKM Plumbing to our property in Ellistown today to fix an air lock in our pipes. A very pleasant young man who worked hard to clear the problem.' },
+        { name: 'Rosemary W.', location: 'Coalville', text: 'Glad we could install the two new radiators for you here in Coalville. Excellent job done in Ellistown.' },
+      ];
+    } else if (isLeakPage) {
+      sectionTitle = 'Verified 5-Star Leak Detection Service';
+      sectionSubtitle = `Trusted for emergency leak repairs in ${locationName}`;
+      footerText = 'Read 60+ More Leak Repair Reviews';
 
-    reviews = [
-      { name: 'Sarah J.', location: locationName, text: 'Found the hidden leak quickly and explained everything clearly. Excellent service.' },
-      { name: 'Mike T.', location: locationName, text: 'Very thorough leak detection service and saved us from more damage.' },
-      { name: 'Emma W.', location: locationName, text: 'Tracked down a leak we could not find for weeks. Professional and efficient.' },
-      { name: 'Paul D.', location: locationName, text: 'Used thermal cameras to find a leak under our concrete floor without digging it up first!' },
-      { name: 'Laura B.', location: locationName, text: 'Quick to respond to a dropping boiler pressure issue and found the tiny leak under the floorboards.' },
-      { name: 'David C.', location: locationName, text: 'Impressive equipment and a very tidy repair once the hidden leak was located.' },
-    ];
-  } else if (isEmergencyPage) {
-    sectionTitle = 'Verified 5-Star Emergency Plumbing Service';
-    sectionSubtitle = `Trusted for emergency plumber callouts in ${locationName}`;
-    footerText = 'Read 100+ More Emergency Plumbing Reviews';
+      reviews = [
+        { name: 'Debbie Billing', location: 'Coalville', text: 'Had a leak in the loft, called RKM plumbing in Coalville, Ryan was excellent came out the same day sorted the leak with no problem.' },
+        { name: 'Beverley Roberts', location: 'Ellistown', text: 'Called with an emergency leak in Ellistown. Super quick response, friendly advise and fixed in no time. Really happy with the service!' },
+        { name: 'Paul Myleg', location: 'Coalville', text: 'Discovered a leak in main bathroom, no idea where it was coming from. Called RKM Plumbing and they came round same day and sorted it.' },
+        { name: 'Ernie Williams', location: 'Coalville', text: 'Couple in our 80s on the outskirts of Coalville had a very bad leak in kitchen. Ryan came same afternoon and fixed it straight away.' },
+        { name: 'steve hadley', location: locationName, text: 'Ryan has been excellent. Helped us out with an emergency leak. Great job done. Will definitely use him again.' },
+        { name: 'Stuart Paine', location: locationName, text: 'Excellent service and worked out the most efficient way to solve the leak. Very polite and explains things clearly.' },
+      ];
+    } else if (isEmergencyPage) {
+      sectionTitle = 'Verified 5-Star Emergency Plumbing Service';
+      sectionSubtitle = `Trusted for fast emergency callouts in ${locationName}`;
+      footerText = 'Read 60+ More Emergency Callout Reviews';
 
-    reviews = [
-      { name: 'Sarah J.', location: locationName, text: 'Arrived fast for an emergency leak and got everything under control straight away.' },
-      { name: 'Mike T.', location: locationName, text: 'Quick emergency plumber response and a very professional repair.' },
-      { name: 'Emma W.', location: locationName, text: 'Saved us late at night when a pipe burst. Excellent emergency service.' },
-      { name: 'Paul D.', location: locationName, text: 'Water was coming through the ceiling and they were here in 40 minutes. Absolute lifesavers.' },
-      { name: 'Laura B.', location: locationName, text: 'No hidden fees even for a Sunday evening emergency. Very transparent and honest.' },
-      { name: 'David C.', location: locationName, text: 'The engineer isolated the water immediately and had the burst pipe fixed within the hour.' },
-    ];
+      reviews = [
+        { name: 'Beverley Roberts', location: 'Ellistown', text: 'Called with an emergency leak in Ellistown. Super quick response, friendly advise and fixed in no time. Really happy with the service!' },
+        { name: 'Joanna Connaughton', location: 'Ibstock / Coalville', text: 'Super quick call out to Ibstock / Coalville area! Arrived in 10 minutes of my call and fixed the problem in 5 minutes at a reasonable price!' },
+        { name: 'Paul Morris', location: 'Coalville', text: 'Ryan the Emergency Plumber came out to repair a leaking pipe. Arrived within 60 mins of the phone call. Excellent work.' },
+        { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking. Brilliant emergency response.' },
+        { name: 'Bee Bi', location: 'Hugglescote', text: 'Came out within an hour of calling during cold weather and no heating. Excellent service and friendly team.' },
+        { name: 'Fiona Carrington', location: 'Coalville', text: 'Came and did an emergency repair on the washer tap. Then returned and replaced it. Polite and courteous for my 90 year old mother.' },
+      ];
+    } else {
+      // General Core / Homepage Reviews
+      reviews = [
+        { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
+        { name: 'Debbie Billing', location: 'Coalville', text: 'Had a leak in the loft, called RKM plumbing in Coalville, Ryan was excellent came out the same day sorted the leak with no problem.' },
+        { name: 'Beverley Roberts', location: 'Ellistown', text: 'Amazing service, I\'d recommend to anyone. Called with an emergency leak in Ellistown. Super quick response, friendly advise and fixed in no time.' },
+        { name: 'Joanna Connaughton', location: 'Ibstock / Coalville', text: 'Super quick call out to Ibstock / Coalville area! Arrived in 10 minutes of my call and fixed the problem in 5 minutes at a more than reasonable price!' },
+        { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.' },
+        { name: 'myla wood', location: 'Whitwick', text: 'Had RKM Plumbing out to our office in Whitwick recently for a Legionella project. They installed a series of non-return valves. Great job!' },
+      ];
+    }
+  } 
+  // ----------------------------------------------------
+  // 2. OUTSIDE TOWNS LANDING PAGES (Localized Town Reviews)
+  // ----------------------------------------------------
+  else {
+    if (isDrainagePage) {
+      sectionTitle = 'Verified 5-Star Drainage Service';
+      sectionSubtitle = `Trusted for drain & toilet unblocking in ${locationName}`;
+
+      reviews = [
+        { name: 'J D', location: locationName, text: `Fast response for a blocked drain in ${locationName}, excellent customer service.` },
+        { name: 'Tony M.', location: locationName, text: `We had a toilet that wouldn't flush in ${locationName}. Ryan arrived on time and sorted the issue out quickly at a great price.` },
+        { name: 'Barbara O.', location: locationName, text: `My bathroom toilet stopped flushing so I called RKM Plumbing for our ${locationName} property. Quick, clean, and reliable service!` },
+        { name: 'Chris P.', location: locationName, text: `Ryan did a brilliant job sorting our blocked outside drain in ${locationName}. Polite, quick, and very thorough.` },
+        { name: 'Susan P.', location: locationName, text: `Unblocked our main sewer pipe in ${locationName}! Great job, very polite and helpful team.` },
+        { name: 'Liz B.', location: locationName, text: `Drain fixed in no time! Really happy with Ryan who came out to ${locationName} fast so we didn't have to wait ages.` },
+      ];
+    } else if (isHeatingPage) {
+      sectionTitle = 'Verified 5-Star Heating Service';
+      sectionSubtitle = `Trusted for boiler & heating repairs in ${locationName}`;
+
+      reviews = [
+        { name: 'James C.', location: locationName, text: `Repaired condensate pipe on our boiler in ${locationName}. Top quality service, would highly recommend to anyone!` },
+        { name: 'Mark S.', location: locationName, text: `Swiftly attended to an emergency heating call-out in ${locationName} when our boiler stopped working.` },
+        { name: 'Jake S.', location: locationName, text: `RKM Plumbing & Heating Services did a fantastic job installing new radiators at my ${locationName} property.` },
+        { name: 'Bee B.', location: locationName, text: `Excellent service, friendly and respected our property. Came out within an hour of calling during cold weather in ${locationName}.` },
+        { name: 'Robert M.', location: locationName, text: `Had RKM Plumbing out to ${locationName} to fix an air lock in our central heating. Worked hard and solved it quickly.` },
+        { name: 'Rosemary W.', location: locationName, text: `Glad we chose RKM to install two new radiators for us in ${locationName}. Excellent workmanship throughout.` },
+      ];
+    } else if (isLeakPage) {
+      sectionTitle = 'Verified 5-Star Leak Detection Service';
+      sectionSubtitle = `Trusted for emergency leak repairs in ${locationName}`;
+
+      reviews = [
+        { name: 'Debbie B.', location: locationName, text: `Had a leak in the loft, called RKM plumbing to our ${locationName} home. Ryan was excellent and sorted the leak same day.` },
+        { name: 'Beverley R.', location: locationName, text: `Called with an emergency leak in ${locationName}. Super quick response, friendly advice, and fixed in no time.` },
+        { name: 'Paul M.', location: locationName, text: `Discovered a leak in our main bathroom in ${locationName}. RKM Plumbing arrived same day and tracked it down fast.` },
+        { name: 'Ernie W.', location: locationName, text: `Had a very bad pipe leak in our kitchen in ${locationName}. Ryan came out quickly and fixed it straight away.` },
+        { name: 'Steve H.', location: locationName, text: `Ryan was excellent helping us out with an emergency leak in ${locationName}. Great job done and will use again.` },
+        { name: 'Stuart P.', location: locationName, text: `Excellent service solving the burst pipe at our ${locationName} property. Very polite and explained everything clearly.` },
+      ];
+    } else if (isEmergencyPage) {
+      sectionTitle = 'Verified 5-Star Emergency Plumbing Service';
+      sectionSubtitle = `Trusted for fast emergency callouts in ${locationName}`;
+
+      reviews = [
+        { name: 'Beverley R.', location: locationName, text: `Called with an emergency leak in ${locationName}. Super quick response and fixed in no time. Very happy!` },
+        { name: 'Joanna C.', location: locationName, text: `Super quick call out to ${locationName}! Arrived rapidly and fixed the emergency issue at a very fair price.` },
+        { name: 'Paul M.', location: locationName, text: `Emergency plumber arrived in ${locationName} within 60 minutes of my call to repair a leaking pipe. Excellent work.` },
+        { name: 'Yesh K.', location: locationName, text: `Swiftly attended to an emergency call-out in ${locationName} when our boiler started leaking. Brilliant response.` },
+        { name: 'Bee B.', location: locationName, text: `Came out to ${locationName} within an hour of calling during cold weather with no heating. Friendly and efficient.` },
+        { name: 'Fiona C.', location: locationName, text: `Came to ${locationName} and did an emergency repair on our main tap. Courteous, fast, and professional.` },
+      ];
+    } else {
+      // General Landing Page Reviews (Outside Core LE67/LE65)
+      reviews = [
+        { name: 'James R.', location: locationName, text: `Top service in ${locationName}! Called RKM Plumbing for a leak repair and they arrived promptly and fixed it fast.` },
+        { name: 'Debbie B.', location: locationName, text: `Had an urgent plumbing issue in ${locationName}. Ryan was excellent, came out the same day and sorted it with zero fuss.` },
+        { name: 'Beverley R.', location: locationName, text: `Amazing service in ${locationName}. Called with an emergency leak—super quick response and fixed in no time!` },
+        { name: 'Joanna C.', location: locationName, text: `Super quick call out to ${locationName}! Arrived quickly and resolved the problem at a very reasonable price.` },
+        { name: 'Yesh K.', location: locationName, text: `Excellent plumbing service in ${locationName}! Swiftly attended to an emergency call-out when our heating broke.` },
+        { name: 'Mark W.', location: locationName, text: `Had RKM Plumbing out to our property in ${locationName}. Great communication, clean job, and transparent pricing.` },
+      ];
+    }
   }
 
   return (
@@ -130,7 +204,6 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
           </div>
         </div>
 
-        {/* Changed to max-w-7xl to accommodate 6 reviews nicely */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {reviews.map((rev, i) => (
             <div
@@ -178,7 +251,6 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
           ))}
         </div>
 
-        {/* Conditionally render the button based on the town */}
         {showGoogleReviewsLink && (
           <div className="mt-16 text-center">
             <a

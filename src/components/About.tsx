@@ -1,15 +1,17 @@
 'use client'; 
 
 import { useParams } from 'react-router-dom';
-import { CheckCircle, Phone, Calendar } from 'lucide-react';
+import { CheckCircle, Phone, Calendar, Wrench, ShieldCheck, Flame, Droplets } from 'lucide-react';
 import { towns } from '../townConfig'; 
-import Slideshow from './slideshow'; // <--- NOTICE THE LOWERCASE 's' HERE
+import Slideshow from './slideshow'; 
 
 const RKM_GUARANTEES = [
-  'Available 24/7 for emergency callouts',
-  'Fully certified and highly experienced engineers',
-  'Transparent, upfront pricing with no hidden fees',
-  'We aim to arrive within 60 minutes for emergencies'
+  '24/7 Rapid Emergency Response (Within 60 Minutes)',
+  'Boiler Installs, Repairs & Servicing',
+  'Blocked Drains & HD CCTV Drain Surveys',
+  'Full Plumbing Repairs & Sanitary Installs',
+  'Fully Certified, Insured & Gas Safe Ready',
+  'Transparent Pricing with Zero Hidden Callout Fees'
 ];
 
 const About = () => {
@@ -32,38 +34,56 @@ const About = () => {
     ? serviceSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) 
     : 'Plumbing & Heating';
 
-  // --- DYNAMIC IMAGE ROUTING ---
+  // --- DYNAMIC IMAGE ROUTING ENHANCED FOR ALL SERVICES ---
   const normalizedService = (serviceSlug || '').toLowerCase();
   let images: string[] = [];
 
-  if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('blockage')) {
+  const isHomepage = !cleanTownKey && !normalizedService;
+  const isHugglescote = cleanTownKey.includes('hugglescote');
+
+  if (isHomepage) {
+    // Standard homepage using the clocktower filename
     images = [
-      "/drain-unblocking.webp",
-      "/drainage-cctv-survey.webp",
-      "/unblocked-drain.webp",
-    ];
-  } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas')) {
-    images = [
-      "/boiler-install.webp",
-      "/two-port-valve.webp",
-      "/ball-valve.webp",
-      "/shower-pump.webp"
-    ];
-  } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
-    images = [
+      "/clocktower-coalville.webp",
       "/bathroom.webp",
-      "/outside-tap-install.webp",
-      "/kitchen-tap.webp",
-      "/shower-pump.webp"
+      "/boiler-install.webp"
     ];
   } else {
-    images = [
-      "/bathroom.webp",
-      "/boiler-install.webp",
-      "/drain-unblocking.webp",
-      "/ball-valve.webp",
-      "/shower-pump.webp"
-    ];
+    // 1. Determine service-specific background images first
+    if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('blockage') || normalizedService.includes('survey')) {
+      images = [
+        "/drain-unblocking.webp",
+        "/drainage-cctv-survey.webp",
+        "/unblocked-drain.webp",
+      ];
+    } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas') || normalizedService.includes('repair') || normalizedService.includes('install')) {
+      images = [
+        "/boiler-install.webp",
+        "/two-port-valve.webp",
+        "/ball-valve.webp",
+        "/shower-pump.webp"
+      ];
+    } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
+      images = [
+        "/bathroom.webp",
+        "/outside-tap-install.webp",
+        "/kitchen-tap.webp",
+        "/shower-pump.webp"
+      ];
+    } else {
+      images = [
+        "/bathroom.webp",
+        "/boiler-install.webp",
+        "/drain-unblocking.webp",
+        "/ball-valve.webp",
+        "/shower-pump.webp"
+      ];
+    }
+
+    // 2. Prepend the Hugglescote Bear image to ALL dedicated Hugglescote landing pages (Emergency Plumbing, Boilers, Drains, etc.)
+    if (isHugglescote) {
+      images = ["/hugglescote-bear.webp", ...images];
+    }
   }
 
   return (
@@ -95,22 +115,42 @@ const About = () => {
               <span className="text-[#A6892C] text-3xl md:text-4xl">in {displayLocation}</span>
             </h3>
             
-            {/* HEAVY SEO PARAGRAPH 1: General Authority */}
+            {/* HEAVY SEO PARAGRAPH 1: Core Services & Authority */}
             <p className="text-lg text-gray-600 mb-4 leading-relaxed font-medium">
-              Since 2004, RKM Plumbing & Heating Services has been the premier choice for reliable, fast-response plumbing in <strong>{displayLocation}</strong>. As an independent, locally trusted business, we understand the specific domestic and commercial infrastructure of the region, allowing us to diagnose faults quickly and safely.
+              Since 2004, RKM Plumbing & Heating Services has been the premier choice for fast-response plumbing, heating, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency boiler repairs</strong> to persistent <strong>blocked drains, CCTV drain surveys, emergency plumbing repairs</strong>, and complete system <strong>installations</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties alike.
             </p>
 
-            {/* HEAVY SEO PARAGRAPH 2: Geographic Density */}
+            {/* HEAVY SEO PARAGRAPH 2: Geographic Density & Response */}
             <p className="text-base text-gray-600 mb-8 leading-relaxed">
-              Whether you require urgent {displayService.toLowerCase()} assistance near <strong>{landmark}</strong>, are situated along <strong>{road}</strong>, or are located anywhere within the <strong>{postcodes}</strong> postcode districts, our dedicated network ensures we are never far away. We are proud to provide rapid 60-minute emergency response times to our neighbours across the community without ever charging a call-out fee.
+              Whether you require urgent {displayService.toLowerCase()} assistance near <strong>{landmark}</strong>, are situated along <strong>{road}</strong>, or operate anywhere within the <strong>{postcodes}</strong> postcode districts, our dedicated local team is equipped to handle the job safely and efficiently. We provide rapid 60-minute emergency callouts across the community with transparent pricing and zero hidden fees.
             </p>
+
+            {/* CORE SERVICES QUICK BADGES (For Speed Scanning) */}
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <Flame className="w-5 h-5 text-[#A6892C] shrink-0" />
+                <span className="text-xs font-bold text-slate-800">Boiler Installs & Repairs</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <Droplets className="w-5 h-5 text-[#A6892C] shrink-0" />
+                <span className="text-xs font-bold text-slate-800">Blocked Drains & CCTV</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <Wrench className="w-5 h-5 text-[#A6892C] shrink-0" />
+                <span className="text-xs font-bold text-slate-800">Emergency Pipe Repairs</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <ShieldCheck className="w-5 h-5 text-[#A6892C] shrink-0" />
+                <span className="text-xs font-bold text-slate-800">Full Plumbing Installs</span>
+              </div>
+            </div>
             
             {/* BULLET POINTS */}
-            <ul className="space-y-4 mb-10">
+            <ul className="space-y-3 mb-10">
               {RKM_GUARANTEES.map((item, index) => (
-                <li key={index} className="flex items-start gap-4 group cursor-default">
-                  <CheckCircle className="w-6 h-6 text-[#A6892C] shrink-0 mt-0.5 transition-transform group-hover:scale-110" />
-                  <span className="text-slate-800 font-bold transition-colors group-hover:text-black">{item}</span>
+                <li key={index} className="flex items-start gap-3 group cursor-default">
+                  <CheckCircle className="w-5 h-5 text-[#A6892C] shrink-0 mt-0.5 transition-transform group-hover:scale-110" />
+                  <span className="text-slate-800 font-bold text-sm transition-colors group-hover:text-black">{item}</span>
                 </li>
               ))}
             </ul>
