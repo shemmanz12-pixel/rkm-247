@@ -6,9 +6,11 @@ import { serviceContent } from '../data/serviceData';
 interface HeroProps {
   town?: string;
   service?: string;
+  /** Pass false when rendered inside ServicePage.tsx to avoid duplicate Helmet/Schema */
+  standalone?: boolean; 
 }
 
-const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
+const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: HeroProps) => {
   // Normalize keys
   const normalize = (slug?: string) => (slug || '').toLowerCase().replace(/\/$/, "").replace(/\.html$/, "");
   const formatName = (slug?: string) => slug ? slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
@@ -34,21 +36,20 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   const heroDescription = townData.description
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
-  // SEO FIX 1: Fixed duplicated "Coalville Coalville" text string bug
+  // Fallback meta tags (only used if standalone=true)
   const metaDescription = (townData as any).metaDescription
     || `24/7 Emergency Plumber in ${displayLocation} & North West Leicestershire. Fast 60-minute response for Blocked Drains, Emergency Plumbing, Boiler Installs, and Central Heating. No call-out fee.`;
 
-  // SEO FIX 2: High-converting Page Titles
   const pageTitle = isLandingPage 
-    ? `${serviceLabel} in ${displayLocation} | 24/7 Local Engineers | RKM`
+    ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
     : `24/7 Emergency Plumber Coalville & Leicestershire | RKM Plumbing`;
 
-  // SEO FIX 3: Dynamic Canonical URL matching current route
+  // Standardized with trailing slash to match ServicePage canonical format
   const schemaUrl = isLandingPage 
-    ? `https://rkm247.co.uk/${serviceKey}/${townKey}`
+    ? `https://rkm247.co.uk/${serviceKey}/${townKey}/`
     : "https://rkm247.co.uk/";
 
-  // Dynamic Image Logic
+  // Dynamic Image Selection
   let heroImage = "/team-photo.webp"; 
   if (serviceKey.includes('drain') || serviceKey.includes('cctv') || serviceKey.includes('unblock') || serviceKey.includes('blockage')) {
     heroImage = "/drainage-cctv-survey.webp";
@@ -60,7 +61,6 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
 
   const absoluteImageUrl = `https://rkm247.co.uk${heroImage}`;
 
-  // SEO FIX 4: Upgraded Schema to official "Plumber" type + 24/7 Hours + Exact Clean Name
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Plumber",
@@ -93,23 +93,20 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-        
-        {/* SEO FIX 5: Self-Referencing Canonical Tag (Essential for Page 1) */}
-        <link rel="canonical" href={schemaUrl} />
-
-        {/* SEO FIX 6: OpenGraph Meta Tags for Social & Link Previews */}
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={schemaUrl} />
-        <meta property="og:image" content={absoluteImageUrl} />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
-      </Helmet>
+      {/* Render Helmet ONLY if standalone is explicitly enabled */}
+      {standalone && (
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={metaDescription} />
+          <link rel="canonical" href={schemaUrl} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={metaDescription} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={schemaUrl} />
+          <meta property="og:image" content={absoluteImageUrl} />
+          <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+        </Helmet>
+      )}
 
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-white overflow-hidden">
         <div className="container mx-auto px-4 relative z-20">
@@ -118,7 +115,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
             {/* LEFT: TEXT CONTENT */}
             <div className="max-w-2xl">
 
-              {/* SEO FIX 7: Swapped <h3> to <div> so the <h1> is the undisputed first heading on the page */}
+              {/* LOGO BOX - Uses <div> so H1 remains the primary page heading */}
               <div className="bg-black text-[#A6892C] inline-block p-4 mb-8 rounded-sm shadow-xl">
                 <div className="border border-[#A6892C] p-3 px-6">
                   <div className="font-serif text-3xl font-bold leading-none text-center">RKM</div>
@@ -194,13 +191,11 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
               {/* MOBILE IMAGE */}
               <div className="mt-10 lg:hidden">
                 <div className="relative w-full aspect-[4/3] rounded-2xl shadow-2xl border-4 border-white overflow-hidden">
-                  {/* SEO FIX 8: Added loading="eager" & fetchPriority="high" for LCP performance */}
                   <img
                     src={heroImage}
                     alt={`Emergency ${serviceLabel} engineer in ${displayLocation}`}
                     loading="eager"
-                    // @ts-ignore
-                    fetchpriority="high"
+                    fetchPriority="high"
                     className="absolute inset-0 w-full h-full object-cover z-10"
                   />
                 </div>
@@ -215,8 +210,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                   src={heroImage} 
                   alt={`Emergency ${serviceLabel} engineer in ${displayLocation}`} 
                   loading="eager"
-                  // @ts-ignore
-                  fetchpriority="high"
+                  fetchPriority="high"
                   className="absolute inset-0 w-full h-full object-cover z-10"
                 />
               </div>

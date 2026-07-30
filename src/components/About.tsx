@@ -64,14 +64,14 @@ const About = () => {
         "/boiler-install.webp",
         "/two-port-valve.webp",
         "/ball-valve.webp",
-        "/shower-pump.webp"
+        
       ];
     } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
       images = [
         "/bathroom.webp",
         "/outside-tap-install.webp",
         "/kitchen-tap.webp",
-        "/shower-pump.webp"
+        
       ];
     } else {
       images = [
@@ -79,7 +79,7 @@ const About = () => {
         "/boiler-install.webp",
         "/drain-unblocking.webp",
         "/ball-valve.webp",
-        "/shower-pump.webp"
+      
       ];
     }
 

@@ -33,6 +33,7 @@ const HEATING_SERVICE_KEYS = new Set([
   'central-heating-repairs',
   'radiator-repairs',
   'boiler-repairs',
+  'heating-engineer',
 ]);
 
 const EMERGENCY_SERVICE_KEYS = new Set([
@@ -97,28 +98,31 @@ const ServicePage = () => {
   const isLeakPage = LEAK_SERVICE_KEYS.has(cleanServiceKey);
 
   const canonicalUrl = `https://rkm247.co.uk/${cleanServiceKey}/${cleanTownKey}/`;
+  const rawPhone = town.phone || '01530 654 062';
 
-  const pageTitle = isDrainagePage
-    ? `${service.title} in ${townName} | Blocked Drains & Outside Drains | RKM Plumbing`
-    : isHeatingPage
-    ? `${service.title} in ${townName} | Central Heating Repairs | RKM Plumbing`
-    : isEmergencyPage
-    ? `${service.title} in ${townName} | Fast Local Emergency Repairs | RKM Plumbing`
+  // --- SEO FIX 1: HIGH-CTR DYNAMIC PAGE TITLES (<60 CHARS) ---
+  const pageTitle = isEmergencyPage
+    ? `24/7 Emergency Plumber ${townName} | 60 Min Response | RKM`
     : isLeakPage
-    ? `${service.title} in ${townName} | Hidden Water Leak Detection | RKM Plumbing`
-    : `${service.title} in ${townName} | RKM Plumbing & Heating`;
+    ? `Leak Detection ${townName} | Trace & Access Experts | RKM`
+    : isDrainagePage
+    ? `Drain Unblocking ${townName} | Fixed Rates 24/7 | RKM`
+    : isHeatingPage
+    ? `Heating Engineer ${townName} | Boiler Repairs | RKM`
+    : `Local Plumber in ${townName} | 24/7 Emergency Repairs | RKM`;
 
+  // --- SEO FIX 2: CTR-FOCUSED META DESCRIPTIONS ---
   const metaDesc =
     town.description ||
-    (isDrainagePage
-      ? `${service.title} in ${townName}. We clear blocked drains, sinks, toilets, showers and outside drains across ${postcodes}. Fast local response from RKM Plumbing & Heating with no call out fee.`
-      : isHeatingPage
-      ? `${service.title} in ${townName}. We fix central heating faults, radiator issues, low pressure and heating breakdowns across ${postcodes}. Fast local response with no call out fee.`
-      : isEmergencyPage
-      ? `${service.title} in ${townName}. Fast local emergency repairs for burst pipes, leaks, blocked toilets and urgent plumbing issues across ${postcodes}. No call out fee.`
+    (isEmergencyPage
+      ? `Need an emergency plumber in ${townName}? 24/7 fast response in 60 mins across ${postcodes}. Burst pipes, leaks & urgent repairs. No call out fee. Call ${rawPhone}.`
       : isLeakPage
-      ? `${service.title} in ${townName}. We locate hidden water leaks, damp-related plumbing issues and pipework faults across ${postcodes}. Fast local response with no call out fee.`
-      : `${service.title} in ${townName}. Serving ${postcodes} near ${landmark}. 24/7 local response with no call out fee.`);
+      ? `Expert leak detection in ${townName}. We trace hidden water leaks in floors & walls fast across ${postcodes}. Fully insured engineers. No call out fee. Call ${rawPhone}.`
+      : isDrainagePage
+      ? `Fast drain unblocking in ${townName}. Blocked toilets, sinks & outside drains cleared fast across ${postcodes}. Fixed transparent rates. Call ${rawPhone}.`
+      : isHeatingPage
+      ? `Reliable heating engineers in ${townName}. Central heating repairs, radiator faults & boiler issues across ${postcodes}. £0 call out fee. Call ${rawPhone}.`
+      : `Trusted local plumbers in ${townName} covering ${postcodes} near ${landmark}. 24/7 emergency response, leak fixes & heating. No call out fee. Call ${rawPhone}.`);
 
   const introLead = isDrainagePage
     ? `Professional ${service.title.toLowerCase()} in ${townName} for blocked drains, blocked toilets, blocked sinks, slow showers, gullies, manholes and outside drains across ${postcodes}.`
@@ -332,10 +336,12 @@ const ServicePage = () => {
         <meta name="description" content={metaDesc} />
         <link rel="canonical" href={canonicalUrl} />
 
+        {/* SEO FIX 3: OpenGraph Social Tags */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={metaDesc} />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content="https://rkm247.co.uk/team-photo.webp" />
 
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
@@ -365,9 +371,8 @@ const ServicePage = () => {
         {/* TRUST BADGES */}
         <TrustBadges />
 
-        {/* --- ABOUT SECTION MOVED HERE --- */}
+        {/* ABOUT SECTION */}
         <About />
-        {/* -------------------------------- */}
 
         <Process />
         <Services />
