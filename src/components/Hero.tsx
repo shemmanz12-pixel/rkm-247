@@ -21,7 +21,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   const townData = towns[townKey] || {};
   const serviceData = serviceContent[serviceKey] || serviceContent['emergency-plumber'];
 
-  // FIX 1: Default location for homepage set to 'Coalville' instead of generic 'Leicestershire'
+  // Default location for homepage set to 'Coalville'
   const displayLocation = townData.name || formatName(townKey) || 'Coalville';
   const serviceLabel = serviceData.title || "Plumbing & Heating";
   const phone = townData.phone || '01530 654 062';
@@ -34,38 +34,22 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
   const heroDescription = townData.description
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
+  // SEO FIX 1: Fixed duplicated "Coalville Coalville" text string bug
   const metaDescription = (townData as any).metaDescription
-    || `24/7 Emergency Plumber in ${displayLocation} Ashby De la Zouch & North West Leicestershire. Fast 60-minute response for Blocked Drains, Emergency Plumbing, Boiler Installs, and Central Heating. No call-out fee.`;
+    || `24/7 Emergency Plumber in ${displayLocation} & North West Leicestershire. Fast 60-minute response for Blocked Drains, Emergency Plumbing, Boiler Installs, and Central Heating. No call-out fee.`;
 
-  // FIX 2: Front-load "Coalville" for homepage searches
+  // SEO FIX 2: High-converting Page Titles
   const pageTitle = isLandingPage 
-    ? `${serviceLabel} in ${displayLocation} | RKM Plumbing & Heating`
-    : `24/7 Emergency Plumber Coalville & Ashby De La Zouch | RKM Plumbing & Heating Services`;
+    ? `${serviceLabel} in ${displayLocation} | 24/7 Local Engineers | RKM`
+    : `24/7 Emergency Plumber Coalville & Leicestershire | RKM Plumbing`;
 
-  // FIX 3: Fix double-slash URL bug on homepage
+  // SEO FIX 3: Dynamic Canonical URL matching current route
   const schemaUrl = isLandingPage 
     ? `https://rkm247.co.uk/${serviceKey}/${townKey}`
     : "https://rkm247.co.uk/";
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": `RKM Plumbing & Heating - ${serviceLabel} in ${displayLocation}`,
-    "telephone": phone,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": displayLocation,
-      "addressRegion": "Leicestershire",
-      "addressCountry": "UK"
-    },
-    "description": metaDescription,
-    "areaServed": displayLocation,
-    "url": schemaUrl
-  };
-
-  // --- DYNAMIC SINGLE IMAGE LOGIC ---
-  let heroImage = "/team-photo.webp"; // Default image
-  
+  // Dynamic Image Logic
+  let heroImage = "/team-photo.webp"; 
   if (serviceKey.includes('drain') || serviceKey.includes('cctv') || serviceKey.includes('unblock') || serviceKey.includes('blockage')) {
     heroImage = "/drainage-cctv-survey.webp";
   } else if (serviceKey.includes('boiler') || serviceKey.includes('heating') || serviceKey.includes('gas')) {
@@ -74,11 +58,56 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
     heroImage = "/team-photo.webp";
   }
 
+  const absoluteImageUrl = `https://rkm247.co.uk${heroImage}`;
+
+  // SEO FIX 4: Upgraded Schema to official "Plumber" type + 24/7 Hours + Exact Clean Name
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Plumber",
+    "@id": `${schemaUrl}#organization`,
+    "name": "RKM Plumbing & Heating Services",
+    "url": schemaUrl,
+    "telephone": phone,
+    "image": absoluteImageUrl,
+    "priceRange": "££",
+    "description": metaDescription,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": displayLocation,
+      "addressRegion": "Leicestershire",
+      "addressCountry": "GB"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": displayLocation
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={metaDescription} />
+        
+        {/* SEO FIX 5: Self-Referencing Canonical Tag (Essential for Page 1) */}
+        <link rel="canonical" href={schemaUrl} />
+
+        {/* SEO FIX 6: OpenGraph Meta Tags for Social & Link Previews */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={schemaUrl} />
+        <meta property="og:image" content={absoluteImageUrl} />
+
+        {/* Structured Data */}
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 
@@ -89,10 +118,10 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
             {/* LEFT: TEXT CONTENT */}
             <div className="max-w-2xl">
 
-              {/* BLACK LOGO BOX */}
+              {/* SEO FIX 7: Swapped <h3> to <div> so the <h1> is the undisputed first heading on the page */}
               <div className="bg-black text-[#A6892C] inline-block p-4 mb-8 rounded-sm shadow-xl">
                 <div className="border border-[#A6892C] p-3 px-6">
-                  <h3 className="font-serif text-3xl leading-none text-center">RKM</h3>
+                  <div className="font-serif text-3xl font-bold leading-none text-center">RKM</div>
                   <p className="text-[10px] text-white uppercase tracking-[0.2em] text-center mt-2">Plumbing & Heating</p>
                   <p className="text-[8px] text-[#A6892C] uppercase tracking-[0.3em] text-center mt-0.5">Services</p>
                 </div>
@@ -112,7 +141,7 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 )}
               </div>
 
-              {/* HEADLINE: FIX 4 - Include Coalville & Leicestershire directly in H1 for Homepage */}
+              {/* H1 HEADLINE */}
               <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
                 {isLandingPage ? (
                   <>
@@ -122,14 +151,16 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
                 ) : (
                   <>
                     24/7 Emergency Plumber <br />
-                    <span className="text-[#A6892C]">in Coalville & Ashby De La Zouch</span>
+                    <span className="text-[#A6892C]">in Coalville</span>
                   </>
                 )}
               </h1>
 
               {/* HERO DESCRIPTION */}
               <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
-                {isLandingPage ? heroDescription : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville, Ashby De La Zouch and North West Leicestershire. We arrive in 60 minutes or less.'}
+                {isLandingPage 
+                  ? heroDescription 
+                  : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville, North West Leicestershire. We arrive in 60 minutes or less.'}
               </p>
 
               {/* LOCAL SPICE */}
@@ -163,9 +194,13 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
               {/* MOBILE IMAGE */}
               <div className="mt-10 lg:hidden">
                 <div className="relative w-full aspect-[4/3] rounded-2xl shadow-2xl border-4 border-white overflow-hidden">
+                  {/* SEO FIX 8: Added loading="eager" & fetchPriority="high" for LCP performance */}
                   <img
                     src={heroImage}
-                    alt={`RKM ${serviceLabel} Work`}
+                    alt={`Emergency ${serviceLabel} engineer in ${displayLocation}`}
+                    loading="eager"
+                    // @ts-ignore
+                    fetchpriority="high"
                     className="absolute inset-0 w-full h-full object-cover z-10"
                   />
                 </div>
@@ -178,7 +213,10 @@ const Hero = ({ town: townSlug, service: serviceSlug }: HeroProps) => {
               <div className="relative w-full aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
                 <img 
                   src={heroImage} 
-                  alt={`RKM ${serviceLabel} in ${displayLocation}`} 
+                  alt={`Emergency ${serviceLabel} engineer in ${displayLocation}`} 
+                  loading="eager"
+                  // @ts-ignore
+                  fetchpriority="high"
                   className="absolute inset-0 w-full h-full object-cover z-10"
                 />
               </div>

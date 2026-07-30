@@ -39,15 +39,15 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       .filter(Boolean)
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
       .join(' ') ||
-    'Coalville & Ashby-de-la-Zouch';
+    'Coalville';
 
   const postcodes = townData?.postcodes?.length
     ? townData.postcodes.join(', ')
-    : 'LE67, LE65';
+    : 'LE67';
 
   const nearbyTowns = townData?.nearbyTowns?.length
     ? townData.nearbyTowns.join(', ')
-    : 'Coalville, Ashby-de-la-Zouch, Ibstock and surrounding areas';
+    : 'Coalville, Whitwick, Ibstock and surrounding areas';
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 

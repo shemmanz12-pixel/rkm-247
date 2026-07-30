@@ -24,7 +24,7 @@ const About = () => {
   const townData = towns[cleanTownKey] || {};
   
   // SEO Variables with smart fallbacks
-  const displayLocation = townData.name || (cleanTownKey ? cleanTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'Coalville & Ashby-de-la-Zouch');
+  const displayLocation = townData.name || (cleanTownKey ? cleanTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'Coalville and Surrounding Areas');
   const customPhone = townData.phone || "01530 654 062";
   const landmark = townData.landmark || "the local town centre";
   const road = townData.road || "main transport routes";
@@ -46,7 +46,10 @@ const About = () => {
     images = [
       "/clocktower-coalville.webp",
       "/bathroom.webp",
-      "/boiler-install.webp"
+      "/boiler-install.webp",
+      "/hugglescote-bear.webp",
+      "/drain-unblocking.webp",
+      "/ball-valve.webp",
     ];
   } else {
     // 1. Determine service-specific background images first
