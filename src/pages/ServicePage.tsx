@@ -89,8 +89,6 @@ const ServicePage = () => {
   const landmark = town.landmark || 'the local area';
   const road = town.road || 'main access routes';
   const postcodes = town.postcodes?.length ? town.postcodes.join(', ') : 'LE65, LE67';
-  
-  const nearbyAreaNames = 'Coalville, Ashby-de-la-Zouch, Ibstock, Whitwick and surrounding areas';
 
   const isDrainagePage = DRAINAGE_SERVICE_KEYS.has(cleanServiceKey);
   const isHeatingPage = HEATING_SERVICE_KEYS.has(cleanServiceKey);
@@ -139,7 +137,7 @@ const ServicePage = () => {
       return [
         `We provide professional ${service.title.toLowerCase()} in ${townName}, helping homeowners, landlords and businesses with blocked drains, blocked sinks, blocked toilets, overflowing gullies and outside drainage issues.`,
         `Common drainage problems in ${townName} include grease build-up, wipes, silt, waste pipe blockages, bad drain smells and recurring external drain problems. We attend properties near ${landmark}, across ${road}, and throughout ${postcodes}.`,
-        `As a local business based near Coalville, we provide fast response across ${townName} and North West Leicestershire with £0 call out fees and a strong focus on reliable local service.`,
+        `As a local business, we provide fast response across ${townName} and surrounding areas with £0 call out fees and a strong focus on reliable local service.`,
       ];
     }
 
@@ -147,7 +145,7 @@ const ServicePage = () => {
       return [
         `We provide professional ${service.title.toLowerCase()} in ${townName}, helping homeowners, landlords and businesses with central heating breakdowns, cold radiators, circulation issues, low pressure and loss of heating or hot water.`,
         `Common heating problems in ${townName} include radiators not warming properly, pressure loss, thermostat faults, noisy pipework and system performance issues. We attend properties near ${landmark}, across ${road}, and throughout ${postcodes}.`,
-        `As a local business based near Coalville, we provide fast response across ${townName} and North West Leicestershire with £0 call out fees and a strong focus on reliable local heating repairs.`,
+        `As a local business, we provide fast response across ${townName} and surrounding areas with £0 call out fees and a strong focus on reliable local heating repairs.`,
       ];
     }
 
@@ -155,7 +153,7 @@ const ServicePage = () => {
       return [
         `We provide fast ${service.title.toLowerCase()} in ${townName}, helping homeowners, landlords and businesses with burst pipes, severe leaks, blocked toilets, no water, overflowing fittings and urgent plumbing faults.`,
         `Common emergency callouts in ${townName} include burst pipes, active leaks, failed stop taps, blocked waste pipes and sudden plumbing breakdowns. We attend properties near ${landmark}, across ${road}, and throughout ${postcodes}.`,
-        `As a local business based near Coalville, we provide fast response across ${townName} and North West Leicestershire with £0 call out fees and a strong focus on making properties safe quickly.`,
+        `As a local business, we provide fast response across ${townName} and surrounding areas with £0 call out fees and a strong focus on making properties safe quickly.`,
       ];
     }
 
@@ -163,7 +161,7 @@ const ServicePage = () => {
       return [
         `We provide professional ${service.title.toLowerCase()} in ${townName}, helping homeowners, landlords and businesses find hidden water leaks, plumbing leaks and pipework issues before they cause further damage.`,
         `Common leak problems in ${townName} include hidden leaks under floors, damp patches, unexplained water loss, stained walls, low pressure and suspected pipework faults. We attend properties near ${landmark}, across ${road}, and throughout ${postcodes}.`,
-        `As a local business based near Coalville, we provide fast response across ${townName} and North West Leicestershire with £0 call out fees and a strong focus on reliable fault finding and repair.`,
+        `As a local business, we provide fast response across ${townName} and surrounding areas with £0 call out fees and a strong focus on reliable fault finding and repair.`,
       ];
     }
 
@@ -205,7 +203,7 @@ const ServicePage = () => {
     const links = [];
     const areaCode = town.postcodes[0].substring(0, 2); 
     
-    let hubName = 'North West Leicestershire';
+    let hubName = ' Leicestershire';
     if (areaCode === 'DE') hubName = 'South Derbyshire';
     if (areaCode === 'B7' || areaCode === 'CV') hubName = 'Tamworth & Warwickshire';
     if (town.postcodes[0].startsWith('LE11') || town.postcodes[0].startsWith('LE12')) hubName = 'Loughborough District';
@@ -245,7 +243,6 @@ const ServicePage = () => {
           addressCountry: 'GB',
         },
         areaServed: [
-          { '@type': 'Place', name: 'North West Leicestershire' },
           { '@type': 'Place', name: townName },
         ],
         sameAs: [
@@ -268,7 +265,7 @@ const ServicePage = () => {
         },
         areaServed: {
           '@type': 'Place',
-          name: `${townName}, Leicestershire`,
+          name: townName,
         },
         availableChannel: {
           '@type': 'ServiceChannel',
@@ -276,7 +273,7 @@ const ServicePage = () => {
             '@type': 'ContactPoint',
             telephone: schemaPhone,
             contactType: 'customer service',
-            areaServed: `${townName}, Leicestershire`,
+            areaServed: townName,
           },
         },
       },
@@ -401,10 +398,10 @@ const ServicePage = () => {
               {isDrainagePage && (
                 <section className="mb-16">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase mb-6">
-                    Common Drain Problems in <span className="text-[#A6892C]">North West Leicestershire</span>
+                    Common Drain Problems in <span className="text-[#A6892C]">{townName}</span>
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    We regularly help customers with blocked drains and drainage problems across {townName} and wider North West Leicestershire, including:
+                    We regularly help customers with blocked drains and drainage problems across {townName} and surrounding areas, including:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                     <div className="bg-white border border-slate-100 rounded-2xl p-5">Blocked outside drains and gullies</div>
@@ -439,10 +436,10 @@ const ServicePage = () => {
               {isHeatingPage && (
                 <section className="mb-16">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase mb-6">
-                    Common Central Heating Problems in <span className="text-[#A6892C]">North West Leicestershire</span>
+                    Common Central Heating Problems in <span className="text-[#A6892C]">{townName}</span>
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    We regularly help customers with heating problems across {townName} and wider North West Leicestershire, including:
+                    We regularly help customers with heating problems across {townName} and surrounding areas, including:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                     <div className="bg-white border border-slate-100 rounded-2xl p-5">Radiators not heating properly</div>
@@ -477,10 +474,10 @@ const ServicePage = () => {
               {isEmergencyPage && (
                 <section className="mb-16">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase mb-6">
-                    Common Emergency Plumbing Problems in <span className="text-[#A6892C]">North West Leicestershire</span>
+                    Common Emergency Plumbing Problems in <span className="text-[#A6892C]">{townName}</span>
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    We regularly help customers with urgent plumbing problems across {townName} and wider North West Leicestershire, including:
+                    We regularly help customers with urgent plumbing problems across {townName} and surrounding areas, including:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                     <div className="bg-white border border-slate-100 rounded-2xl p-5">Burst pipes and major leaks</div>
@@ -515,10 +512,10 @@ const ServicePage = () => {
               {isLeakPage && (
                 <section className="mb-16">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase mb-6">
-                    Common Leak Detection Problems in <span className="text-[#A6892C]">North West Leicestershire</span>
+                    Common Leak Detection Problems in <span className="text-[#A6892C]">{townName}</span>
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    We regularly help customers with hidden leak problems across {townName} and wider North West Leicestershire, including:
+                    We regularly help customers with hidden leak problems across {townName} and surrounding areas, including:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                     <div className="bg-white border border-slate-100 rounded-2xl p-5">Hidden leaks under floors</div>
@@ -600,7 +597,7 @@ const ServicePage = () => {
                   Areas We Cover Near <span className="text-[#A6892C]">{townName}</span>
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  We provide {service.title.toLowerCase()} across {townName}, nearby areas, and surrounding parts of North West Leicestershire, covering {postcodes}, close to {landmark} and along {road}.
+                  We provide {service.title.toLowerCase()} across {townName} and surrounding areas, covering {postcodes}, close to {landmark} and along {road}.
                 </p>
               </section>
 
@@ -616,7 +613,7 @@ const ServicePage = () => {
                           We regularly help customers in {townName} with blocked outside drains, overflowing gullies, blocked toilets, slow draining sinks, bad drain smells and recurring waste pipe problems.
                         </p>
                         <p>
-                          These are the kinds of drainage searches people often make when they need urgent help, and they are exactly the kinds of local drain problems we deal with across {nearbyAreaNames}.
+                          These are the kinds of drainage searches people often make when they need urgent help, and they are exactly the kinds of local drain problems we deal with across {townName} and surrounding areas.
                         </p>
                       </>
                     )}
@@ -627,7 +624,7 @@ const ServicePage = () => {
                           We regularly help customers in {townName} with radiators not heating properly, low pressure, noisy heating systems, hot water issues and central heating faults affecting comfort and performance.
                         </p>
                         <p>
-                          These are the kinds of heating searches people often make when they need urgent or same-day help, and they are exactly the kinds of local heating problems we deal with across {nearbyAreaNames}.
+                          These are the kinds of heating searches people often make when they need urgent or same-day help, and they are exactly the kinds of local heating problems we deal with across {townName} and surrounding areas.
                         </p>
                       </>
                     )}
@@ -638,7 +635,7 @@ const ServicePage = () => {
                           We regularly help customers in {townName} with burst pipes, severe plumbing leaks, overflowing toilets, urgent blockages and other emergency repairs where fast local response is important.
                         </p>
                         <p>
-                          These are the kinds of emergency plumbing searches people often make when they need urgent help, and they are exactly the kinds of local emergency repairs we deal with across {nearbyAreaNames}.
+                          These are the kinds of emergency plumbing searches people often make when they need urgent help, and they are exactly the kinds of local emergency repairs we deal with across {townName} and surrounding areas.
                         </p>
                       </>
                     )}
@@ -649,7 +646,7 @@ const ServicePage = () => {
                           We regularly help customers in {townName} with hidden leaks, damp patches, unexplained water loss, low pressure and suspected pipework faults that need tracing before more damage occurs.
                         </p>
                         <p>
-                          These are the kinds of leak detection searches people often make when they need accurate local fault finding, and they are exactly the kinds of hidden leak problems we deal with across {nearbyAreaNames}.
+                          These are the kinds of leak detection searches people often make when they need accurate local fault finding, and they are exactly the kinds of hidden leak problems we deal with across {townName} and surrounding areas.
                         </p>
                       </>
                     )}
@@ -663,7 +660,7 @@ const ServicePage = () => {
                     Wider Area Service Hub
                   </h2>
                   <p className="text-gray-700 mb-6">
-                    We also cover wider North West Leicestershire for this service. You can view the broader area page below:
+                    We also cover wider regions for this service. You can view the broader area page below:
                   </p>
                   <div className="grid grid-cols-1 gap-3">
                     {supportingHubLinks.map(link => (
@@ -710,7 +707,7 @@ const ServicePage = () => {
                           Recent examples of local drainage work include blocked outside drains in {townName}, toilet blockages near {landmark}, slow kitchen waste pipes along {road}, and urgent drain unblocking across {postcodes}.
                         </p>
                         <p>
-                          Adding short local drain job updates as separate pages can strengthen relevance for searches around blocked drains, outside drain blockages and recurring drainage problems in North West Leicestershire.
+                          Adding short local drain job updates as separate pages can strengthen relevance for searches around blocked drains, outside drain blockages and recurring drainage problems in {townName}.
                         </p>
                       </>
                     )}
@@ -721,7 +718,7 @@ const ServicePage = () => {
                           Recent examples of local heating work include radiator faults in {townName}, low pressure issues near {landmark}, no-heating callouts along {road}, and same-day central heating repairs across {postcodes}.
                         </p>
                         <p>
-                          Adding short local heating job updates as separate pages can strengthen relevance for searches around radiator problems, heating breakdowns and urgent heating repairs in North West Leicestershire.
+                          Adding short local heating job updates as separate pages can strengthen relevance for searches around radiator problems, heating breakdowns and urgent heating repairs in {townName}.
                         </p>
                       </>
                     )}
@@ -732,7 +729,7 @@ const ServicePage = () => {
                           Recent examples of local emergency work include burst pipe repairs in {townName}, severe leaks near {landmark}, urgent toilet overflows along {road}, and same-day emergency plumber callouts across {postcodes}.
                         </p>
                         <p>
-                          Adding short local emergency job updates as separate pages can strengthen relevance for searches around burst pipes, urgent leaks and emergency plumbing repairs in North West Leicestershire.
+                          Adding short local emergency job updates as separate pages can strengthen relevance for searches around burst pipes, urgent leaks and emergency plumbing repairs in {townName}.
                         </p>
                       </>
                     )}
@@ -743,7 +740,7 @@ const ServicePage = () => {
                           Recent examples of local leak detection work include hidden leak tracing in {townName}, damp-related plumbing checks near {landmark}, low-pressure investigations along {road}, and same-day leak fault finding across {postcodes}.
                         </p>
                         <p>
-                          Adding short local leak detection job updates as separate pages can strengthen relevance for searches around hidden water leaks, damp-linked plumbing faults and trace and access work in North West Leicestershire.
+                          Adding short local leak detection job updates as separate pages can strengthen relevance for searches around hidden water leaks, damp-linked plumbing faults and trace and access work in {townName}.
                         </p>
                       </>
                     )}
