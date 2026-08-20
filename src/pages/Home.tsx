@@ -41,7 +41,7 @@ const Home = () => {
   // Homepage Specific Schema
   const homeSchema = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness","PlumbingService"],
+    "@type": ["LocalBusiness", "PlumbingService"],
     "@id": "https://rkm247.co.uk/#business",
     "name": "RKM Plumbing & Heating Services LTD",
     "url": "https://rkm247.co.uk/",
@@ -56,15 +56,48 @@ const Home = () => {
       "addressRegion": "Leicestershire",
       "postalCode": "LE67 2PA",
       "addressCountry": "GB"
-    }
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 52.723,
+      "longitude": -1.369
+    },
+    "areaServed": [
+      {
+        "@type": "AdministrativeArea",
+        "name": "Coalville"
+      },
+      {
+        "@type": "PostalCode",
+        "name": "LE67"
+      },
+      {
+        "@type": "PostalCode",
+        "name": "LE65"
+      }
+    ],
+    "sameAs": [
+      "https://maps.app.goo.gl/hgp9JFbxQPbibPrd6",
+      "https://share.google/3XtXaKCXHVDlgzSLh",
+      "https://www.yell.com/biz/rkm-plumbing-and-heating-services-ltd-coalville-100007379/",
+      "https://www.checkatrade.com/trades/rkmplumbingandheatingservices",
+      "https://www.thomsonlocal.com/search/plumbers/burton-loughborough/rkm-plumbing-heating-services/3496846/01530654062",
+      "https://118businessdirectory.co.uk/listing/rkm-plumbing-heating-services-ltd"
+    ]
   };
 
   return (
     <>
       <Helmet>
-        <title>24/7 Emergency Plumber Coalville & Ashby De La Zouch | RKM Plumbing & Heating</title>
-        <meta name="description" content="Need a plumber in Coalville? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654062." />
+        <title>Plumber Coalville | 24/7 Emergency Plumbing | RKM Plumbing & Heating</title>
+        <meta 
+          name="description" 
+          content="Need a plumber in Coalville? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654062." 
+        />
         <link rel="canonical" href="https://rkm247.co.uk/" />
+        <meta property="og:title" content="Plumber Coalville | 24/7 Emergency Plumbing | RKM Plumbing & Heating" />
+        <meta property="og:description" content="Rapid 60-minute emergency response in Coalville. No call-out charge. Local plumbing and heating experts you can trust." />
+        <meta property="og:url" content="https://rkm247.co.uk/" />
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>
 

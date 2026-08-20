@@ -40,6 +40,7 @@ const About = () => {
 
   const isHomepage = !cleanTownKey && !normalizedService;
   const isHugglescote = cleanTownKey.includes('hugglescote');
+  const isAshby = cleanTownKey.includes('ashby');
 
   if (isHomepage) {
     // Standard homepage using the clocktower filename
@@ -64,14 +65,12 @@ const About = () => {
         "/boiler-install.webp",
         "/two-port-valve.webp",
         "/ball-valve.webp",
-        
       ];
     } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
       images = [
         "/bathroom.webp",
         "/outside-tap-install.webp",
         "/kitchen-tap.webp",
-        
       ];
     } else {
       images = [
@@ -79,13 +78,14 @@ const About = () => {
         "/boiler-install.webp",
         "/drain-unblocking.webp",
         "/ball-valve.webp",
-      
       ];
     }
 
-    // 2. Prepend the Hugglescote Bear image to ALL dedicated Hugglescote landing pages (Emergency Plumbing, Boilers, Drains, etc.)
+    // 2. Prepend location-specific landmark photos to dedicated town pages
     if (isHugglescote) {
       images = ["/hugglescote-bear.webp", ...images];
+    } else if (isAshby) {
+      images = ["/ashby-de-la-zouch-rkm.webp", ...images];
     }
   }
 

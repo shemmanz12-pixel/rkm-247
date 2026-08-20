@@ -38,11 +38,11 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   // Fallback meta tags (only used if standalone=true)
   const metaDescription = (townData as any).metaDescription
-    || `24/7 Emergency Plumber in ${displayLocation} & North West Leicestershire. Fast 60-minute response for Blocked Drains, Emergency Plumbing, Boiler Installs, and Central Heating. No call-out fee.`;
+    || `Need a plumber in ${displayLocation}? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654 062.`;
 
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
-    : `24/7 Emergency Plumber Coalville & Leicestershire | RKM Plumbing`;
+    : `Plumber Coalville | 24/7 Emergency Plumbing | RKM Plumbing & Heating`;
 
   // Standardized with trailing slash to match ServicePage canonical format
   const schemaUrl = isLandingPage 
@@ -63,19 +63,27 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   const schemaData = {
     "@context": "https://schema.org",
-    "@type": "Plumber",
-    "@id": `${schemaUrl}#organization`,
-    "name": "RKM Plumbing & Heating Services",
+    "@type": ["LocalBusiness", "PlumbingService"],
+    "@id": `${schemaUrl}#business`,
+    "name": "RKM Plumbing & Heating Services LTD",
     "url": schemaUrl,
+    "logo": "https://rkm247.co.uk/logo-square.webp",
     "telephone": phone,
     "image": absoluteImageUrl,
     "priceRange": "££",
     "description": metaDescription,
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "12 Primrose Walk",
       "addressLocality": displayLocation,
       "addressRegion": "Leicestershire",
+      "postalCode": "LE67 2PA",
       "addressCountry": "GB"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 52.723,
+      "longitude": -1.369
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -85,10 +93,28 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
       "opens": "00:00",
       "closes": "23:59"
     },
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": displayLocation
-    }
+    "areaServed": [
+      {
+        "@type": "AdministrativeArea",
+        "name": displayLocation
+      },
+      {
+        "@type": "PostalCode",
+        "name": "LE67"
+      },
+      {
+        "@type": "PostalCode",
+        "name": "LE65"
+      }
+    ],
+    "sameAs": [
+      "https://maps.app.goo.gl/hgp9JFbxQPbibPrd6",
+      "https://share.google/3XtXaKCXHVDlgzSLh",
+      "https://www.yell.com/biz/rkm-plumbing-and-heating-services-ltd-coalville-100007379/",
+      "https://www.checkatrade.com/trades/rkmplumbingandheatingservices",
+      "https://www.thomsonlocal.com/search/plumbers/burton-loughborough/rkm-plumbing-heating-services/3496846/01530654062",
+      "https://118businessdirectory.co.uk/listing/rkm-plumbing-heating-services-ltd"
+    ]
   };
 
   return (
