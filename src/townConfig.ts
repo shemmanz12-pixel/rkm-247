@@ -44,6 +44,7 @@ const POSTCODE_COORDS: Record<string, { lat: number; lng: number }> = {
   "DE14": { lat: 52.8061, lng: -1.6312 },
   "DE11": { lat: 52.7731, lng: -1.5591 },
   "DE73": { lat: 52.8391, lng: -1.4241 },
+  "DE74": { lat: 52.8381, lng: -1.3391 },
   "B77":  { lat: 52.6181, lng: -1.6691 },
   "DE12": { lat: 52.7121, lng: -1.5421 }
 };
@@ -221,6 +222,20 @@ export const towns: Record<string, TownData> = {
       "The 1970s estates off Main Street are reaching the age where galvanized steel pipework requires replacement. We specialize in system upgrades that respect the existing fabric of these buildings."
     ]
   }),
+  'shepshed': buildTown({
+    name: "Shepshed", phone: "01509 642158", landmark: "St Botolph's Church", road: "Market Place", postcodes: ["LE12 9"],
+    authorityParagraphs: [
+      "Positioned along the A512 corridor between Coalville and Loughborough, Shepshed features a wide blend of older framework-knitting cottages and newer residential estates off Hathern Road. Our engineers provide rapid 30-60 minute callouts across LE12 9 for sudden combi boiler failures and mains pressure drops.",
+      "With heavy clay soil leading to subsoil movement, we frequently resolve blocked external drains and misaligned pipe joints across Shepshed using high-pressure water jetting and precision CCTV drainage surveys."
+    ]
+  }),
+  'castle-donington': buildTown({
+    name: "Castle Donington", phone: "01509 642158", landmark: "Donington Park", road: "High Street", postcodes: ["DE74 2"],
+    authorityParagraphs: [
+      "Castle Donington requires specialized plumbing support spanning both historic hillside residences and major logistics hubs around the East Midlands Airport corridor. Our commercial and domestic emergency units are stationed minutes away for round-the-clock burst pipe isolation and drainage clearing.",
+      "Properties around the High Street and Borough Street often feature traditional vented heating cylinders. We regularly perform conversions to high-efficiency combi units alongside emergency leak detection."
+    ]
+  }),
 
   // ==========================================
   // === 01509 LOUGHBOROUGH REGIONAL AREA =====
@@ -241,30 +256,47 @@ export const towns: Record<string, TownData> = {
   'tamworth': buildTown({ name: "Tamworth", phone: "01827 802163", landmark: "Tamworth Castle", road: "Market Street", postcodes: ["B77", "B78", "B79"] }),
 
   // =========================================================
-  // VILLAGES (Automatically populated via the Smart Generator)
+  // VILLAGES & LOCAL DISTRICT EXPANSIONS
   // =========================================================
   'albert-village': buildTown({ name: "Albert Village", phone: "01530 654062", landmark: "Albert Village Lake", road: "Occupation Road", postcodes: ["DE11"] }),
+  'appleby-magna': buildTown({ name: "Appleby Magna", phone: "01530 654062", landmark: "Sir John Moore Foundation", road: "Top Street", postcodes: ["DE12 7"] }),
+  'appleby-parva': buildTown({ name: "Appleby Parva", phone: "01530 654062", landmark: "Appleby Inn", road: "A444", postcodes: ["DE12 7"] }),
   'bagworth': buildTown({ name: "Bagworth", phone: "01530 654062", landmark: "Bagworth Heath Woods", road: "Station Road", postcodes: ["LE67 1"] }),
   'bardon-hill': buildTown({ name: "Bardon Hill", phone: "01530 654062", landmark: "Bardon Truck Park", road: "Beveridge Lane", postcodes: ["LE67 1"] }),
   'battram': buildTown({ name: "Battram", phone: "01530 654062", landmark: "Battram Woods", road: "Wood Road", postcodes: ["LE67"] }),
+  'belton': buildTown({ name: "Belton", phone: "01530 654062", landmark: "The George Hotel", road: "Market Place", postcodes: ["LE12 9"] }),
   'blackfordby': buildTown({ name: "Blackfordby", phone: "01530 654062", landmark: "The Black Lion", road: "Main Street", postcodes: ["DE11 8"] }),
   'boundary': buildTown({ name: "Boundary", phone: "01530 654062", landmark: "Ashby Road", road: "Ashby Road", postcodes: ["DE11"] }),
   'breedon-on-the-hill': buildTown({ name: "Breedon on the Hill", phone: "01530 654062", landmark: "The Priory Church", road: "Ashby Road", postcodes: ["DE73"] }),
+  'castle-gresley': buildTown({ name: "Castle Gresley", phone: "01283 890215", landmark: "Gresley Old Hall", road: "Burton Road", postcodes: ["DE11 9"] }),
+  'charley': buildTown({ name: "Charley", phone: "01530 654062", landmark: "Mount St Bernard Abbey", road: "Abbey Road", postcodes: ["LE67 4"] }),
+  'church-gresley': buildTown({ name: "Church Gresley", phone: "01283 890215", landmark: "Maurice Lea Memorial Park", road: "Market Street", postcodes: ["DE11 9"] }),
   'coleorton': buildTown({ name: "Coleorton", phone: "01530 654062", landmark: "Coleorton Hall", road: "The Moorlands", postcodes: ["LE67 8"] }),
   'copt-oak': buildTown({ name: "Copt Oak", phone: "01530 654062", landmark: "The Copt Oak Pub", road: "Whitwick Road", postcodes: ["LE67"] }),
+  'diseworth': buildTown({ name: "Diseworth", phone: "01509 642158", landmark: "Diseworth Heritage Centre", road: "Hall Gate", postcodes: ["DE74 2"] }),
   'donington-le-heath': buildTown({ name: "Donington le Heath", phone: "01530 654062", landmark: "The Manor House", road: "Manor Road", postcodes: ["LE67 2"] }),
   'donisthorpe': buildTown({ name: "Donisthorpe", phone: "01530 654062", landmark: "Donisthorpe Woodland Park", road: "Church Street", postcodes: ["DE12"] }),
   'ellistown': buildTown({ name: "Ellistown", phone: "01530 654062", landmark: "South Leicestershire College", road: "Beveridge Lane", postcodes: ["LE67 1"] }),
   'griffydam': buildTown({ name: "Griffydam", phone: "01530 654062", landmark: "The Griffin Inn", road: "Top Road", postcodes: ["LE67 8"] }),
+  'hartshorne': buildTown({ name: "Hartshorne", phone: "01283 890215", landmark: "The Admiral Rodney", road: "Main Street", postcodes: ["DE11 7"] }),
+  'hathern': buildTown({ name: "Hathern", phone: "01509 642158", landmark: "The Anchor Inn", road: "Loughborough Road", postcodes: ["LE12 5"] }),
   'heather': buildTown({ name: "Heather", phone: "01530 654062", landmark: "Sence Valley", road: "Swepstone Road", postcodes: ["LE67 6"] }),
+  'hemington': buildTown({ name: "Hemington", phone: "01509 642158", landmark: "Hemington Primary School", road: "Main Street", postcodes: ["DE74 2"] }),
   'hugglescote': buildTown({ name: "Hugglescote", phone: "01530 654062", landmark: "The Gate Inn", road: "Ashby Road", postcodes: ["LE67 2"] }),
+  'isley-walton': buildTown({ name: "Isley Walton", phone: "01509 642158", landmark: "All Saints Church", road: "Melbourne Road", postcodes: ["DE74 2"] }),
+  'kegworth': buildTown({ name: "Kegworth", phone: "01509 642158", landmark: "Kegworth Village Hall", road: "High Street", postcodes: ["DE74 2"] }),
   'leicestershire': buildTown({ name: "Leicestershire", phone: "01530 654062", landmark: "Charnwood Forest", road: "The M1 Corridor", postcodes: ["LE"] }),
+  'linton': buildTown({ name: "Linton", phone: "01283 890215", landmark: "The Brickmakers Arms", road: "Main Street", postcodes: ["DE12 6"] }),
+  'lockington': buildTown({ name: "Lockington", phone: "01509 642158", landmark: "St Nicholas Church", road: "Main Street", postcodes: ["DE74 2"] }),
+  'long-whatton': buildTown({ name: "Long Whatton", phone: "01509 642158", landmark: "The Falcon Inn", road: "Main Street", postcodes: ["LE12 5"] }),
   'lount': buildTown({ name: "Lount", phone: "01530 654062", landmark: "The Ferrers Arms", road: "Nottingham Road", postcodes: ["LE65 1"] }),
   'moira': buildTown({ name: "Moira", phone: "01530 654062", landmark: "Moira Furnace", road: "Ashby Road", postcodes: ["DE12 6"] }),
+  'netherseal': buildTown({ name: "Netherseal", phone: "01283 890215", landmark: "The Seal Inn", road: "Main Street", postcodes: ["DE12 8"] }),
   'newbold-coleorton': buildTown({ name: "Newbold Coleorton", phone: "01530 654062", landmark: "The Cross Keys", road: "Ashby Road", postcodes: ["LE67 8"] }),
   'normanton-le-heath': buildTown({ name: "Normanton le Heath", phone: "01530 654062", landmark: "The Packington Border", road: "Ashby Road", postcodes: ["LE67 2"] }),
   'oakthorpe': buildTown({ name: "Oakthorpe", phone: "01530 654062", landmark: "The Holly Bush", road: "Measham Road", postcodes: ["DE12"] }),
   'osgathorpe': buildTown({ name: "Osgathorpe", phone: "01530 654062", landmark: "St Mary's Church", road: "Ashby Road", postcodes: ["LE12"] }),
+  'overseal': buildTown({ name: "Overseal", phone: "01283 890215", landmark: "The Robin Hood Inn", road: "Burton Road", postcodes: ["DE12 6"] }),
   'packington': buildTown({ name: "Packington", phone: "01530 654062", landmark: "The Bull & Lion", road: "High Street", postcodes: ["LE65 1"] }),
   'peggs-green': buildTown({ name: "Peggs Green", phone: "01530 654062", landmark: "The New Inn", road: "Nottingham Road", postcodes: ["LE67 8"] }),
   'ravenstone': buildTown({ name: "Ravenstone", phone: "01530 654062", landmark: "The Kings Arms", road: "Beeswax Lane", postcodes: ["LE67 2"] }),
@@ -275,8 +307,11 @@ export const towns: Record<string, TownData> = {
   'staunton-harold': buildTown({ name: "Staunton Harold", phone: "01530 654062", landmark: "Staunton Harold Hall", road: "The Drive", postcodes: ["LE65"] }),
   'swannington': buildTown({ name: "Swannington", phone: "01530 654062", landmark: "Hough Mill", road: "Main Street", postcodes: ["LE67 8"] }),
   'thringstone': buildTown({ name: "Thringstone", phone: "01530 654062", landmark: "Grace Dieu Priory", road: "Loughborough Road", postcodes: ["LE67 8"] }),
+  'ticknall': buildTown({ name: "Ticknall", phone: "01332 806148", landmark: "Calke Abbey", road: "Main Street", postcodes: ["DE73 7"] }),
+  'tonge': buildTown({ name: "Tonge", phone: "01530 654062", landmark: "Breedon Priory Golf Club", road: "Tonge Station Road", postcodes: ["DE73 8"] }),
   'willesley': buildTown({ name: "Willesley", phone: "01530 654062", landmark: "Willesley Park Golf Club", road: "Willesley Road", postcodes: ["LE65 2"] }),
   'wilson': buildTown({ name: "Wilson", phone: "01530 654062", landmark: "The Bulls Head", road: "Main Street", postcodes: ["DE73"] }),
+  'woodville': buildTown({ name: "Woodville", phone: "01283 890215", landmark: "Woodville Clock Tower", road: "High Street", postcodes: ["DE11 7"] }),
   'worthington': buildTown({ name: "Worthington", phone: "01530 654062", landmark: "The Malt Shovel", road: "Main Street", postcodes: ["LE65 1"] })
 };
 
@@ -287,7 +322,7 @@ export const towns: Record<string, TownData> = {
 /**
  * Returns JSON-LD Schema.org object for Google Local Business indexing
  */
-export function generateLocalBusinessSchema(town: TownData, siteDomain: string = "https://yourwebsite.co.uk") {
+export function generateLocalBusinessSchema(town: TownData, siteDomain: string = "https://rkm247.co.uk") {
   return {
     "@context": "https://schema.org",
     "@type": ["Plumber", "EmergencyService"],
