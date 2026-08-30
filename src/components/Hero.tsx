@@ -36,13 +36,14 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
   const heroDescription = townData.description
     || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
 
-  // Fallback meta tags (only used if standalone=true)
+  // Optimized meta description for maximum CTR & keyword density
   const metaDescription = (townData as any).metaDescription
-    || `Need a plumber in ${displayLocation}? RKM provides fast 24/7 emergency response, boiler repairs & drainage across North West Leicestershire. £0 Call-Out Fee. Call 01530 654 062.`;
+    || `Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
+  // Optimized title tag: Front-loaded generic priority while retaining 24/7, heating & drainage
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
-    : `Plumber Coalville | 24/7 Emergency Plumbing | RKM Plumbing & Heating`;
+    : `Plumbers Coalville | 24/7 Plumbing, Heating & Drainage`;
 
   // Standardized with trailing slash to match ServicePage canonical format
   const schemaUrl = isLandingPage 
@@ -74,7 +75,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     "description": metaDescription,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "12 Primrose Walk",
+      "streetAddress": "22 Primrose Walk",
       "addressLocality": displayLocation,
       "addressRegion": "Leicestershire",
       "postalCode": "LE67 2PA",
@@ -108,7 +109,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
       }
     ],
     "sameAs": [
-      "https://maps.app.goo.gl/hgp9JFbxQPbibPrd6",
+      "https://www.facebook.com/rkmplumbingandheatingservices",
       "https://share.google/3XtXaKCXHVDlgzSLh",
       "https://www.yell.com/biz/rkm-plumbing-and-heating-services-ltd-coalville-100007379/",
       "https://www.checkatrade.com/trades/rkmplumbingandheatingservices",
@@ -141,7 +142,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
             {/* LEFT: TEXT CONTENT */}
             <div className="max-w-2xl">
 
-              {/* LOGO BOX - Uses <div> so H1 remains the primary page heading */}
+              {/* LOGO BOX */}
               <div className="bg-black text-[#A6892C] inline-block p-4 mb-8 rounded-sm shadow-xl">
                 <div className="border border-[#A6892C] p-3 px-6">
                   <div className="font-serif text-3xl font-bold leading-none text-center">RKM</div>
@@ -164,7 +165,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 )}
               </div>
 
-              {/* H1 HEADLINE */}
+              {/* H1 HEADLINE: Balanced for both standard and emergency queries */}
               <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
                 {isLandingPage ? (
                   <>
@@ -173,7 +174,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                   </>
                 ) : (
                   <>
-                    24/7 Emergency Plumber <br />
+                    Plumbers & 24/7 Heating <br />
                     <span className="text-[#A6892C]">in Coalville</span>
                   </>
                 )}
@@ -183,7 +184,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
               <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
                 {isLandingPage 
                   ? heroDescription 
-                  : 'RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions across Coalville, North West Leicestershire. We arrive in 60 minutes or less.'}
+                  : 'RKM provides 24/7 emergency callouts, domestic plumbing repairs, boiler maintenance, and drainage solutions across Coalville & North West Leicestershire.'}
               </p>
 
               {/* LOCAL SPICE */}
