@@ -34,13 +34,12 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     || `Serving ${displayLocation} near ${landmark}, covering ${road} and all surrounding areas.`;
 
   const heroDescription = townData.description
-    || `RKM Plumbing & Heating Services provides 24/7 emergency repairs, professional maintenance, and reliable plumbing solutions for ${displayLocation}. We arrive in 60 minutes or less.`;
+    || `RKM provides domestic plumbing repairs, heating engineering, drain unblocking, and fast 24/7 emergency response across ${displayLocation} and Leicestershire. £0 call-out fee.`;
 
-  // Optimized meta description for maximum CTR & keyword density
+  // Fallback meta tags (only used if standalone=true)
   const metaDescription = (townData as any).metaDescription
     || `Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
-  // Optimized title tag: Front-loaded generic priority while retaining 24/7, heating & drainage
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
     : `Plumbers Coalville | 24/7 Plumbing, Heating & Drainage`;
@@ -66,7 +65,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "PlumbingService"],
     "@id": `${schemaUrl}#business`,
-    "name": "RKM Plumbing & Heating Services LTD",
+    "name": "RKM Plumbing, Heating & Drainage LTD",
     "url": schemaUrl,
     "logo": "https://rkm247.co.uk/logo-square.webp",
     "telephone": phone,
@@ -165,8 +164,8 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 )}
               </div>
 
-              {/* H1 HEADLINE: Balanced for both standard and emergency queries */}
-              <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
+              {/* H1 HEADLINE: Balanced spacing preventing text collision */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.12] mb-6 tracking-tight">
                 {isLandingPage ? (
                   <>
                     {serviceLabel} <br />
@@ -174,17 +173,20 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                   </>
                 ) : (
                   <>
-                    Plumbers & 24/7 Heating <br />
+                    <span>Plumbing, Heating</span>
+                    <span className="block text-2xl sm:text-3xl lg:text-4xl text-slate-500 font-bold tracking-normal my-1">
+                      &amp; Drainage Specialists
+                    </span>
                     <span className="text-[#A6892C]">in Coalville</span>
                   </>
                 )}
               </h1>
 
               {/* HERO DESCRIPTION */}
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
+              <p className="text-lg sm:text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
                 {isLandingPage 
                   ? heroDescription 
-                  : 'RKM provides 24/7 emergency callouts, domestic plumbing repairs, boiler maintenance, and drainage solutions across Coalville & North West Leicestershire.'}
+                  : 'RKM provides 24/7 emergency callouts, domestic plumbing repairs, boiler maintenance, and drain unblocking across Coalville & North West Leicestershire.'}
               </p>
 
               {/* LOCAL SPICE */}
