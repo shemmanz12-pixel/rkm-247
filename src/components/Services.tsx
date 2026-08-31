@@ -22,23 +22,22 @@ const Services = ({ currentLocation }: ServicesProps) => {
     params = {};
   }
 
-  // 1. Detect location slug from Props, Route Params, or URL path
+  // 1. Detect location slug or default to 'coalville' for the homepage
   const pathSegments = pathname.split('/').filter(Boolean);
   const detectedFromPath = pathSegments.length > 1 ? pathSegments[pathSegments.length - 1] : '';
 
-  const activeSlug = currentLocation || params.town || params.slug || params.location || detectedFromPath || '';
+  const rawSlug = currentLocation || params.town || params.slug || params.location || detectedFromPath || '';
+  const activeSlug = rawSlug.toLowerCase() || 'coalville';
 
-  // 2. Format location name dynamically
+  // 2. Format location name dynamically (defaults to 'Coalville' on homepage)
   const activeTownName = activeSlug
-    ? activeSlug
-        .split('-')
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' ')
-    : '';
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 
-  // 3. Helper to build dynamic location URLs cleanly
+  // 3. Helper to build dynamic landing page URLs with standardized trailing slash
   const buildServiceUrl = (servicePrefix: string) => {
-    return activeSlug ? `/${servicePrefix}/${activeSlug}/` : `/${servicePrefix}/`;
+    return `/${servicePrefix}/${activeSlug}/`;
   };
 
   // Google Booking Calendar Link
@@ -48,57 +47,47 @@ const Services = ({ currentLocation }: ServicesProps) => {
     {
       icon: Flame,
       title: "Heating Engineer",
-      desc: activeTownName
-        ? `Boiler installs, repairs, radiator replacements, and heating diagnostics in ${activeTownName}.`
-        : "Boiler installs and repairs, radiator replacements, system flushing, and thermostat upgrades for efficiency.",
-      actionText: activeTownName ? `Heating in ${activeTownName}` : "Heating Services",
+      desc: `Boiler installs, repairs, radiator replacements, and heating diagnostics in ${activeTownName}.`,
+      actionText: `Heating in ${activeTownName}`,
       href: buildServiceUrl("heating-engineer"),
       isExternal: false
     },
     {
       icon: Phone,
       title: "Emergency Plumber",
-      desc: activeTownName
-        ? `Rapid 24/7 emergency response across ${activeTownName} for burst pipes and urgent leaks.`
-        : "Rapid assistance for burst pipes and leak repairs when you need us most.",
-      actionText: activeTownName ? `24/7 Cover in ${activeTownName}` : "Emergency Coverage",
+      desc: `Rapid 24/7 emergency response across ${activeTownName} for burst pipes, flooding, and urgent leaks.`,
+      actionText: `24/7 Cover in ${activeTownName}`,
       href: buildServiceUrl("emergency-plumber"),
       isExternal: false
     },
     {
       icon: Droplets,
       title: "Drains Unblocking",
-      desc: activeTownName
-        ? `Specialist drain unblocking in ${activeTownName} for manholes, soil stacks, and main sewer lines.`
-        : "Specialist Drain unblocking for manholes, soil stacks, and main drains using high-pressure jetting.",
-      actionText: activeTownName ? `Drainage in ${activeTownName}` : "Drainage Services",
+      desc: `Specialist drain unblocking in ${activeTownName} for manholes, soil stacks, and main sewer lines.`,
+      actionText: `Drainage in ${activeTownName}`,
       href: buildServiceUrl("drain-unblocking"),
       isExternal: false
     },
     {
       icon: Wrench,
       title: "General Plumbing",
-      desc: activeTownName
-        ? `Leaking pipes, tap repairs, toilet fixes, and domestic maintenance in ${activeTownName}.`
-        : "Leaking pipes, tap repairs, toilet fixes, and general maintenance for your home.",
-      actionText: "Book Online",
-      href: CALENDAR_LINK,
-      isExternal: true
+      desc: `Leaking pipes, tap repairs, toilet fixes, and domestic plumbing maintenance across ${activeTownName}.`,
+      actionText: `Plumbing in ${activeTownName}`,
+      href: buildServiceUrl("plumber"),
+      isExternal: false
     },
     {
       icon: Search,
       title: "Leak Detection",
-      desc: activeTownName
-        ? `Visual inspections and non-invasive trace & access to find hidden leaks across ${activeTownName}.`
-        : "Visual plumbing inspections and trace & access to find hidden leaks.",
-      actionText: activeTownName ? `Find Leaks in ${activeTownName}` : "Leak Detection",
+      desc: `Visual inspections and non-invasive trace & access to find hidden leaks across ${activeTownName}.`,
+      actionText: `Find Leaks in ${activeTownName}`,
       href: buildServiceUrl("leak-detection"),
       isExternal: false
     },
     {
       icon: Wrench,
-      title: "New Install Plumbing",
-      desc: "Dishwasher and washing machine installs, sink replacements, and tap upgrades.",
+      title: "New Installations",
+      desc: "Dishwasher and washing machine installs, sink replacements, and bathroom fixture upgrades.",
       actionText: "Book Online",
       href: CALENDAR_LINK,
       isExternal: true
@@ -113,7 +102,7 @@ const Services = ({ currentLocation }: ServicesProps) => {
           <div>
             <div className="w-12 h-1 bg-[#A6892C] mb-6"></div>
             <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight">
-              Our <span className="text-[#A6892C]">Services</span> {activeTownName ? `in ${activeTownName}` : ''}
+              Our <span className="text-[#A6892C]">Services</span> in {activeTownName}
             </h2>
           </div>
         </div>

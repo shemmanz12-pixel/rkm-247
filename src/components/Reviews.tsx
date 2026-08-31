@@ -44,7 +44,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
 
   let sectionTitle = 'Verified 5-Star Service';
   let sectionSubtitle = `Trusted by the local community in ${locationName}`;
-  let footerText = 'Read 60+ More Google Reviews';
+  let footerText = 'Read More Google Reviews';
 
   let reviews: { name: string; location: string; text: string }[] = [];
 
@@ -55,7 +55,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
     if (isDrainagePage) {
       sectionTitle = 'Verified 5-Star Drainage Service';
       sectionSubtitle = `Trusted for drain & toilet unblocking in ${locationName}`;
-      footerText = 'Read 60+ More Drainage Reviews';
+      footerText = 'Read More Drainage Reviews';
 
       reviews = [
         { name: 'J D', location: 'Bardon Hill', text: 'Fast response for a commercial blocked drain, good customer service.' },
@@ -68,7 +68,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
     } else if (isHeatingPage) {
       sectionTitle = 'Verified 5-Star Heating Service';
       sectionSubtitle = `Trusted for boiler & heating repairs in ${locationName}`;
-      footerText = 'Read 60+ More Heating Reviews';
+      footerText = 'Read More Heating Reviews';
 
       reviews = [
         { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
@@ -81,7 +81,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
     } else if (isLeakPage) {
       sectionTitle = 'Verified 5-Star Leak Detection Service';
       sectionSubtitle = `Trusted for emergency leak repairs in ${locationName}`;
-      footerText = 'Read 60+ More Leak Repair Reviews';
+      footerText = 'Read More Leak Repair Reviews';
 
       reviews = [
         { name: 'Debbie Billing', location: 'Coalville', text: 'Had a leak in the loft, called RKM plumbing in Coalville, Ryan was excellent came out the same day sorted the leak with no problem.' },
@@ -94,7 +94,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
     } else if (isEmergencyPage) {
       sectionTitle = 'Verified 5-Star Emergency Plumbing Service';
       sectionSubtitle = `Trusted for fast emergency callouts in ${locationName}`;
-      footerText = 'Read 60+ More Emergency Callout Reviews';
+      footerText = 'Read More Emergency Callout Reviews';
 
       reviews = [
         { name: 'Beverley Roberts', location: 'Ellistown', text: 'Called with an emergency leak in Ellistown. Super quick response, friendly advise and fixed in no time. Really happy with the service!' },

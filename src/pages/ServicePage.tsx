@@ -6,17 +6,17 @@ import { MapPin, Zap, Clock, Shield } from 'lucide-react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TrustBadges from '../components/TrustBadges';
+import Services from '../components/Services';
 import Reviews from '../components/Reviews';
+import Process from '../components/Process';
+import About from '../components/About';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
-import Footer from '../components/Footer';
 import MapSection from '../components/MapSection';
-import Process from '../components/Process';
-import Services from '../components/Services';
+import Footer from '../components/Footer';
 
 import { towns } from '../townConfig';
 import { serviceContent } from '../data/serviceData';
-import About from '../components/About';
 
 const DRAINAGE_SERVICE_KEYS = new Set([
   'drain-unblocking',
@@ -187,26 +187,27 @@ const ServicePage = () => {
   ]);
 
   const nearbyLinks = useMemo(() => {
-    const currentPrefix = town.postcodes[0].split(' ')[0]; 
+    const currentPrefix = town.postcodes?.[0]?.split(' ')[0] || 'LE67'; 
 
     return Object.entries(towns)
-      .filter(([, t]) => t.name !== town.name && t.postcodes.some(pc => pc.startsWith(currentPrefix)))
+      .filter(([, t]) => t.name !== town.name && t.postcodes?.some(pc => pc.startsWith(currentPrefix)))
       .slice(0, 6)
       .map(([slug, t]) => ({
         slug,
         name: `Local Plumber ${t.name}`,
         url: `/${cleanServiceKey}/${slug}/`,
       }));
-  }, [town.postcodes, cleanServiceKey]);
+  }, [town.name, town.postcodes, cleanServiceKey]);
 
   const supportingHubLinks = useMemo(() => {
     const links = [];
-    const areaCode = town.postcodes[0].substring(0, 2); 
+    const firstPostcode = town.postcodes?.[0] || 'LE67';
+    const areaCode = firstPostcode.substring(0, 2); 
     
     let hubName = ' Leicestershire';
     if (areaCode === 'DE') hubName = 'South Derbyshire';
     if (areaCode === 'B7' || areaCode === 'CV') hubName = 'Tamworth & Warwickshire';
-    if (town.postcodes[0].startsWith('LE11') || town.postcodes[0].startsWith('LE12')) hubName = 'Loughborough District';
+    if (firstPostcode.startsWith('LE11') || firstPostcode.startsWith('LE12')) hubName = 'Loughborough District';
     
     const hubSlug = hubName.toLowerCase().replace(/\s+/g, '-').replace('&', 'and');
 
@@ -345,12 +346,17 @@ const ServicePage = () => {
         </script>
       </Helmet>
 
+      {/* 1. HEADER */}
       <Header customPhone={town.phone} />
       
+      {/* 2. HERO */}
       <Hero town={cleanTownKey} service={cleanServiceKey} />
 
       <main className="flex-grow">
-        {/* INFO BAR */}
+        {/* 3. TRUST BADGES */}
+        <TrustBadges />
+
+        {/* 4. DISPATCH INFO BAR */}
         <section className="py-4 bg-slate-900 text-white overflow-hidden">
           <div className="container mx-auto px-4 flex flex-wrap justify-center gap-6 text-[10px] md:text-xs font-black uppercase tracking-widest">
             <div className="flex items-center gap-2 text-[#A6892C]">
@@ -365,17 +371,29 @@ const ServicePage = () => {
           </div>
         </section>
 
-        {/* TRUST BADGES */}
-        <TrustBadges />
+        {/* 5. SERVICES MATRIX */}
+        <section id="services" className="scroll-mt-20">
+          <div className="-mx-4 sm:mx-0">
+            <Services currentLocation={cleanTownKey} />
+          </div>
+        </section>
 
-        {/* ABOUT SECTION */}
-        <About />
+        {/* 6. REVIEWS */}
+        <section id="reviews" className="scroll-mt-20">
+          <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
+        </section>
 
-        <Process />
-        <Services />
-        <Reviews townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
+        {/* 7. PROCESS */}
+        <section id="process" className="scroll-mt-20">
+          <Process />
+        </section>
 
-        {/* SEO TEXT BLOCK */}
+        {/* 8. ABOUT */}
+        <section id="about" className="scroll-mt-20">
+          <About />
+        </section>
+
+        {/* 9. DEEP SEO TEXT & AUTHORITY BLOCK */}
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -751,16 +769,33 @@ const ServicePage = () => {
           </div>
         </section>
 
-        <MapSection townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
-        <FAQ townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
-        <ContactSection customPhone={town.phone} />
+        {/* 10. FAQ */}
+        <section id="faq" className="scroll-mt-20">
+          <FAQ townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
+        </section>
+
+        {/* 11. CONTACT SECTION */}
+        <section id="contact" className="scroll-mt-20">
+          <ContactSection 
+            townName={townName} 
+            serviceName={cleanServiceKey} 
+            customPhone={rawPhone} 
+          />
+        </section>
+
+        {/* 12. MAP SECTION */}
+        <section id="map" className="scroll-mt-20">
+          <MapSection townSlug={cleanTownKey} serviceSlug={cleanServiceKey} />
+        </section>
       </main>
 
+      {/* 13. FOOTER */}
       <Footer 
-        customPhone={town.phone}
+        customPhone={rawPhone}
         townName={townName}
-        postcodeLabel={town.postcodes ? town.postcodes[0] : 'LE67 2JH'}
+        postcodeLabel={town.postcodes ? town.postcodes[0] : 'LE67 2PA'}
         roadName={road}
+        serviceName={cleanServiceKey}
       />
     </div>
   );
