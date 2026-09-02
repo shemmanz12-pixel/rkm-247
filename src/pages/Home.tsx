@@ -89,10 +89,10 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Plumbers Coalville | 24/7 Plumbing, Heating &amp; Drainage</title>
+        <title>Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7</title>
         <meta 
           name="description" 
-          content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
+          content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
         />
         <link rel="canonical" href="https://rkm247.co.uk/" />
         <meta property="og:title" content="Plumbers Coalville | 24/7 Plumbing, Heating &amp; Drainage" />
