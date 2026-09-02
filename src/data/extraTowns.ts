@@ -37,7 +37,7 @@ function createTownEntry(
     landmark,
     road,
     postcodes: [postcode],
-    description: `24/7 emergency plumbing, heating, and drainage services in ${name} (${postcode}). Rapid 30-60 minute dispatch for burst pipes, boiler lockouts, and blocked drains.`,
+    description: `24/7 emergency plumbing, heating, and drainage services in ${name} (${postcode}). Rapid 60-90 minute dispatch for burst pipes, boiler lockouts, and blocked drains.`,
     mapSrc: MAIN_MAP_LINK,
     housingTypes: ["Victorian Terraces", "Suburban Semi-Detached Properties", "Modern Housing Developments"],
     commonProblems: ["Hard water limescale scaling", "Boiler baseline pressure loss", "Blocked external sewer lines", "Radiator valve leaks"],

@@ -7,7 +7,7 @@ const Process = () => {
       number: "01",
       icon: Phone, 
       title: 'Contact Us', 
-      desc: 'Call RKM PLumbing & Heating Services. We answer 24/7 immediately.' 
+      desc: 'Call RKM Plumbing Heating & Drainage Services. We answer 24/7 immediately.' 
     },
     { 
       number: "02",

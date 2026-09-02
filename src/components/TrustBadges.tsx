@@ -55,16 +55,16 @@ const TrustBadges = () => {
               />
             </div>
             
-            <div className="pt-4 border-t border-slate-100 flex flex-col items-center">
-              <div className="inline-flex items-center gap-1.5 text-emerald-600 font-black text-xs uppercase tracking-wider mb-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span>Background Checked</span>
-              </div>
+             <div className="pt-4 border-t border-slate-100 flex flex-col items-center">
+             <div className="inline-flex items-center gap-1.5 text-[#A6892C] font-black text-xs uppercase tracking-wider mb-2">
+              <CheckCircle2 className="w-4 h-4 text-[#A6892C]" />
+              <span>Background Checked</span>
+             </div>
               <h4 className="text-base font-black text-slate-900 uppercase tracking-tight mb-1">
                 Checkatrade Approved
               </h4>
               <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                Fully vetted, insured, and verified trade compliance across Leicestershire.
+                Fully vetted, insured, and verified trade compliance.
               </p>
             </div>
           </div>

@@ -48,7 +48,7 @@ const LandingPage = () => {
   const postcodes = town.postcodes?.length ? town.postcodes.join(', ') : 'the local area';
 
   // 3. Dynamic SEO Metadata
-  const pageTitle = `${service.title} in ${townName} | RKM Plumbing & Heating`;
+  const pageTitle = `${service.title} in ${townName} | RKM Plumbing Heating & Drainage`;
   const metaDescription = town.metaDescription || 
     `${service.title} in ${townName}. We cover ${postcodes} near ${landmark}. 24/7 emergency response, no call out fee. Call 01530 654062.`;
   
@@ -100,7 +100,7 @@ const LandingPage = () => {
                   ))
                 ) : (
                   <p>
-                    RKM Plumbing & Heating provides expert assistance throughout <strong>{townName}</strong>. 
+                    RKM Plumbing Heating & Drainage provides expert assistance throughout <strong>{townName}</strong>. 
                     Whether you're facing an emergency near {landmark} or require routine maintenance along {road}, 
                     our Heating engineers are available 24/7 to ensure your home stays safe and functional.
                   </p>

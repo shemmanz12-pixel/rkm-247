@@ -25,7 +25,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   // Default location for homepage set to 'Coalville'
   const displayLocation = townData.name || formatName(townKey) || 'Coalville';
-  const serviceLabel = serviceData.title || "Plumbing & Heating";
+  const serviceLabel = serviceData.title || "Plumbing Heating & Drainage";
   const phone = townData.phone || '01530 654 062';
   const landmark = townData.landmark || 'the local area';
   const road = townData.road || 'main routes';
@@ -38,11 +38,11 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   // Fallback meta tags (only used if standalone=true)
   const metaDescription = (townData as any).metaDescription
-    || `Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
+    || `Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
-    : `Plumbers Coalville | 24/7 Plumbing, Heating & Drainage`;
+    : `Plumbers Coalville | RKM Plumbing Heating & Drainage 24/7`;
 
   // Standardized with trailing slash to match ServicePage canonical format
   const schemaUrl = isLandingPage 
@@ -65,7 +65,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "PlumbingService"],
     "@id": `${schemaUrl}#business`,
-    "name": "RKM Plumbing, Heating & Drainage LTD",
+    "name": "RKM Plumbing Heating & Drainage Services",
     "url": schemaUrl,
     "logo": "https://rkm247.co.uk/logo-square.webp",
     "telephone": phone,
@@ -145,7 +145,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
               <div className="bg-black text-[#A6892C] inline-block p-4 mb-8 rounded-sm shadow-xl">
                 <div className="border border-[#A6892C] p-3 px-6">
                   <div className="font-serif text-3xl font-bold leading-none text-center">RKM</div>
-                  <p className="text-[10px] text-white uppercase tracking-[0.2em] text-center mt-2">Plumbing & Heating</p>
+                  <p className="text-[10px] text-white uppercase tracking-[0.2em] text-center mt-2">Plumbing Heating & Drainage</p>
                   <p className="text-[8px] text-[#A6892C] uppercase tracking-[0.3em] text-center mt-0.5">Services</p>
                 </div>
               </div>
@@ -173,9 +173,9 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                   </>
                 ) : (
                   <>
-                    <span>Plumbing, Heating</span>
-                    <span className="block text-2xl sm:text-3xl lg:text-4xl text-slate-500 font-bold tracking-normal my-1">
-                      &amp; Drainage Specialists
+                    <span>Plumbing Heating</span>
+                    <span className="block text-2xl sm:text-3xl lg:text-4xl text-black font-bold tracking-normal my-1">
+                      &amp; Drainage Services
                     </span>
                     <span className="text-[#A6892C]">in Coalville</span>
                   </>

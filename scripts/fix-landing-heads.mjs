@@ -238,7 +238,7 @@ function seoHtmlFor(service, town, townSlugs) {
   <!-- SEO FIXED: Swapped H1 for styled P tag to prevent conflict with core client app shell rendering -->
   <p style="margin: 0 0 8px; font-size: 34px; font-weight: bold; line-height: 1.15; color: #0b1220; text-transform: uppercase; display: block;">${headingText}</p>
   <p style="margin: 0 0 12px; font-size: 18px;">
-    Need a reliable ${svc.name.toLowerCase()} in <strong>${townName}</strong>? RKM Plumbing & Heating provides fast local callouts across North West Leicestershire.
+    Need a reliable ${svc.name.toLowerCase()} in <strong>${townName}</strong>? RKM Plumbing Heating & Drainage provides fast local callouts across North West Leicestershire.
   </p>
   <p style="margin: 0 0 14px;">
     Call <a href="tel:${PHONE_TEL}">${PHONE_DISPLAY}</a> for help. We’ll confirm availability and give clear advice before any work starts.

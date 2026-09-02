@@ -68,7 +68,7 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
                 RKM<span className="text-[#A6892C]">24/7</span>
               </span>
               <span className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mt-0.5">
-                Plumbing & Heating Services
+                Plumbing Heating & Drainage Services
               </span>
             </div>
           </Link>

@@ -229,7 +229,7 @@ const ServicePage = () => {
       {
         "@type": ["LocalBusiness", "PlumbingService"],
         '@id': 'https://rkm247.co.uk/#business',
-        name: 'RKM Plumbing & Heating Services LTD',
+        name: 'RKM Plumbing Heating & Drainage Services',
         url: 'https://rkm247.co.uk/',
         logo: 'https://rkm247.co.uk/logo-square.webp',
         image: 'https://rkm247.co.uk/team-photo.webp',
@@ -288,7 +288,7 @@ const ServicePage = () => {
           '@type': 'WebSite',
           '@id': 'https://rkm247.co.uk/#website',
           url: 'https://rkm247.co.uk/',
-          name: 'RKM Plumbing & Heating Services LTD',
+          name: 'RKM Plumbing Heating & Drainage Services',
         },
         about: {
           '@id': `${canonicalUrl}#service`,

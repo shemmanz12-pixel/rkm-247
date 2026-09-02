@@ -43,7 +43,7 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "PlumbingService"],
     "@id": "https://rkm247.co.uk/#business",
-    "name": "RKM Plumbing, Heating & Drainage LTD",
+    "name": "RKM Plumbing Heating & Drainage Services",
     "url": "https://rkm247.co.uk/",
     "logo": "https://rkm247.co.uk/logo-square.webp",
     "image": "https://rkm247.co.uk/team-photo.webp",

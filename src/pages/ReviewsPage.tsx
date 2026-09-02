@@ -5,7 +5,7 @@ export default function ReviewsPage() {
     <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>Customer Reviews | RKM Plumbing</title>
-        <meta name="description" content="Read real customer reviews for RKM Plumbing & Heating, serving Coalville and Leicestershire. See why customers trust us for their plumbing needs." />
+        <meta name="description" content="Read real customer reviews for RKM Plumbing Heating & Drainage, serving Coalville and Leicestershire. See why customers trust us for their plumbing needs." />
         <link rel="canonical" href="https://rkm247.co.uk/reviews/" />
       </Helmet>
       <main className="mx-auto w-full max-w-4xl px-4 py-10">

@@ -5,7 +5,7 @@ export default function FAQPage() {
     <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>FAQs | RKM Plumbing</title>
-        <meta name="description" content="Frequently asked questions about RKM Plumbing & Heating services in Coalville and Leicestershire. Get answers to common plumbing queries." />
+        <meta name="description" content="Frequently asked questions about RKM Plumbing Heating & Drainage services in Coalville and Leicestershire. Get answers to common plumbing queries." />
         <link rel="canonical" href="https://rkm247.co.uk/faq/" />
       </Helmet>
       <main className="mx-auto w-full max-w-4xl px-4 py-10">

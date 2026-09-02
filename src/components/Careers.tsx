@@ -13,13 +13,13 @@ const Careers: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     "title": "Apprentice Plumber (2026 Intake Register)",
-    "description": "<p>RKM Plumbing & Heating is opening its register for aspiring plumbing apprentices in Coalville and Ashby.</p>",
+    "description": "<p>RKM Plumbing Heating & Drainage is opening its register for aspiring plumbing apprentices in Coalville and Ashby.</p>",
     "datePosted": "2026-02-10",
     "validThrough": "2026-12-31",
     "employmentType": "APPRENTICE",
     "hiringOrganization": {
       "@type": "Organization",
-      "name": "RKM Plumbing & Heating Services LTD",
+      "name": "RKM Plumbing Heating & Drainage Services",
       "sameAs": "https://rkm247.co.uk",
     },
     "jobLocation": {
@@ -42,7 +42,7 @@ const Careers: React.FC = () => {
         {/* FIXED: Removed the direct script injection that causes the White Screen of Death */}
         <Helmet>
           <title>Careers & Apprentice Register | RKM Plumbing</title>
-          <meta name="description" content="Join the RKM Plumbing & Heating future talent register. We are looking for aspiring apprentice plumbers in the Coalville and Ashby-de-la-Zouch area." />
+          <meta name="description" content="Join the RKM Plumbing Heating & Drainage future talent register. We are looking for aspiring apprentice plumbers in the Coalville and Ashby-de-la-Zouch area." />
           <link rel="canonical" href="https://rkm247.co.uk/training-register/" />
         </Helmet>
 

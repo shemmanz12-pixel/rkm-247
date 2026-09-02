@@ -25,7 +25,7 @@ function y(o) {
   return Math.abs(a);
 }
 function e(o) {
-  const a = o.postcodes[0] ? o.postcodes[0].split(" ")[0] : "CV13", n = o.housingTypes ? o.housingTypes[0].toLowerCase() : "mix of residential properties", d = o.commonProblems ? o.commonProblems[0].toLowerCase() : "emergency boiler lockouts and main drain blockages", l = o.heatingTypes ? o.heatingTypes[0].toLowerCase() : "gas combi and unvented heating systems", s = o.soilType ? o.soilType.toLowerCase() : "heavy local clay ground structures", h = o.hubTown || "Market Bosworth", m = g[a] || { lat: 52.6247, lng: -1.4014 }, p = o.metaTitle || `24/7 Emergency Plumber in ${o.name} (${o.postcodes.join(", ")}) | 30-60 Min Arrival`, c = o.metaDescription || `Local 24/7 emergency plumbing & drainage services in ${o.name}. Rapid response for burst pipes, blocked toilets & boiler failures. Call ${o.phone} now.`, i = y(o.name) % 3;
+  const a = o.postcodes[0] ? o.postcodes[0].split(" ")[0] : "CV13", n = o.housingTypes ? o.housingTypes[0].toLowerCase() : "mix of residential properties", d = o.commonProblems ? o.commonProblems[0].toLowerCase() : "emergency boiler lockouts and main drain blockages", l = o.heatingTypes ? o.heatingTypes[0].toLowerCase() : "gas combi and unvented heating systems", s = o.soilType ? o.soilType.toLowerCase() : "heavy local clay ground structures", h = o.hubTown || "Market Bosworth", m = g[a] || { lat: 52.6247, lng: -1.4014 }, p = o.metaTitle || `24/7 Emergency Plumber in ${o.name} (${o.postcodes.join(", ")}) | 60-90 Min Arrival`, c = o.metaDescription || `Local 24/7 emergency plumbing & drainage services in ${o.name}. Rapid response for burst pipes, blocked toilets & boiler failures. Call ${o.phone} now.`, i = y(o.name) % 3;
   let t = [];
   i === 0 ? t = [
     `Our 24/7 emergency response units operate continuously across ${o.name}, specifically equipped to address the structural demands of the local network. With a high density of ${n} situated along ${o.road} and neighboring streets, our engineers frequently resolve acute faults such as ${d}.`,
@@ -40,7 +40,7 @@ function e(o) {
   const k = [
     {
       question: `How fast can an emergency plumber arrive in ${o.name}?`,
-      answer: `We maintain active response units near ${o.landmark}, allowing an average arrival time of 30 to 60 minutes for emergency callouts across ${o.name} and the ${o.postcodes.join(", ")} postcode area.`
+      answer: `We maintain active response units near ${o.landmark}, allowing an average arrival time of 60 to 90 minutes for emergency callouts across ${o.name} and the ${o.postcodes.join(", ")} postcode area.`
     },
     {
       question: `Do you provide 24/7 drain jetting and toilet unblocking in ${o.name}?`,
@@ -53,7 +53,7 @@ function e(o) {
     landmark: o.landmark,
     road: o.road,
     postcodes: o.postcodes,
-    description: o.description || `24/7 emergency plumbing, heating, and drainage services across ${o.name} (${o.postcodes.join(", ")}). Rapid 30-60 minute local deployment.`,
+    description: o.description || `24/7 emergency plumbing, heating, and drainage services across ${o.name} (${o.postcodes.join(", ")}). Rapid 60-90 minute local deployment.`,
     mapSrc: o.mapSrc || u,
     housingTypes: o.housingTypes || ["Victorian Terraces", "Suburban Semi-Detached Properties", "Modern Housing Developments"],
     commonProblems: o.commonProblems || ["Hard water limescale scaling", "Boiler baseline pressure loss", "Blocked localized external grid networks"],

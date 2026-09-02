@@ -73,7 +73,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
       reviews = [
         { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
         { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.' },
-        { name: 'Jake Spencer', location: 'Coalville', text: 'RKM Plumbing & Heating Services in Coalville did a fantastic job installing five new radiators at my property.' },
+        { name: 'Jake Spencer', location: 'Coalville', text: 'RKM Plumbing Heating & Drainage Services in Coalville did a fantastic job installing five new radiators at my property.' },
         { name: 'Bee Bi', location: 'Hugglescote', text: 'Excellent service, friendly, respected our property. Came out within an hour of calling during cold weather and no heating.' },
         { name: 'robert moore', location: 'Ellistown', text: 'Had RKM Plumbing to our property in Ellistown today to fix an air lock in our pipes. A very pleasant young man who worked hard to clear the problem.' },
         { name: 'Rosemary W.', location: 'Coalville', text: 'Glad we could install the two new radiators for you here in Coalville. Excellent job done in Ellistown.' },
@@ -139,7 +139,7 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
       reviews = [
         { name: 'James C.', location: locationName, text: `Repaired condensate pipe on our boiler in ${locationName}. Top quality service, would highly recommend to anyone!` },
         { name: 'Mark S.', location: locationName, text: `Swiftly attended to an emergency heating call-out in ${locationName} when our boiler stopped working.` },
-        { name: 'Jake S.', location: locationName, text: `RKM Plumbing & Heating Services did a fantastic job installing new radiators at my ${locationName} property.` },
+        { name: 'Jake S.', location: locationName, text: `RKM Plumbing Heating & Drainage Services did a fantastic job installing new radiators at my ${locationName} property.` },
         { name: 'Bee B.', location: locationName, text: `Excellent service, friendly and respected our property. Came out within an hour of calling during cold weather in ${locationName}.` },
         { name: 'Robert M.', location: locationName, text: `Had RKM Plumbing out to ${locationName} to fix an air lock in our central heating. Worked hard and solved it quickly.` },
         { name: 'Rosemary W.', location: locationName, text: `Glad we chose RKM to install two new radiators for us in ${locationName}. Excellent workmanship throughout.` },

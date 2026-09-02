@@ -5,7 +5,7 @@ export default function AreasPage() {
     <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>Areas We Cover | RKM Plumbing</title>
-        <meta name="description" content="Discover all the areas covered by RKM Plumbing & Heating. Serving Coalville, Ashby-de-la-Zouch, and surrounding Leicestershire towns." />
+        <meta name="description" content="Discover all the areas covered by RKM Plumbing Heating & Drainage. Serving Coalville, Ashby-de-la-Zouch, and surrounding Leicestershire towns." />
         <link rel="canonical" href="https://rkm247.co.uk/areas/" />
       </Helmet>
       <main className="mx-auto w-full max-w-4xl px-4 py-10">

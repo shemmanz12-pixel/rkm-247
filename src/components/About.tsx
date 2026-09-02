@@ -110,7 +110,7 @@ const About = () => {
           {/* RIGHT: TEXT CONTENT & HEAVY SEO */}
           <div className="order-1 lg:order-2">
             <h2 className="text-sm font-black text-[#A6892C] uppercase tracking-[0.2em] mb-3">
-              About RKM Plumbing & Heating
+              About RKM Plumbing Heating & Drainage
             </h2>
             
             <h3 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
@@ -120,7 +120,7 @@ const About = () => {
             
             {/* HEAVY SEO PARAGRAPH 1: Core Services & Authority */}
             <p className="text-lg text-gray-600 mb-4 leading-relaxed font-medium">
-              Since 2004, RKM Plumbing & Heating Services has been the premier choice for fast-response plumbing, heating, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency boiler repairs</strong> to persistent <strong>blocked drains, CCTV drain surveys, emergency plumbing repairs</strong>, and complete system <strong>installations</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties alike.
+              Since 2004, RKM Plumbing Heating & Drainage Services has been the premier choice for fast-response plumbing, heating, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency boiler repairs</strong> to persistent <strong>blocked drains, CCTV drain surveys, emergency plumbing repairs</strong>, and complete system <strong>installations</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties alike.
             </p>
 
             {/* HEAVY SEO PARAGRAPH 2: Geographic Density & Response */}

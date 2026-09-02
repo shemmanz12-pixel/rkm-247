@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import { Phone, Mail, Clock, MapPin, CheckCircle2, ShieldCheck, ArrowRight, Zap, Flame, Droplets, Wrench } from 'lucide-react';
+import { Phone, Mail, Clock, MapPin, CheckCircle2, ShieldCheck, ArrowRight, Zap } from 'lucide-react';
 import BookingCard from './BookingCard';
 
 interface ContactSectionProps {

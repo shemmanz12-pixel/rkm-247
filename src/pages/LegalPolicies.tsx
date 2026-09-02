@@ -19,7 +19,7 @@ const LegalPolicies: React.FC = () => {
       <div className="bg-slate-50 min-h-screen pt-32 pb-32">
         <Helmet>
           <title>Privacy Policy & Terms of Service | RKM Plumbing</title>
-          <meta name="description" content="Read the Privacy Policy, Cookie Policy, and Service Scope for RKM Plumbing & Heating Services LTD. Understand how we handle your data and our terms of service." />
+          <meta name="description" content="Read the Privacy Policy, Cookie Policy, and Service Scope for RKM Plumbing Heating & Drainage Services. Understand how we handle your data and our terms of service." />
           <link rel="canonical" href="https://rkm247.co.uk/privacy-policy/" />
         </Helmet>
 
@@ -54,7 +54,7 @@ const LegalPolicies: React.FC = () => {
 
                 <div className="prose prose-slate max-w-none text-gray-700 leading-relaxed space-y-6 mt-8">
                   <p>
-                    This Privacy Policy describes the policies of <strong>RKM Plumbing & Heating Services LTD</strong>, 
+                    This Privacy Policy describes the policies of <strong>RKM Plumbing Heating & Drainage Services</strong>, 
                     51 Hodgetts Street, Leicestershire LE67 2JH, United Kingdom, 
                     email: <a href="mailto:ryan_shemmans@outlook.com" className="text-[#A6892C] font-bold">ryan_shemmans@outlook.com</a>. By accessing or using the Service, you are consenting to the collection, 
                     use and disclosure of your information in accordance with this Privacy Policy. 

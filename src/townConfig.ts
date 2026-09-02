@@ -78,7 +78,7 @@ function buildTown(
   const coords = POSTCODE_COORDS[primaryPostcode] || { lat: 52.6247, lng: -1.4014 };
 
   // SEO Metadata Generators
-  const metaTitle = data.metaTitle || `24/7 Emergency Plumber in ${data.name} (${data.postcodes.join(', ')}) | 30-60 Min Arrival`;
+  const metaTitle = data.metaTitle || `24/7 Emergency Plumber in ${data.name} (${data.postcodes.join(', ')}) | 60-90 Min Arrival`;
   const metaDescription = data.metaDescription || `Local 24/7 emergency plumbing & drainage services in ${data.name}. Rapid response for burst pipes, blocked toilets & boiler failures. Call ${data.phone} now.`;
 
   // Content Variation Generator
@@ -106,7 +106,7 @@ function buildTown(
   const defaultFAQ = [
     {
       question: `How fast can an emergency plumber arrive in ${data.name}?`,
-      answer: `We maintain active response units near ${data.landmark}, allowing an average arrival time of 30 to 60 minutes for emergency callouts across ${data.name} and the ${data.postcodes.join(', ')} postcode area.`
+      answer: `We maintain active response units near ${data.landmark}, allowing an average arrival time of 60 to 90 minutes for emergency callouts across ${data.name} and the ${data.postcodes.join(', ')} postcode area.`
     },
     {
       question: `Do you provide 24/7 drain jetting and toilet unblocking in ${data.name}?`,
@@ -120,7 +120,7 @@ function buildTown(
     landmark: data.landmark,
     road: data.road,
     postcodes: data.postcodes,
-    description: data.description || `24/7 emergency plumbing, heating, and drainage services across ${data.name} (${data.postcodes.join(', ')}). Rapid 30-60 minute local deployment.`,
+    description: data.description || `24/7 emergency plumbing, heating, and drainage services across ${data.name} (${data.postcodes.join(', ')}). Rapid 60-90 minute local deployment.`,
     mapSrc: data.mapSrc || MAIN_MAP_LINK,
     housingTypes: data.housingTypes || ["Victorian Terraces", "Suburban Semi-Detached Properties", "Modern Housing Developments"],
     commonProblems: data.commonProblems || ["Hard water limescale scaling", "Boiler baseline pressure loss", "Blocked localized external grid networks"],
