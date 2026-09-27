@@ -45,27 +45,30 @@ const Services = ({ currentLocation }: ServicesProps) => {
 
   const services = [
     {
-      icon: Flame,
-      title: "Heating Engineer",
-      desc: `Boiler installs, repairs, radiator replacements, and heating diagnostics in ${activeTownName}.`,
-      actionText: `Heating in ${activeTownName}`,
-      href: buildServiceUrl("heating-engineer"),
+      icon: Droplets,
+      title: "Drain Unblocking",
+      desc: `Fast emergency drain unblocking in ${activeTownName}. High pressure water jetting, CCTV surveys, and blocked external sewer clearance.`,
+      actionText: `Drain Unblocking ${activeTownName}`,
+      ariaLabel: `Drain unblocking services in ${activeTownName}`,
+      href: buildServiceUrl("drain-unblocking"),
       isExternal: false
     },
     {
       icon: Phone,
       title: "Emergency Plumber",
       desc: `Rapid 24/7 emergency response across ${activeTownName} for burst pipes, flooding, and urgent leaks.`,
-      actionText: `24/7 Cover in ${activeTownName}`,
+      actionText: `Emergency Plumber ${activeTownName}`,
+      ariaLabel: `Emergency plumbing services in ${activeTownName}`,
       href: buildServiceUrl("emergency-plumber"),
       isExternal: false
     },
     {
-      icon: Droplets,
-      title: "Drains Unblocking",
-      desc: `Specialist drain unblocking in ${activeTownName} for manholes, soil stacks, and main sewer lines.`,
-      actionText: `Drainage in ${activeTownName}`,
-      href: buildServiceUrl("drain-unblocking"),
+      icon: Flame,
+      title: "Heating Engineer",
+      desc: `Boiler installs, repairs, radiator replacements, and heating diagnostics in ${activeTownName}.`,
+      actionText: `Heating Engineer ${activeTownName}`,
+      ariaLabel: `Heating engineer services in ${activeTownName}`,
+      href: buildServiceUrl("heating-engineer"),
       isExternal: false
     },
     {
@@ -73,6 +76,7 @@ const Services = ({ currentLocation }: ServicesProps) => {
       title: "General Plumbing",
       desc: `Leaking pipes, tap repairs, toilet fixes, and domestic plumbing maintenance across ${activeTownName}.`,
       actionText: `Plumbing in ${activeTownName}`,
+      ariaLabel: `General plumbing services in ${activeTownName}`,
       href: buildServiceUrl("plumber"),
       isExternal: false
     },
@@ -80,7 +84,8 @@ const Services = ({ currentLocation }: ServicesProps) => {
       icon: Search,
       title: "Leak Detection",
       desc: `Visual inspections and non-invasive trace & access to find hidden leaks across ${activeTownName}.`,
-      actionText: `Find Leaks in ${activeTownName}`,
+      actionText: `Leak Detection ${activeTownName}`,
+      ariaLabel: `Leak detection in ${activeTownName}`,
       href: buildServiceUrl("leak-detection"),
       isExternal: false
     },
@@ -89,6 +94,7 @@ const Services = ({ currentLocation }: ServicesProps) => {
       title: "New Installations",
       desc: "Dishwasher and washing machine installs, sink replacements, and bathroom fixture upgrades.",
       actionText: "Book Online",
+      ariaLabel: "Book new installations online",
       href: CALENDAR_LINK,
       isExternal: true
     }
@@ -140,12 +146,19 @@ const Services = ({ currentLocation }: ServicesProps) => {
                 href={service.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={service.ariaLabel}
                 className={cardClasses}
               >
                 {cardContent}
               </a>
             ) : (
-              <Link key={index} to={service.href} className={cardClasses}>
+              <Link 
+                key={index} 
+                to={service.href} 
+                aria-label={service.ariaLabel}
+                title={service.actionText}
+                className={cardClasses}
+              >
                 {cardContent}
               </Link>
             );

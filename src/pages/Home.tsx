@@ -38,12 +38,13 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [location.hash]);
 
-  // Homepage Specific Schema
+  // Enhanced Homepage Schema with Explicit Drainage Entity Mapping
   const homeSchema = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "PlumbingService"],
+    "@type": ["PlumbingService", "HomeAndConstructionBusiness"],
     "@id": "https://rkm247.co.uk/#business",
     "name": "RKM Plumbing Heating & Drainage Services",
+    "alternateName": "RKM Drainage Coalville",
     "url": "https://rkm247.co.uk/",
     "logo": "https://rkm247.co.uk/logo-square.webp",
     "image": "https://rkm247.co.uk/team-photo.webp",
@@ -64,7 +65,16 @@ const Home = () => {
     },
     "areaServed": [
       {
-        "@type": "AdministrativeArea",
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 52.723,
+          "longitude": -1.369
+        },
+        "geoRadius": "25000"
+      },
+      {
+        "@type": "City",
         "name": "Coalville"
       },
       {
@@ -76,6 +86,40 @@ const Home = () => {
         "name": "LE65"
       }
     ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Drainage & Plumbing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Drain Unblocking Coalville",
+            "description": "24/7 high-pressure drain jetting, blocked toilet clearance, and external sewer unblocking.",
+            "url": "https://rkm247.co.uk/drain-unblocking/coalville/",
+            "sameAs": "https://en.wikipedia.org/wiki/Drain_(plumbing)"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "CCTV Drain Surveys",
+            "description": "Full camera inspection for collapsed pipes, root ingress, and structural drain issues.",
+            "url": "https://rkm247.co.uk/drain-unblocking/coalville/"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Plumbing & Boiler Repairs",
+            "description": "Burst pipe repair, boiler breakdown diagnostics, and general domestic plumbing.",
+            "url": "https://rkm247.co.uk/"
+          }
+        }
+      ]
+    },
     "sameAs": [
       "https://www.facebook.com/rkmplumbingandheatingservices",
       "https://www.google.com/maps?cid=3XtXaKCXHVDlgzSLh",
