@@ -38,7 +38,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   // Fallback meta tags (only used if standalone=true)
   const metaDescription = (townData as any).metaDescription
-    || `Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
+    || `Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler installs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`

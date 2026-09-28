@@ -21,7 +21,7 @@ export const serviceContent: Record<string, { title: string; metaTitle: string; 
   "heating-engineer": {
     title: "Heating Engineer",
     metaTitle: "Emergency Heating Engineer",
-    heroText: "Complete central heating diagnostics, boiler repairs, and system maintenance.",
+    heroText: "Complete central heating diagnostics, boiler installs, and system maintenance.",
     description: "Heating system playing up? We specialize in fixing central heating issues and boiler breakdowns. From cold radiators to pump failures, our local engineers diagnose and fix it fast."
   },
   "leak-detection": {

@@ -51,7 +51,7 @@ const ContactSection = ({
   } else if (serviceKey.includes('boiler') || serviceKey.includes('heating') || serviceKey.includes('gas')) {
     seoData = {
       badge: "Gas Safe Heating Engineers",
-      title: `Boiler Repairs & Heating in ${activeTown}`,
+      title: `Boiler Installs & Heating in ${activeTown}`,
       desc: `Certified heating engineering across ${activeTown}. Rapid boiler breakdown diagnostics, radiator replacements, central heating repairs, and combi boiler installations.`,
       photo: "/two-port-vale.webp",
       photoTag: `Gas Safe Boiler Installation & Heating Repairs in ${activeTown}`,

@@ -113,7 +113,7 @@ const Home = () => {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Emergency Plumbing & Boiler Repairs",
+            "name": "Emergency Plumbing & Boiler Installs",
             "description": "Burst pipe repair, boiler breakdown diagnostics, and general domestic plumbing.",
             "url": "https://rkm247.co.uk/"
           }
@@ -136,11 +136,11 @@ const Home = () => {
         <title>Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7</title>
         <meta 
           name="description" 
-          content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
+          content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
         />
         <link rel="canonical" href="https://rkm247.co.uk/" />
         <meta property="og:title" content="Plumbers Coalville | 24/7 Plumbing, Heating &amp; Drainage" />
-        <meta property="og:description" content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler repairs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
+        <meta property="og:description" content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
         <meta property="og:url" content="https://rkm247.co.uk/" />
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>

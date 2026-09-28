@@ -32,7 +32,7 @@ const HEATING_SERVICE_KEYS = new Set([
   'central-heating',
   'central-heating-repairs',
   'radiator-repairs',
-  'boiler-repairs',
+  'boiler-installs',
   'heating-engineer',
 ]);
 
@@ -106,7 +106,7 @@ const ServicePage = () => {
     : isDrainagePage
     ? `Drain Unblocking ${townName} | Fixed Rates 24/7 | RKM`
     : isHeatingPage
-    ? `Heating Engineer ${townName} | Boiler Repairs | RKM`
+    ? `Heating Engineer ${townName} | Boiler Repairs & Installs | RKM`
     : `Local Plumber in ${townName} | 24/7 Emergency Repairs | RKM`;
 
   // --- SEO FIX 2: CTR-FOCUSED META DESCRIPTIONS ---

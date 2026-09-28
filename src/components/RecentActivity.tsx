@@ -3,7 +3,7 @@ import { MapPin, Clock, CheckCircle } from 'lucide-react';
 
 const RecentActivity = () => {
   const activities = [
-    { type: 'Boiler Repair', location: 'Coalville (LE67)', time: '25 mins ago' },
+    { type: 'Boiler Installs', location: 'Coalville (LE67)', time: '25 mins ago' },
     { type: 'Burst Pipe', location: 'Ashby-de-la-Zouch', time: '1 hour ago' },
     { type: 'Blocked Drain', location: 'Whitwick', time: '2 hours ago' },
     { type: 'Emergency Leak', location: 'Ibstock', time: '3 hours ago' },

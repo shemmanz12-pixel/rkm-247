@@ -42,7 +42,7 @@ const Footer = ({
     brandTitle: "RKM Plumbing Heating & Drainage",
     desc: `RKM provides expert domestic plumbing, boiler maintenance, drain clearance, and rapid 24/7 emergency response across ${activeTown} and North West Leicestershire. We offer fast 60-minute dispatch with £0 call-out fees.`,
     trustSignal3Title: "Heating & Gas Experts",
-    trustSignal3Desc: `Qualified local engineers for boiler repairs, radiator replacements, and central heating diagnostics in ${activeTown}.`
+    trustSignal3Desc: `Qualified local engineers for boiler installs, radiator replacements, and central heating diagnostics in ${activeTown}.`
   };
 
   if (serviceKey.includes('drain') || serviceKey.includes('cctv') || serviceKey.includes('unblock')) {
