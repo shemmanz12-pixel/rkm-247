@@ -16,6 +16,7 @@ import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
 import MapSection from '../components/MapSection';
 import Footer from '../components/Footer';
+import StickyFooter from '../components/StickyFooter';
 
 const Home = () => {
   const location = useLocation();
@@ -52,10 +53,10 @@ const Home = () => {
     "priceRange": "££",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "22 Primrose Walk",
+      "streetAddress": "Hodgetts Street",
       "addressLocality": "Coalville",
       "addressRegion": "Leicestershire",
-      "postalCode": "LE67 2PA",
+      "postalCode": "LE67 2JH",
       "addressCountry": "GB"
     },
     "geo": {

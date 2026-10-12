@@ -37,7 +37,7 @@ const AreasCovered = () => {
     { id: 'plumbing-installations', name: 'Installs', icon: <ShieldCheck className="w-3 h-3" /> }
   ];
 
-  const postcodes = ["LE67", "LE65", "DE11", "DE12", "DE73", "LE6", "LE67 2PA"];
+  const postcodes = ["LE67", "LE65", "DE11", "DE12", "DE73", "LE6"];
 
   return (
     <section id="areas-covered" className="py-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-t border-slate-200/80 relative overflow-hidden">

@@ -793,7 +793,7 @@ const ServicePage = () => {
       <Footer 
         customPhone={rawPhone}
         townName={townName}
-        postcodeLabel={town.postcodes ? town.postcodes[0] : 'LE67 2PA'}
+        postcodeLabel={town.postcodes ? town.postcodes[0] : 'LE67 2JH'}
         roadName={road}
         serviceName={cleanServiceKey}
       />

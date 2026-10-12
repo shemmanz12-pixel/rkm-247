@@ -74,10 +74,10 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     "description": metaDescription,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "22 Primrose Walk",
+      "streetAddress": "Hodgetts Street",
       "addressLocality": displayLocation,
       "addressRegion": "Leicestershire",
-      "postalCode": "LE67 2PA",
+      "postalCode": "LE67 2JH",
       "addressCountry": "GB"
     },
     "geo": {

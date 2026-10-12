@@ -33,8 +33,8 @@ const Footer = ({
 
   const activeTown = townData.name || formatName(detectedTownSlug) || 'Coalville';
   const activePhone = customPhone || townData.phone || '01530 654 062';
-  const activeRoad = roadName || townData.road || '12 Primrose Walk';
-  const activePostcode = postcodeLabel || townData.postcode || 'LE67 2PA';
+  const activeRoad = roadName || townData.road || 'Hodgetts Street';
+  const activePostcode = postcodeLabel || townData.postcode || 'LE67 2JH';
   const serviceKey = (detectedService || '').toLowerCase();
 
   // 2. DYNAMIC SEO CONTENT PER SERVICE / LANDING PAGE
