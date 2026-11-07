@@ -1,116 +1,186 @@
 'use client'; 
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { CheckCircle, Phone, Calendar, Wrench, ShieldCheck, Flame, Droplets } from 'lucide-react';
-import { towns } from '../townConfig'; 
+import { towns, TownData } from '../townConfig'; 
 import Slideshow from './slideshow'; 
 
 const RKM_GUARANTEES = [
   '24/7 Rapid Emergency Response (Within 60 Minutes)',
-  'Boiler Installs, Repairs & Servicing',
+  'Boiler Installs, Repairs & Servicing with Finance Available',
   'Blocked Drains & HD CCTV Drain Surveys',
   'Full Plumbing Repairs & Sanitary Installs',
-  'Fully Certified, Insured & Gas Safe Ready',
+  'Gas Safe Registered Business (Reg #987039)',
   'Transparent Pricing with Zero Hidden Callout Fees'
 ];
 
-const About = () => {
-  const { serviceSlug, townSlug } = useParams();
+interface AboutProps {
+  townSlug?: string;
+  serviceSlug?: string;
+}
 
-  // --- DYNAMIC SEO DATA ROUTING ---
-  const normalize = (value: string) => value?.toLowerCase().replace('.html', '').trim() || '';
-  const cleanTownKey = normalize(townSlug || '');
-  
-  const townData = towns[cleanTownKey] || {};
-  
-  // SEO Variables with smart fallbacks
-  const displayLocation = townData.name || (cleanTownKey ? cleanTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'Coalville and Surrounding Areas');
-  const customPhone = townData.phone || "01530 654 062";
-  const landmark = townData.landmark || "the local town centre";
-  const road = townData.road || "main transport routes";
-  const postcodes = townData.postcodes ? townData.postcodes.join(', ') : "LE65 and LE67";
-  
-  const displayService = serviceSlug 
-    ? serviceSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) 
-    : 'Plumbing & Heating';
+const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutProps) => {
+  const params = useParams<{ serviceSlug?: string; townSlug?: string; service?: string; town?: string; slug?: string }>();
+  const location = useLocation();
 
-  // --- DYNAMIC IMAGE ROUTING ENHANCED FOR ALL SERVICES ---
-  const normalizedService = (serviceSlug || '').toLowerCase();
+  // 1. ROBUST MULTI-ROUTE SLUG DETECTION
+  const detectedLocationSlug = (() => {
+    // Priority 1: Prop override
+    if (propTownSlug) return propTownSlug.toLowerCase().trim();
+
+    // Priority 2: Router params
+    if (params.townSlug) return params.townSlug.toLowerCase().trim();
+    if (params.town) return params.town.toLowerCase().trim();
+    if (params.slug && towns[params.slug.toLowerCase().trim()]) return params.slug.toLowerCase().trim();
+
+    // Priority 3: Parse actual pathname segments (e.g. /quorn, /emergency-plumber/quorn)
+    const lowerPath = location.pathname.toLowerCase();
+    const segments = lowerPath.split('/').filter(Boolean);
+
+    for (const segment of segments) {
+      const clean = segment
+        .replace('.html', '')
+        .replace(/^(plumber|emergency-plumber|heating|boiler)-in-/, '')
+        .replace(/^(plumbers?|heating|boilers?)-/, '');
+
+      if (towns[clean]) {
+        return clean;
+      }
+    }
+
+    // Direct key scan against all 220 towns in config
+    for (const slug of Object.keys(towns)) {
+      if (lowerPath.includes(`/${slug}`) || lowerPath.endsWith(slug)) {
+        return slug;
+      }
+    }
+
+    // Default to Coalville for homepage or unidentified paths
+    return 'coalville';
+  })();
+
+  // 2. DETECT SERVICE FROM PROPS, PARAMS, OR PATH
+  const detectedServiceSlug = (() => {
+    if (propServiceSlug) return propServiceSlug;
+    if (params.serviceSlug) return params.serviceSlug;
+    if (params.service) return params.service;
+
+    const lowerPath = location.pathname.toLowerCase();
+    const segments = lowerPath.split('/').filter(Boolean);
+    const serviceKeys = [
+      'emergency-plumber',
+      'heating-engineer',
+      'drain-unblocking',
+      'local-plumber',
+      'leak-detection',
+      'plumbing-installations'
+    ];
+
+    for (const key of serviceKeys) {
+      if (lowerPath.includes(key)) {
+        return key;
+      }
+    }
+
+    return '';
+  })();
+
+  // 3. RETRIEVE TOWN CONFIGURATION WITH FALLBACKS
+  const isHomepage = location.pathname === '/' || location.pathname === '';
+  const currentTownKey = isHomepage ? 'coalville' : detectedLocationSlug;
+  const townData: Partial<TownData> = towns[currentTownKey] || towns['coalville'] || {};
+
+  const displayLocation = isHomepage
+    ? 'Coalville and Surrounding Areas'
+    : (townData.name || currentTownKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '));
+
+  const customPhone = townData.phone || '01530 654 062';
+  const landmark = townData.landmark || (isHomepage ? 'the Clock Tower' : 'the local town centre');
+  const road = townData.road || (isHomepage ? 'Memorial Square' : 'main transport routes');
+  const postcodes = townData.postcodes ? townData.postcodes.join(', ') : 'LE65 and LE67';
+
+  const formatServiceTitle = (slug: string) => {
+    if (!slug) return 'Plumbing & Heating';
+    return slug
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const displayService = formatServiceTitle(detectedServiceSlug);
+
+  // 4. DYNAMIC IMAGE ROUTING FOR TOWN & SERVICE
+  const normalizedService = detectedServiceSlug.toLowerCase();
   let images: string[] = [];
 
-  const isHomepage = !cleanTownKey && !normalizedService;
-  const isHugglescote = cleanTownKey.includes('hugglescote');
-  const isAshby = cleanTownKey.includes('ashby');
-
   if (isHomepage) {
-    // Standard homepage using the clocktower filename
     images = [
-      "/clocktower-coalville.webp",
-      "/bathroom.webp",
-      "/boiler-install.webp",
-      "/hugglescote-bear.webp",
-      "/drain-unblocking.webp",
-      "/ball-valve.webp",
+      '/clocktower-coalville.webp',
+      '/bathroom.webp',
+      '/boiler-install.webp',
+      '/hugglescote-bear.webp',
+      '/drain-unblocking.webp',
+      '/ball-valve.webp',
     ];
   } else {
-    // 1. Determine service-specific background images first
-    if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('blockage') || normalizedService.includes('survey')) {
+    // Service-specific gallery selection
+    if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock')) {
       images = [
-        "/drain-unblocking.webp",
-        "/drainage-cctv-survey.webp",
-        "/unblocked-drain.webp",
+        '/drain-unblocking.webp',
+        '/drainage-cctv-survey.webp',
+        '/unblocked-drain.webp',
       ];
-    } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas') || normalizedService.includes('repair') || normalizedService.includes('install')) {
+    } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas')) {
       images = [
-        "/boiler-install.webp",
-        "/two-port-valve.webp",
-        "/ball-valve.webp",
+        '/boiler-install.webp',
+        '/two-port-valve.webp',
+        '/ball-valve.webp',
       ];
-    } else if (normalizedService.includes('plumb') || normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('water')) {
+    } else if (normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('plumb')) {
       images = [
-        "/bathroom.webp",
-        "/outside-tap-install.webp",
-        "/kitchen-tap.webp",
+        '/bathroom.webp',
+        '/outside-tap-install.webp',
+        '/kitchen-tap.webp',
       ];
     } else {
       images = [
-        "/bathroom.webp",
-        "/boiler-install.webp",
-        "/drain-unblocking.webp",
-        "/ball-valve.webp",
+        '/bathroom.webp',
+        '/boiler-install.webp',
+        '/drain-unblocking.webp',
+        '/ball-valve.webp',
       ];
     }
 
-    // 2. Prepend location-specific landmark photos to dedicated town pages
-    if (isHugglescote) {
-      images = ["/hugglescote-bear.webp", ...images];
-    } else if (isAshby) {
-      images = ["/ashby-de-la-zouch-rkm.webp", ...images];
+    // Specific local photo injection if available
+    if (currentTownKey.includes('hugglescote')) {
+      images = ['/hugglescote-bear.webp', ...images];
+    } else if (currentTownKey.includes('ashby')) {
+      images = ['/ashby-de-la-zouch-rkm.webp', ...images];
+    } else if (currentTownKey.includes('coalville')) {
+      images = ['/clocktower-coalville.webp', ...images];
     }
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">
+    <section id="about" className="py-16 lg:py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           
-          {/* LEFT: ISOLATED SLIDESHOW COMPONENT */}
-          <div className="order-2 lg:order-1 relative">
-            
+          {/* LEFT: SLIDESHOW */}
+          <div className="order-2 lg:order-1 relative lg:pt-8">
             <Slideshow 
               images={images} 
               displayService={displayService} 
               displayLocation={displayLocation} 
             />
 
-            {/* Decorative Offset Border (Desktop Only) */}
-            <div className="absolute inset-0 border-2 border-[#A6892C] rounded-[2rem] -z-10 translate-x-4 translate-y-4 hidden lg:block transition-transform duration-500 group-hover:translate-x-5 group-hover:translate-y-5"></div>
+            {/* Decorative Offset Border */}
+            <div className="absolute inset-0 border-2 border-[#A6892C] rounded-[2rem] -z-10 translate-x-4 translate-y-4 lg:mt-8 hidden lg:block transition-transform duration-500 group-hover:translate-x-5 group-hover:translate-y-5"></div>
           </div>
 
-          {/* RIGHT: TEXT CONTENT & HEAVY SEO */}
+          {/* RIGHT: TEXT CONTENT */}
           <div className="order-1 lg:order-2">
             <h2 className="text-sm font-black text-[#A6892C] uppercase tracking-[0.2em] mb-3">
-              About RKM Plumbing Heating & Drainage
+              About RKM Plumbing Heating &amp; Drainage Services
             </h2>
             
             <h3 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
@@ -118,25 +188,25 @@ const About = () => {
               <span className="text-[#A6892C] text-3xl md:text-4xl">in {displayLocation}</span>
             </h3>
             
-            {/* HEAVY SEO PARAGRAPH 1: Core Services & Authority */}
+            {/* SEO PARAGRAPH 1: Core Services & Authority */}
             <p className="text-lg text-gray-600 mb-4 leading-relaxed font-medium">
-              Since 2004, RKM Plumbing Heating & Drainage Services has been the premier choice for fast-response plumbing, heating, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency boiler repairs</strong> to persistent <strong>blocked drains, CCTV drain surveys, emergency plumbing repairs</strong>, and complete system <strong>installations</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties alike.
+              Since 2004, RKM Plumbing Heating &amp; Drainage Services has been the premier choice for fast-response plumbing, Gas Safe boiler maintenance, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency repairs</strong> to persistent <strong>blocked drains, CCTV surveys, and burst pipe repairs</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties.
             </p>
 
-            {/* HEAVY SEO PARAGRAPH 2: Geographic Density & Response */}
+            {/* SEO PARAGRAPH 2: Geographic Density & Response */}
             <p className="text-base text-gray-600 mb-8 leading-relaxed">
-              Whether you require urgent {displayService.toLowerCase()} assistance near <strong>{landmark}</strong>, are situated along <strong>{road}</strong>, or operate anywhere within the <strong>{postcodes}</strong> postcode districts, our dedicated local team is equipped to handle the job safely and efficiently. We provide rapid 60-minute emergency callouts across the community with transparent pricing and zero hidden fees.
+              Whether you require urgent {displayService.toLowerCase()} assistance near <strong>{landmark}</strong>, are situated along <strong>{road}</strong>, or operate anywhere within the <strong>{postcodes}</strong> postcode districts, our team provides rapid 60-minute emergency callouts across <strong>{displayLocation}</strong> with transparent pricing and £0 call-out fees.
             </p>
 
-            {/* CORE SERVICES QUICK BADGES (For Speed Scanning) */}
+            {/* CORE SERVICES QUICK BADGES */}
             <div className="grid grid-cols-2 gap-3 mb-8">
               <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                 <Flame className="w-5 h-5 text-[#A6892C] shrink-0" />
-                <span className="text-xs font-bold text-slate-800">Boiler Installs & Repairs</span>
+                <span className="text-xs font-bold text-slate-800">Boiler Installs &amp; Repairs</span>
               </div>
               <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                 <Droplets className="w-5 h-5 text-[#A6892C] shrink-0" />
-                <span className="text-xs font-bold text-slate-800">Blocked Drains & CCTV</span>
+                <span className="text-xs font-bold text-slate-800">Blocked Drains &amp; CCTV</span>
               </div>
               <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                 <Wrench className="w-5 h-5 text-[#A6892C] shrink-0" />

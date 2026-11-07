@@ -186,7 +186,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
               <p className="text-lg sm:text-xl text-gray-600 mb-6 leading-relaxed max-w-lg font-medium">
                 {isLandingPage 
                   ? heroDescription 
-                  : 'RKM provides 24/7 emergency callouts, domestic plumbing repairs, boiler maintenance, and drain unblocking across Coalville & North West Leicestershire.'}
+                  : 'RKM provides 24/7 emergency callouts, domestic plumbing repairs, boiler installs, and drain unblocking across Coalville & North West Leicestershire.'}
               </p>
 
               {/* LOCAL SPICE */}

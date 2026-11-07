@@ -11,7 +11,6 @@ import Services from '../components/Services';
 import Reviews from '../components/Reviews';
 import Process from '../components/Process';
 import About from '../components/About';
-import AreasCovered from '../components/AreasCovered';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
 import MapSection from '../components/MapSection';
@@ -39,18 +38,36 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [location.hash]);
 
-  // Enhanced Homepage Schema with Explicit Drainage Entity Mapping
+  // Enhanced Homepage Schema with Gas Safe #987039 & Heating Accreditation Mapping
   const homeSchema = {
     "@context": "https://schema.org",
     "@type": ["PlumbingService", "HomeAndConstructionBusiness"],
     "@id": "https://rkm247.co.uk/#business",
     "name": "RKM Plumbing Heating & Drainage Services",
-    "alternateName": "RKM Drainage Coalville",
+    "alternateName": ["RKM Drainage Coalville", "RKM Gas Engineers Coalville"],
     "url": "https://rkm247.co.uk/",
     "logo": "https://rkm247.co.uk/logo-square.webp",
     "image": "https://rkm247.co.uk/team-photo.webp",
     "telephone": "+441530654062",
     "priceRange": "££",
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "Gas Safe Register Number",
+      "value": "987039"
+    },
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "certification",
+        "name": "Gas Safe Register",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Gas Safe Register",
+          "url": "https://www.gassaferegister.co.uk/"
+        },
+        "identifier": "987039"
+      }
+    ],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Hodgetts Street",
@@ -89,8 +106,28 @@ const Home = () => {
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Drainage & Plumbing Services",
+      "name": "Gas, Heating, Drainage & Plumbing Services",
       "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Gas Safe Boiler Installations & Replacements",
+            "description": "Accredited Gas Safe (Reg #987039) combi boiler installations, system upgrades, and flexible monthly finance options.",
+            "url": "https://rkm247.co.uk/#services",
+            "category": "Heating and Gas Engineering"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Boiler Repairs & Servicing",
+            "description": "24/7 gas boiler breakdown diagnostics, radiator repairs, and annual gas safety certification.",
+            "url": "https://rkm247.co.uk/#services",
+            "category": "Heating Engineering"
+          }
+        },
         {
           "@type": "Offer",
           "itemOffered": {
@@ -114,8 +151,8 @@ const Home = () => {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Emergency Plumbing & Boiler Installs",
-            "description": "Burst pipe repair, boiler breakdown diagnostics, and general domestic plumbing.",
+            "name": "Emergency Plumbing Repairs",
+            "description": "Burst pipe repair, leaking radiators, tap replacements, and rapid domestic plumbing isolation.",
             "url": "https://rkm247.co.uk/"
           }
         }
@@ -140,13 +177,13 @@ const Home = () => {
           content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
         />
         <link rel="canonical" href="https://rkm247.co.uk/" />
-        <meta property="og:title" content="Plumbers Coalville | 24/7 Plumbing, Heating &amp; Drainage" />
+        <meta property="og:title" content="Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7" />
         <meta property="og:description" content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
         <meta property="og:url" content="https://rkm247.co.uk/" />
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>
 
-      {/* 1. HEADER (Top Navigation) */}
+      {/* 1. HEADER (Top Navigation with Service Areas Dropdown) */}
       <Header />
 
       <main>
@@ -181,28 +218,24 @@ const Home = () => {
           <About />
         </section>
 
-        {/* 9. AREAS COVERED (Internal SEO Matrix & Local Hubs) */}
-        <section id="areas-covered" className="scroll-mt-20">
-          <AreasCovered />
-        </section>
-
-        {/* 10. FAQ (Objection Handling & Schema Rich Snippets) */}
+        {/* 9. FAQ (Objection Handling & Schema Rich Snippets) */}
         <section id="faq" className="scroll-mt-20">
           <FAQ />
         </section>
 
-        {/* 11. CONTACT (Primary Conversion Box & Booking System) */}
+        {/* 10. CONTACT (Primary Conversion Box & Booking System) */}
         <section id="contact" className="scroll-mt-20">
           <ContactSection />
         </section>
 
-        {/* 12. MAP (Local Physical Radius) */}
+        {/* 11. MAP (Local Physical Radius) */}
         <section id="map" className="scroll-mt-20">
           <MapSection />
         </section>
       </main>
 
       <Footer />
+      <StickyFooter />
     </>
   );
 };
