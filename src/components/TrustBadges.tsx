@@ -4,58 +4,169 @@ import { towns } from '@/townConfig'; // Adjust relative import path (e.g. '../t
 
 interface TrustBadgesProps {
   location?: string;
+  service?: string;
 }
 
-const TrustBadges = ({ location: explicitLocation }: TrustBadgesProps) => {
-  // 1. Read current route (e.g. "/loughborough" or "/areas/ashby-de-la-zouch")
+const TrustBadges = ({ location: explicitLocation, service: explicitService }: TrustBadgesProps) => {
   const { pathname } = useLocation();
 
-  // 2. Resolve dynamic town name from townConfig
+  const lowerPath = pathname.toLowerCase();
+  const segments = lowerPath.split('/').filter(Boolean);
+  const isHomepage = segments.length === 0 || pathname === '/';
+  const townsMap = towns as Record<string, any>;
+
+  // 1. Resolve Town Name
   const detectedLocation = (() => {
     if (explicitLocation) return explicitLocation;
 
-    const lowerPath = pathname.toLowerCase();
-    const segments = lowerPath.split('/').filter(Boolean);
-
-    // Check URL path segments against townConfig keys
     for (const segment of segments) {
       const cleanSlug = segment
         .replace(/^(plumber|emergency-plumber|heating|boiler)-in-/, '')
         .replace(/^(plumbers?|heating|boilers?)-/, '');
 
-      if (towns[cleanSlug]) {
-        return towns[cleanSlug].name;
+      if (townsMap[cleanSlug]) {
+        return townsMap[cleanSlug].name;
       }
     }
 
-    // Direct slug search across townConfig keys if embedded inside a nested path
-    for (const slug of Object.keys(towns)) {
+    for (const slug of Object.keys(townsMap)) {
       if (lowerPath.includes(`/${slug}`) || lowerPath.endsWith(slug)) {
-        return towns[slug].name;
+        return townsMap[slug]?.name;
       }
     }
 
-    // Default fallback to Coalville
-    return towns['coalville']?.name || 'Coalville';
+    return townsMap['coalville']?.name || 'Coalville';
   })();
+
+  // 2. Resolve Active Service from URL or Props
+  const detectedService = (() => {
+    if (explicitService) return explicitService.toLowerCase();
+
+    if (lowerPath.includes('drain') || lowerPath.includes('cctv') || lowerPath.includes('unblock')) {
+      return 'drainage';
+    }
+    if (lowerPath.includes('emergency')) {
+      return 'emergency';
+    }
+    if (lowerPath.includes('heating') || lowerPath.includes('boiler') || lowerPath.includes('gas')) {
+      return 'heating';
+    }
+    if (lowerPath.includes('leak') || lowerPath.includes('detection')) {
+      return 'leak';
+    }
+    if (lowerPath.includes('plumb')) {
+      return 'plumbing';
+    }
+
+    return '';
+  })();
+
+  // 3. Dynamic Title & Subtitle Mapping (Location explicitly broken onto a new line)
+  const headerContent = (() => {
+    if (isHomepage) {
+      return {
+        pill: "Gas Safe Registered #987039 · 24/7 Response",
+        title: (
+          <>
+            Trusted Plumbing, Heating &amp; Drainage in
+            <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+          </>
+        ),
+        desc: `Accredited local tradespeople providing 5-star customer repairs, certified boiler installs, unblocking & rapid emergency callouts across ${detectedLocation}.`
+      };
+    }
+
+    if (detectedService === 'drainage') {
+      return {
+        pill: "High-Pressure Jetting & CCTV Surveys · £0 Call Out",
+        title: (
+          <>
+            Emergency Drain Unblocking &amp; Sewer Clearance in
+            <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+          </>
+        ),
+        desc: `Fast-response drainage engineers equipped with high-pressure water jetting and full CCTV camera diagnostics across ${detectedLocation}.`
+      };
+    }
+
+    if (detectedService === 'emergency') {
+      return {
+        pill: "24/7 Rapid Emergency Response · Within 60 Mins",
+        title: (
+          <>
+            24/7 Emergency Plumbers in
+            <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+          </>
+        ),
+        desc: `Immediate emergency response for burst pipes, active flooding, uncontrollable leaks, and urgent repairs across ${detectedLocation}.`
+      };
+    }
+
+    if (detectedService === 'heating') {
+      return {
+        pill: "Gas Safe Registered #987039 · Flexible Finance",
+        title: (
+          <>
+            Gas Safe Boiler Installations &amp; Heating in
+            <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+          </>
+        ),
+        desc: `Accredited gas engineers providing diagnostics, annual servicing, combi replacements, and low monthly finance plans across ${detectedLocation}.`
+      };
+    }
+
+    if (detectedService === 'leak') {
+      return {
+        pill: "Trace & Access Tech · Non-Destructive",
+        title: (
+          <>
+            Water Leak Detection &amp; Pipe Repairs in
+            <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+          </>
+        ),
+        desc: `Advanced acoustic and thermal imaging equipment to pinpoint hidden subfloor and wall leaks without unnecessary damage in ${detectedLocation}.`
+      };
+    }
+
+    // Default Town Landing Page (e.g. /market-bosworth/)
+    return {
+      pill: "Gas Safe Registered #987039 · £0 Call Out Charge",
+      title: (
+        <>
+          Local Plumbing, Heating &amp; Drainage in
+          <span className="block text-[#A6892C] mt-1 sm:mt-1.5">{detectedLocation}</span>
+        </>
+      ),
+      desc: `Fully accredited local engineers providing emergency repairs, boiler maintenance, and drain unblocking across ${detectedLocation} and surrounding areas.`
+    };
+  })();
+
+  const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = document.getElementById('offers');
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.pushState(null, '', `${pathname}#offers`);
+    }
+  };
 
   return (
     <section className="py-10 sm:py-16 md:py-20 bg-slate-50 border-y border-slate-200/80 relative z-20">
       <div className="container mx-auto px-4 max-w-7xl">
         
-        {/* TRUST BANNER HEADER - DYNAMIC LOCATION WITH GOLD ACCENT */}
+        {/* TRUST BANNER HEADER */}
         <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest text-[#A6892C] bg-[#A6892C]/10 px-3.5 py-1.5 rounded-full border border-[#A6892C]/25 shadow-sm mb-2.5 sm:mb-3">
             <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A6892C] shrink-0" />
-            <span>Gas Safe Registered #987039 · Flexible Finance</span>
+            <span>{headerContent.pill}</span>
           </div>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight px-2 max-w-4xl mx-auto">
-            Gas Safe Registered Boiler Installations &amp; Heating in{' '}
-            <span className="text-[#A6892C]">{detectedLocation}</span>
+          
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight px-2 max-w-4xl mx-auto uppercase">
+            {headerContent.title}
           </h2>
+          
           <p className="text-xs sm:text-sm text-slate-500 font-medium mt-2 max-w-2xl mx-auto px-4">
-            Fully accredited local gas engineers providing 5-star customer repairs, replacement boilers, and flexible monthly finance options across{' '}
-            <span className="text-[#A6892C] font-semibold">{detectedLocation}</span>.
+            {headerContent.desc}
           </p>
         </div>
 
@@ -137,7 +248,11 @@ const TrustBadges = ({ location: explicitLocation }: TrustBadgesProps) => {
           </div>
 
           {/* 4. BOILER FINANCE */}
-          <div className="bg-white border-2 border-slate-200 hover:border-[#A6892C] rounded-2xl sm:rounded-3xl p-5 sm:p-7 flex flex-col justify-between text-center shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group">
+          <a 
+            href="#offers"
+            onClick={handleScrollToOffers}
+            className="bg-white border-2 border-slate-200 hover:border-[#A6892C] rounded-2xl sm:rounded-3xl p-5 sm:p-7 flex flex-col justify-between text-center shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer block"
+          >
             <div className="h-14 sm:h-20 flex items-center justify-center mb-2 sm:mb-3">
               <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#A6892C]/10 border border-[#A6892C]/20 flex items-center justify-center text-[#A6892C] group-hover:scale-105 transition-transform duration-200">
                 <BadgePercent className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.2]" />
@@ -156,7 +271,7 @@ const TrustBadges = ({ location: explicitLocation }: TrustBadgesProps) => {
                 Flexible monthly payment plans on new boiler installations. Subject to status.
               </p>
             </div>
-          </div>
+          </a>
 
         </div>
 
