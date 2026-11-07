@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { Phone, Calendar, ChevronDown, Send } from 'lucide-react';
+import { Phone, Calendar, ChevronDown, Send, X } from 'lucide-react';
 import { towns } from '../townConfig'; 
 
 const StickyFooter = () => {
   const params = useParams();
   const location = useLocation();
 
-  // Widget state
+  // Widget & Speech Bubble state
   const [isOpen, setIsOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [service, setService] = useState('Emergency Plumbing');
@@ -28,6 +29,15 @@ const StickyFooter = () => {
   const townData = towns[cleanTownKey];
   const customPhone = townData?.phone || "01530 654 062";
   const displayTown = townData?.name || (cleanTownKey ? cleanTownKey.charAt(0).toUpperCase() + cleanTownKey.slice(1) : "");
+
+  // Trigger subtle speech bubble 1.2s after page load for high conversion
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTooltip(true);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,14 +70,14 @@ const StickyFooter = () => {
       {isOpen && (
         <div 
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/30 backdrop-blur-[1px] z-[105] sm:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-[105]"
           aria-hidden="true"
         />
       )}
 
       {/* WhatsApp Query Popup Box */}
       {isOpen && (
-        <div className="fixed right-3 bottom-[76px] sm:bottom-[84px] z-[110] w-[calc(100vw-1.5rem)] max-w-[360px] max-h-[82vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-gray-200 transition-all duration-200 animate-in fade-in slide-in-from-bottom-3">
+        <div className="fixed right-3 bottom-[76px] sm:bottom-[86px] z-[110] w-[calc(100vw-1.5rem)] max-w-[360px] max-h-[82vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-gray-200 transition-all duration-200 animate-in fade-in slide-in-from-bottom-3">
           
           {/* Header */}
           <div 
@@ -96,16 +106,16 @@ const StickyFooter = () => {
           </div>
 
           <div className="p-3.5 bg-gray-50/70">
-            {/* Operator / SEO Message */}
+            {/* Operator / Lead Context Message */}
             <div className="flex gap-2.5 mb-3">
               <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#A6892C] text-slate-900 font-black text-[10px]">
                 HQ
               </div>
               <div className="rounded-2xl rounded-tl-none bg-white p-2.5 text-xs leading-relaxed text-gray-700 shadow-sm border border-gray-200">
                 <span className="font-semibold text-slate-900">WhatsApp RKM</span> for 
-                <span className="font-semibold text-amber-700"> Emergency Plumbing</span>, 
+                <span className="font-semibold text-amber-700"> Emergency Callouts</span>, 
                 <span className="font-semibold text-slate-900"> Boiler Quotes</span> &amp; 
-                <span className="font-semibold text-slate-900"> External Drain Unblocking</span>. Direct to mobile!
+                <span className="font-semibold text-slate-900"> Online Bookings</span>. Direct to engineer!
               </div>
             </div>
 
@@ -120,7 +130,7 @@ const StickyFooter = () => {
                   <option value="Emergency Plumbing">🚨 Emergency Plumbing</option>
                   <option value="New Boiler / Boiler Quote">🔥 Boiler Quotes &amp; Repairs</option>
                   <option value="External Drain Unblocking">🚰 External Drain Unblocking</option>
-                  <option value="General Plumbing">🔧 General Plumbing Work</option>
+                  <option value="Book Online / General Plumbing">📅 Book Appointment / General Work</option>
                 </select>
               </div>
 
@@ -151,7 +161,7 @@ const StickyFooter = () => {
               <div>
                 <textarea
                   rows={2}
-                  placeholder="Details (e.g. leaking pipe, boiler quote, blocked drain)..."
+                  placeholder="Details (e.g. leaking pipe, preferred booking time)..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base sm:text-xs text-gray-800 placeholder-gray-400 focus:border-[#A6892C] focus:outline-none focus:ring-1 focus:ring-[#A6892C]"
@@ -182,64 +192,123 @@ const StickyFooter = () => {
 
       {/* Main Sticky Bottom Bar */}
       <div 
-        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-2 sm:p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-[100]"
+        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-2 sm:p-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-10px_20px_-3px_rgba(0,0,0,0.12)] z-[100]"
       >
-        <div className="flex items-center gap-1.5 sm:gap-3 max-w-4xl mx-auto">
+        <div className="relative flex items-center gap-2 sm:gap-3 max-w-4xl mx-auto">
           
-          {/* Book Online Button */}
+          {/* =========================================================================
+              PROMINENT BOOK ONLINE BUTTON (Equal Visual Weight with Call Button)
+             ========================================================================= */}
           <a 
             href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 min-w-0 bg-slate-900 text-white font-bold py-2 sm:py-3 px-1.5 sm:px-3 rounded-xl flex items-center justify-center gap-1 sm:gap-2 shadow-sm hover:bg-slate-800 active:scale-[0.98] transition-all"
+            className="flex-1 min-w-0 bg-slate-900 hover:bg-slate-800 text-white font-black py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1.5 sm:gap-2 shadow-md active:scale-[0.98] transition-all border border-slate-800"
           >
-            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-            <span className="text-[11px] xs:text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-tight whitespace-nowrap">
-              BOOK
-            </span>
-          </a>
-
-          {/* Roomy Call Button - 60% wider so the full phone number breathes on all screens */}
-          <a 
-            href={`tel:${customPhone.replace(/\s+/g, '')}`} 
-            className="flex-[1.6] min-w-0 bg-[#A6892C] text-slate-900 font-black py-2 sm:py-3 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1.5 sm:gap-2 shadow-md hover:bg-[#b5952f] active:scale-[0.98] transition-all"
-          >
-            <div className="bg-slate-900/10 p-1 sm:p-1.5 rounded-full shrink-0">
-              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-900" />
+            <div className="bg-white/10 p-1 sm:p-1.5 rounded-full shrink-0">
+              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A6892C]" />
             </div>
             <div className="flex flex-col items-start leading-none min-w-0 truncate">
-              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-800/80 mb-0.5">
-                CALL 24/7
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-[#A6892C] mb-0.5">
+                Book Online
               </span>
-              <span className="text-xs sm:text-sm md:text-base font-black tracking-tight whitespace-nowrap truncate">
+              <span className="text-xs sm:text-sm font-black tracking-tight whitespace-nowrap truncate">
+                Schedule Visit
+              </span>
+            </div>
+          </a>
+
+          {/* =========================================================================
+              PROMINENT CALL 24/7 BUTTON (Equal Visual Weight)
+             ========================================================================= */}
+          <a 
+            href={`tel:${customPhone.replace(/\s+/g, '')}`} 
+            className="flex-1 min-w-0 bg-[#A6892C] hover:bg-[#b5952f] text-slate-950 font-black py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1.5 sm:gap-2 shadow-md active:scale-[0.98] transition-all border border-[#927725]"
+          >
+            <div className="bg-slate-950/10 p-1 sm:p-1.5 rounded-full shrink-0">
+              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-950" />
+            </div>
+            <div className="flex flex-col items-start leading-none min-w-0 truncate">
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-900/80 mb-0.5">
+                Call 24/7
+              </span>
+              <span className="text-xs sm:text-sm font-black tracking-tight whitespace-nowrap truncate">
                 {customPhone}
               </span>
             </div>
           </a>
 
-          {/* WhatsApp Action Button with SVG Logo */}
-          <button
-            type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
-            aria-label="WhatsApp RKM for Emergency Plumbing, Boiler Quotes and Drain Unblocking"
-            className={`h-[42px] w-[42px] sm:h-[48px] sm:w-[48px] shrink-0 rounded-xl flex items-center justify-center transition-all shadow-md active:scale-95 ${
-              isOpen 
-                ? 'bg-slate-900 text-white' 
-                : 'bg-[#25D366] text-white hover:bg-[#20ba59]'
-            }`}
-          >
-            {isOpen ? (
-              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6" />
-            ) : (
-              <svg 
-                viewBox="0 0 24 24" 
-                className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white drop-shadow-sm"
-                aria-hidden="true"
+          {/* =========================================================================
+              WHATSAPP BUTTON + SPEECH BUBBLE POPUP
+             ========================================================================= */}
+          <div className="relative shrink-0">
+            
+            {/* SPEECH BUBBLE TOOLTIP (Fades in on page load for immediate attention) */}
+            {showTooltip && !isOpen && (
+              <div 
+                className="absolute right-0 bottom-full mb-3.5 w-60 sm:w-64 bg-slate-950 text-white rounded-2xl p-3 shadow-2xl border border-slate-800 z-[105] animate-in fade-in zoom-in-95 duration-200 cursor-pointer"
+                onClick={() => {
+                  setIsOpen(true);
+                  setShowTooltip(false);
+                }}
               >
-                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3" />
-              </svg>
+                <div className="flex items-start justify-between gap-1 mb-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="inline-block w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#25D366]">
+                      Quick Booking &amp; Quotes
+                    </span>
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowTooltip(false);
+                    }}
+                    className="text-slate-400 hover:text-white p-0.5 -mt-1 -mr-1"
+                    aria-label="Dismiss message"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <p className="text-[11px] font-semibold leading-snug text-slate-200">
+                  Prefer to message? Chat with an engineer or book via <strong className="text-[#25D366]">WhatsApp</strong>!
+                </p>
+
+                {/* Triangle Pointer down to WhatsApp Icon */}
+                <div className="absolute right-4 -bottom-1.5 w-3 h-3 bg-slate-950 border-r border-b border-slate-800 transform rotate-45" />
+              </div>
             )}
-          </button>
+
+            {/* Main WhatsApp Circular Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen((prev) => !prev);
+                setShowTooltip(false);
+              }}
+              aria-label="WhatsApp RKM for Emergency Plumbing, Boiler Quotes and Drain Unblocking"
+              className={`h-[44px] w-[44px] sm:h-[48px] sm:w-[48px] rounded-xl flex items-center justify-center transition-all shadow-md active:scale-95 ${
+                isOpen 
+                  ? 'bg-slate-900 text-white' 
+                  : 'bg-[#25D366] text-white hover:bg-[#20ba59]'
+              }`}
+            >
+              {isOpen ? (
+                <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <svg 
+                  viewBox="0 0 24 24" 
+                  className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white drop-shadow-sm"
+                  aria-hidden="true"
+                >
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3" />
+                </svg>
+              )}
+            </button>
+          </div>
+
         </div>
       </div>
     </>

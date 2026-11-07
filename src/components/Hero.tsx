@@ -30,6 +30,13 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
   const landmark = townData.landmark || 'the local area';
   const road = townData.road || 'main routes';
 
+  // WhatsApp setup
+  const targetWhatsApp = '447848969229';
+  const defaultWhatsAppText = encodeURIComponent(
+    `Hi RKM, I'd like to ask a question / arrange a booking for ${serviceLabel} in ${displayLocation}.`
+  );
+  const whatsAppUrl = `https://wa.me/${targetWhatsApp}?text=${defaultWhatsAppText}`;
+
   const localSpice = (townData as any).localSpice
     || `Serving ${displayLocation} near ${landmark}, covering ${road} and all surrounding areas.`;
 
@@ -145,7 +152,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
               <div className="bg-black text-[#A6892C] inline-block p-4 mb-8 rounded-sm shadow-xl">
                 <div className="border border-[#A6892C] p-3 px-6">
                   <div className="font-serif text-3xl font-bold leading-none text-center">RKM</div>
-                  <p className="text-[10px] text-white uppercase tracking-[0.2em] text-center mt-2">Plumbing Heating & Drainage</p>
+                  <p className="text-[10px] text-white uppercase tracking-[0.2em] text-center mt-2">Plumbing Heating &amp; Drainage</p>
                   <p className="text-[8px] text-[#A6892C] uppercase tracking-[0.3em] text-center mt-0.5">Services</p>
                 </div>
               </div>
@@ -164,7 +171,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 )}
               </div>
 
-              {/* H1 HEADLINE: Balanced spacing preventing text collision */}
+              {/* H1 HEADLINE */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.12] mb-6 tracking-tight">
                 {isLandingPage ? (
                   <>
@@ -196,25 +203,47 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 </p>
               )}
 
-              {/* BUTTONS ROW */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a 
-                  href={`tel:${phone.replace(/\s+/g, '')}`} 
-                  className="bg-[#A6892C] hover:bg-[#c4a030] text-slate-900 font-black text-lg py-4 px-8 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-transform hover:-translate-y-1"
-                >
-                  <Phone className="w-6 h-6" />
-                  <span>{phone}</span>
-                </a>
+              {/* ACTION BUTTONS GROUP */}
+              <div className="flex flex-col gap-3 sm:gap-4">
+                
+                {/* Primary Row: Call & Book Online */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <a 
+                    href={`tel:${phone.replace(/\s+/g, '')}`} 
+                    className="bg-[#A6892C] hover:bg-[#c4a030] text-slate-900 font-black text-lg py-4 px-8 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-transform hover:-translate-y-1"
+                  >
+                    <Phone className="w-6 h-6" />
+                    <span>{phone}</span>
+                  </a>
 
-                <a 
-                  href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
+                  <a 
+                    href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-black hover:bg-slate-800 text-white font-bold text-lg py-4 px-8 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-transform hover:-translate-y-1"
+                  >
+                    <Calendar className="w-6 h-6 text-[#A6892C]" />
+                    <span>Book Online</span>
+                  </a>
+                </div>
+
+                {/* Mobile-Only WhatsApp Us Button (Underneath Book Online) */}
+                <a
+                  href={whatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black hover:bg-slate-800 text-white font-bold text-lg py-4 px-8 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-transform hover:-translate-y-1"
+                  className="sm:hidden bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-base py-3.5 px-6 rounded-xl flex items-center justify-center gap-2.5 shadow-md active:scale-[0.98] transition-all"
                 >
-                  <Calendar className="w-6 h-6 text-[#A6892C]" />
-                  <span>Book Online</span>
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    className="w-5 h-5 fill-white"
+                    aria-hidden="true"
+                  >
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3" />
+                  </svg>
+                  <span>Chat on WhatsApp</span>
                 </a>
+
               </div>
 
               {/* MOBILE IMAGE */}
