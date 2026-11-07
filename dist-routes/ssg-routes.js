@@ -53,7 +53,7 @@ function e(o) {
     landmark: o.landmark,
     road: o.road,
     postcodes: o.postcodes,
-    description: o.description || `24/7 emergency plumbing, heating, and drainage services across ${o.name} (${o.postcodes.join(", ")}). Rapid 60-90 minute local deployment.`,
+    description: o.description || `24/7 emergency plumbing, heating, and drainage services across ${o.name} (${o.postcodes.join(", ")}). Rapid 60-90 minute local deployment. £0 Call-Out Fee.`,
     mapSrc: o.mapSrc || u,
     housingTypes: o.housingTypes || ["Victorian Terraces", "Suburban Semi-Detached Properties", "Modern Housing Developments"],
     commonProblems: o.commonProblems || ["Hard water limescale scaling", "Boiler baseline pressure loss", "Blocked localized external grid networks"],

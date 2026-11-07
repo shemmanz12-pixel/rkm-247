@@ -120,7 +120,7 @@ function buildTown(
     landmark: data.landmark,
     road: data.road,
     postcodes: data.postcodes,
-    description: data.description || `24/7 emergency plumbing, heating, and drainage services across ${data.name} (${data.postcodes.join(', ')}). Rapid 60-90 minute local deployment.`,
+    description: data.description || `24/7 emergency plumbing, heating, and drainage services across ${data.name} (${data.postcodes.join(', ')}). Rapid 60-90 minute local deployment. £0 Call-Out Fee.`,
     mapSrc: data.mapSrc || MAIN_MAP_LINK,
     housingTypes: data.housingTypes || ["Victorian Terraces", "Suburban Semi-Detached Properties", "Modern Housing Developments"],
     commonProblems: data.commonProblems || ["Hard water limescale scaling", "Boiler baseline pressure loss", "Blocked localized external grid networks"],
