@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { Phone, Calendar, ChevronDown, Send, X } from 'lucide-react';
+import { Phone, Calendar, ChevronDown, Send, X, MapPin, Mail } from 'lucide-react';
 import { towns } from '../townConfig'; 
 
 const StickyFooter = () => {
@@ -11,9 +11,9 @@ const StickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [addressArea, setAddressArea] = useState('');
   const [service, setService] = useState('Emergency Plumbing');
-  const [message, setMessage] = useState("I'd like a quote");
+  const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(true);
 
   // Target WhatsApp mobile number (UK format without leading 0)
@@ -47,6 +47,11 @@ const StickyFooter = () => {
       return;
     }
 
+    if (!addressArea.trim()) {
+      alert('Please enter your address or area');
+      return;
+    }
+
     if (!consent) {
       alert('Please agree to receive a message response');
       return;
@@ -55,12 +60,13 @@ const StickyFooter = () => {
     const formattedText = 
       `*New WhatsApp Lead (RKM Plumbing & Heating)*\n\n` +
       `*Name:* ${name.trim()}\n` +
-      `*Phone:* ${phone.trim() || 'Not provided'}\n` +
+      `*Address/Area:* ${addressArea.trim()}\n` +
       `*Service Required:* ${service}\n` +
-      (displayTown ? `*Location:* ${displayTown}\n` : '') +
-      `*Message:* ${message.trim()}`;
+      (displayTown ? `*Target Town:* ${displayTown}\n` : '') +
+      `*Job Details:* ${message.trim() || 'No additional details provided'}`;
 
-    const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(formattedText)}`;
+    // Universal bridge: automatically handles mobile apps and prompts "Use WhatsApp Web" on desktop
+    const waUrl = `https://api.whatsapp.com/send/?phone=${targetWhatsApp}&text=${encodeURIComponent(formattedText)}&type=phone_number&app_absent=0`;
     window.open(waUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -115,7 +121,7 @@ const StickyFooter = () => {
                 <span className="font-semibold text-slate-900">WhatsApp RKM</span> for 
                 <span className="font-semibold text-amber-700"> Emergency Callouts</span>, 
                 <span className="font-semibold text-slate-900"> Boiler Quotes</span> &amp; 
-                <span className="font-semibold text-slate-900"> Online Bookings</span>. Direct to engineer!
+                <span className="font-semibold text-slate-900"> Online Bookings</span>. Works on mobile &amp; web!
               </div>
             </div>
 
@@ -146,14 +152,15 @@ const StickyFooter = () => {
               </div>
 
               <div className="relative">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-sm">
-                  🇬🇧
+                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                  <MapPin className="w-4 h-4 text-[#A6892C]" />
                 </span>
                 <input
-                  type="tel"
-                  placeholder="Phone Number (optional)"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  type="text"
+                  required
+                  placeholder="Address or Area *"
+                  value={addressArea}
+                  onChange={(e) => setAddressArea(e.target.value)}
                   className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-9 pr-3 text-base sm:text-xs text-gray-800 placeholder-gray-400 focus:border-[#A6892C] focus:outline-none focus:ring-1 focus:ring-[#A6892C]"
                 />
               </div>
@@ -161,7 +168,7 @@ const StickyFooter = () => {
               <div>
                 <textarea
                   rows={2}
-                  placeholder="Details (e.g. leaking pipe, preferred booking time)..."
+                  placeholder="Write job description..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base sm:text-xs text-gray-800 placeholder-gray-400 focus:border-[#A6892C] focus:outline-none focus:ring-1 focus:ring-[#A6892C]"
@@ -185,6 +192,33 @@ const StickyFooter = () => {
                 <Send className="w-3.5 h-3.5 fill-white" />
                 <span>Open in WhatsApp</span>
               </button>
+
+              {/* Direct Email & Call Fallback */}
+              <div className="pt-2 text-center border-t border-gray-200 mt-2 space-y-1">
+                <div>
+                  <a
+                    href={`mailto:plumbersnearme.rkm@outlook.com?subject=${encodeURIComponent(
+                      service + (displayTown ? ` - ${displayTown}` : '')
+                    )}&body=${encodeURIComponent(
+                      `Name: ${name || 'N/A'}\nAddress/Area: ${addressArea || 'N/A'}\n\nDetails: ${message || ''}`
+                    )}`}
+                    className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 hover:text-[#A6892C] transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#A6892C]" />
+                    <span>Prefer email? Send to plumbersnearme.rkm@outlook.com</span>
+                  </a>
+                </div>
+
+                <p className="text-[10px] text-slate-500">
+                  Or call 24/7:{' '}
+                  <a 
+                    href={`tel:${customPhone.replace(/\s+/g, '')}`} 
+                    className="font-bold text-[#A6892C] hover:underline"
+                  >
+                    {customPhone}
+                  </a>
+                </p>
+              </div>
             </form>
           </div>
         </div>
@@ -196,9 +230,7 @@ const StickyFooter = () => {
       >
         <div className="relative flex items-center gap-2 sm:gap-3 max-w-4xl mx-auto">
           
-          {/* =========================================================================
-              PROMINENT BOOK ONLINE BUTTON (Equal Visual Weight with Call Button)
-             ========================================================================= */}
+          {/* PROMINENT BOOK ONLINE BUTTON */}
           <a 
             href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
             target="_blank"
@@ -218,9 +250,7 @@ const StickyFooter = () => {
             </div>
           </a>
 
-          {/* =========================================================================
-              PROMINENT CALL 24/7 BUTTON (Equal Visual Weight)
-             ========================================================================= */}
+          {/* PROMINENT CALL 24/7 BUTTON */}
           <a 
             href={`tel:${customPhone.replace(/\s+/g, '')}`} 
             className="flex-1 min-w-0 bg-[#A6892C] hover:bg-[#b5952f] text-slate-950 font-black py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1.5 sm:gap-2 shadow-md active:scale-[0.98] transition-all border border-[#927725]"
@@ -238,12 +268,9 @@ const StickyFooter = () => {
             </div>
           </a>
 
-          {/* =========================================================================
-              WHATSAPP BUTTON + SPEECH BUBBLE POPUP
-             ========================================================================= */}
+          {/* WHATSAPP BUTTON + SPEECH BUBBLE POPUP */}
           <div className="relative shrink-0">
             
-            {/* SPEECH BUBBLE TOOLTIP (Fades in on page load for immediate attention) */}
             {showTooltip && !isOpen && (
               <div 
                 className="absolute right-0 bottom-full mb-3.5 w-60 sm:w-64 bg-slate-950 text-white rounded-2xl p-3 shadow-2xl border border-slate-800 z-[105] animate-in fade-in zoom-in-95 duration-200 cursor-pointer"
@@ -276,12 +303,10 @@ const StickyFooter = () => {
                   Prefer to message? Chat with an engineer or book via <strong className="text-[#25D366]">WhatsApp</strong>!
                 </p>
 
-                {/* Triangle Pointer down to WhatsApp Icon */}
                 <div className="absolute right-4 -bottom-1.5 w-3 h-3 bg-slate-950 border-r border-b border-slate-800 transform rotate-45" />
               </div>
             )}
 
-            {/* Main WhatsApp Circular Button */}
             <button
               type="button"
               onClick={() => {

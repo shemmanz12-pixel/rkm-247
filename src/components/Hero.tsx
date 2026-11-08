@@ -30,12 +30,15 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
   const landmark = townData.landmark || 'the local area';
   const road = townData.road || 'main routes';
 
-  // WhatsApp setup
+  // WhatsApp setup matching StickyFooter engine (Universal Meta bridge)
   const targetWhatsApp = '447848969229';
-  const defaultWhatsAppText = encodeURIComponent(
-    `Hi RKM, I'd like to ask a question / arrange a booking for ${serviceLabel} in ${displayLocation}.`
-  );
-  const whatsAppUrl = `https://wa.me/${targetWhatsApp}?text=${defaultWhatsAppText}`;
+  const formattedWhatsAppText = 
+    `*New Hero Inquiry (RKM Plumbing & Heating)*\n\n` +
+    `*Service Required:* ${serviceLabel}\n` +
+    `*Target Town:* ${displayLocation}\n` +
+    `*Message:* Hi RKM, I'd like to ask a question / arrange an appointment.`;
+
+  const whatsAppUrl = `https://api.whatsapp.com/send/?phone=${targetWhatsApp}&text=${encodeURIComponent(formattedWhatsAppText)}&type=phone_number&app_absent=0`;
 
   const localSpice = (townData as any).localSpice
     || `Serving ${displayLocation} near ${landmark}, covering ${road} and all surrounding areas.`;

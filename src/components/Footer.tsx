@@ -11,7 +11,8 @@ import {
   Users, 
   Sparkles,
   Award,
-  Clock
+  Clock,
+  Mail
 } from 'lucide-react';
 import { towns } from '../townConfig';
 
@@ -123,7 +124,7 @@ const Footer = ({
                 </p>
               </div>
 
-              {/* OFFER 2: REFER A FRIEND (NEW) */}
+              {/* OFFER 2: REFER A FRIEND */}
               <div className="border border-slate-200 bg-white rounded-xl p-3.5 shadow-sm hover:border-[#A6892C] transition-colors">
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">
@@ -196,7 +197,7 @@ const Footer = ({
             </ul>
           </div>
 
-          {/* COL 3: CONTACT, NAP DATA & LOCAL SERVICE COVERAGE */}
+          {/* COL 3: CONTACT, NAP DATA & ENQUIRIES */}
           <div>
             <h3 className="text-slate-900 font-black text-lg mb-8 uppercase tracking-wider">Contact Us</h3>
             <div className="space-y-6">
@@ -224,18 +225,19 @@ const Footer = ({
                 </span>
               </div>
               
+              {/* REPLACED ZONE: DIRECT EMAIL ENQUIRIES */}
               <div className="pt-6 border-t border-slate-200">
-                <p className="text-[#A6892C] text-xs font-black uppercase tracking-wider mb-2">Primary Coverage &amp; Response Zones:</p>
-                <p className="text-slate-500 text-xs leading-relaxed mb-2">
-                  Stationed mobile response vans covering <strong>{activeTown}</strong>, Coalville (HQ), Ashby-de-la-Zouch, Loughborough, Market Bosworth, Swadlincote, and all surrounding East Midlands communities.
+                <p className="text-[#A6892C] text-xs font-black uppercase tracking-wider mb-2">Domestic &amp; Commercial Enquiries</p>
+                <p className="text-slate-500 text-xs leading-relaxed mb-3">
+                  For tender documents, formal quotations, commercial contracts, or general domestic enquiries, email us directly:
                 </p>
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {['LE67', 'LE65', 'LE11', 'CV13', 'DE11', 'DE73'].map((pc) => (
-                    <span key={pc} className="text-[10px] font-bold bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600">
-                      {pc}
-                    </span>
-                  ))}
-                </div>
+                <a 
+                  href="mailto:plumbersnearme.rkm@outlook.com"
+                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-[#A6892C] px-3.5 py-2.5 rounded-xl shadow-sm text-slate-800 hover:text-[#A6892C] transition-all group"
+                >
+                  <Mail className="w-4 h-4 text-[#A6892C] group-hover:scale-110 transition-transform" />
+                  <span className="text-xs sm:text-sm font-bold break-all">plumbersnearme.rkm@outlook.com</span>
+                </a>
               </div>
 
             </div>
