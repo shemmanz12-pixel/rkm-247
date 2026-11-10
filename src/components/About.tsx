@@ -66,7 +66,6 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
     if (params.service) return params.service;
 
     const lowerPath = location.pathname.toLowerCase();
-    const segments = lowerPath.split('/').filter(Boolean);
     const serviceKeys = [
       'emergency-plumber',
       'heating-engineer',
@@ -114,12 +113,13 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
 
   if (isHomepage) {
     images = [
-      '/clocktower-coalville.webp',
-      '/bathroom.webp',
+      
+      '/vaillant-boiler.webp',
       '/boiler-install.webp',
       '/hugglescote-bear.webp',
-      '/drain-unblocking.webp',
-      '/ball-valve.webp',
+      '/blocked-drain.webp',
+      '/drainage-cctv-survey.webp',
+      '/kitchen-tap.webp',
     ];
   } else {
     // Service-specific gallery selection
@@ -127,26 +127,28 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
       images = [
         '/drain-unblocking.webp',
         '/drainage-cctv-survey.webp',
-        '/unblocked-drain.webp',
+        '/drain-unblocked.webp',
+        '/blocked-drain.webp'
       ];
     } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas')) {
       images = [
+        '/boiler-repair.webp',
         '/boiler-install.webp',
-        '/two-port-valve.webp',
-        '/ball-valve.webp',
+        '/team-photo.webp',
+        '/vaillant-boiler.webp',
       ];
     } else if (normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('plumb')) {
       images = [
-        '/bathroom.webp',
+        '/team-photo.webp',
         '/outside-tap-install.webp',
         '/kitchen-tap.webp',
       ];
     } else {
       images = [
-        '/bathroom.webp',
+        '/team-photo.webp',
         '/boiler-install.webp',
         '/drain-unblocking.webp',
-        '/ball-valve.webp',
+        '/kitchen-tap.webp',
       ];
     }
 
@@ -155,10 +157,9 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
       images = ['/hugglescote-bear.webp', ...images];
     } else if (currentTownKey.includes('ashby')) {
       images = ['/ashby-de-la-zouch-rkm.webp', ...images];
-    } else if (currentTownKey.includes('coalville')) {
-      images = ['/clocktower-coalville.webp', ...images];
     }
   }
+ 
 
   return (
     <section id="about" className="py-16 lg:py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">

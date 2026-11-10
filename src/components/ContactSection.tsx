@@ -53,7 +53,7 @@ const ContactSection = ({
       badge: "Gas Safe Heating Engineers",
       title: `Boiler Installs & Heating in ${activeTown}`,
       desc: `Certified heating engineering across ${activeTown}. Rapid boiler breakdown diagnostics, radiator replacements, central heating repairs, and combi boiler installations.`,
-      photo: "/two-port-vale.webp",
+      photo: "/vaillant-boiler.webp",
       photoTag: `Gas Safe Boiler Installation & Heating Repairs in ${activeTown}`,
       chips: ["Combi Boiler Repairs", "Radiator Power Flushing", "Thermostat Upgrades", "Annual Boiler Servicing"]
     };
@@ -62,7 +62,7 @@ const ContactSection = ({
       badge: "Trace & Access Specialists",
       title: `Water Leak Detection in ${activeTown}`,
       desc: `Non-invasive water leak detection and urgent pipe repairs throughout ${activeTown}. Fast identification of hidden ceiling, floor, and central heating leaks.`,
-      photo: "/drain-cctv-survey.webp",
+      photo: "/team-photo.webp",
       photoTag: `Acoustic & Thermal Leak Detection in ${activeTown}`,
       chips: ["Hidden Pipe Leak Detection", "Thermal Imaging Scans", "Ceiling Leak Repair", "Trace & Access Reports"]
     };
