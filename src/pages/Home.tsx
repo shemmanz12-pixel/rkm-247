@@ -5,14 +5,12 @@ import { Helmet } from 'react-helmet-async';
 // Components
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import TrustBadges from '../components/TrustBadges';
-import LiveActivity from '../components/LiveActivity';
 import Services from '../components/Services';
-import Reviews from '../components/Reviews';
-import Process from '../components/Process';
 import About from '../components/About';
-import FAQ from '../components/FAQ';
+import Reviews from '../components/Reviews';
 import ContactSection from '../components/ContactSection';
+import Process from '../components/Process';
+import FAQ from '../components/FAQ';
 import MapSection from '../components/MapSection';
 import Footer from '../components/Footer';
 import StickyFooter from '../components/StickyFooter';
@@ -183,52 +181,46 @@ const Home = () => {
         <script type="application/ld+json">{JSON.stringify(homeSchema)}</script>
       </Helmet>
 
-      {/* 1. HEADER (Top Navigation with Service Areas Dropdown) */}
+      {/* 1. HEADER (Top Navigation) */}
       <Header />
 
       <main>
-        {/* 2. HERO (Primary Value Prop & Immediate Phone CTA) */}
+        {/* 2. HERO (Hook, Key Guarantees, Compact Trust Strip & 1-Tap Call) */}
         <Hero />
 
-        {/* 3. TRUST BADGES (Instant Credibility & Core Guarantees) */}
-        <TrustBadges />
-
-        {/* 4. LIVE ACTIVITY (Urgency & Real-time Local Proof) */}
-        <LiveActivity />
-
-        {/* 5. SERVICES (Problem Identification & Deep Links) */}
+        {/* 3. SERVICES (Immediate self-qualification: Plumbing, Heating, Drains) */}
         <section id="services" className="scroll-mt-20">
           <div className="-mx-4 sm:mx-0">
             <Services />
           </div>
         </section>
 
-        {/* 6. REVIEWS (Social Proof & 5-Star Testimonials) */}
-        <section id="reviews" className="scroll-mt-20">
-          <Reviews />
-        </section>
-
-        {/* 7. PROCESS (Clear 4-Step Customer Journey) */}
-        <section id="process" className="scroll-mt-20">
-          <Process />
-        </section>
-
-        {/* 8. ABOUT (Local Authority, Landmarks & Team Guarantee) */}
+        {/* 4. ABOUT (Local Team Authority, Coalville Heritage & Real Boiler Photos) */}
         <section id="about" className="scroll-mt-20">
           <About />
         </section>
 
-        {/* 9. FAQ (Objection Handling & Schema Rich Snippets) */}
-        <section id="faq" className="scroll-mt-20">
-          <FAQ />
+        {/* 5. REVIEWS (Social Proof & 5.0 Star Feedback) */}
+        <section id="reviews" className="scroll-mt-20">
+          <Reviews />
         </section>
 
-        {/* 10. CONTACT (Primary Conversion Box & Booking System) */}
+        {/* 6. CONTACT (Booking Form & Direct Contact For Non-Urgent Quotes) */}
         <section id="contact" className="scroll-mt-20">
           <ContactSection />
         </section>
 
-        {/* 11. MAP (Local Physical Radius) */}
+        {/* 7. PROCESS (How We Work: Transparent 4-Step Callout Flow) */}
+        <section id="process" className="scroll-mt-20">
+          <Process />
+        </section>
+
+        {/* 8. FAQ (Price Guarantees, £0 Call-Out Details & Objections) */}
+        <section id="faq" className="scroll-mt-20">
+          <FAQ />
+        </section>
+
+        {/* 9. MAP (Physical Coverage Area & Local Verification) */}
         <section id="map" className="scroll-mt-20">
           <MapSection />
         </section>

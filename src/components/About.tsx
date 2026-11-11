@@ -191,7 +191,7 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
             
             {/* SEO PARAGRAPH 1: Core Services & Authority */}
             <p className="text-lg text-gray-600 mb-4 leading-relaxed font-medium">
-              Since 2004, RKM Plumbing Heating &amp; Drainage Services has been the premier choice for fast-response plumbing, Gas Safe boiler maintenance, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency repairs</strong> to persistent <strong>blocked drains, CCTV surveys, and burst pipe repairs</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties.
+              RKM Plumbing Heating &amp; Drainage Services has been the premier choice for fast-response plumbing, Gas Safe boiler maintenance, and drainage in <strong>{displayLocation}</strong>. From high-efficiency <strong>boiler installs and emergency repairs</strong> to persistent <strong>blocked drains, CCTV surveys, and burst pipe repairs</strong>, our local engineers deliver fast, guaranteed solutions for domestic and commercial properties.
             </p>
 
             {/* SEO PARAGRAPH 2: Geographic Density & Response */}

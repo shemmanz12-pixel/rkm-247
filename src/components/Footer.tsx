@@ -51,7 +51,7 @@ const Footer = ({
   const activePostcode = postcodeLabel || townData.postcode || 'LE67 2JH';
   const serviceKey = (detectedService || '').toLowerCase();
 
-  // 2. DYNAMIC SEO CONTENT PER SERVICE / LANDING PAGE (OPTIMIZED WITH "SERVICES IN [LOCATION]")
+  // 2. DYNAMIC SEO CONTENT
   let seoData = {
     brandTitle: "RKM Plumbing Heating & Drainage Services",
     desc: `RKM provides certified domestic plumbing, Gas Safe boiler installations, emergency repairs, and rapid drain clearance across ${activeTown} and North West Leicestershire. Local 60-minute emergency dispatch with £0 call-out charges and 0% deposit boiler finance.`,
@@ -83,130 +83,130 @@ const Footer = ({
   }
 
   return (
-    <footer className="bg-slate-50 text-slate-700 pt-20 pb-12 border-t-2 border-[#A6892C] relative">
-      <div className="container mx-auto px-4">
+    <footer className="bg-slate-50 text-slate-700 pt-12 sm:pt-16 pb-24 sm:pb-12 border-t-2 border-[#A6892C] relative">
+      <div className="container mx-auto px-4 max-w-7xl">
         
         {/* 3-COLUMN MAIN GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
           
-          {/* COL 1: BRAND, SEO AUTHORITY & OFFERS HUB */}
+          {/* COL 1: BRAND, SEO AUTHORITY & COMPACT OFFERS HUB */}
           <div>
-            <h3 className="text-slate-900 font-extrabold text-2xl mb-3 tracking-tight">
+            <h3 className="text-slate-900 font-extrabold text-xl sm:text-2xl mb-2.5 tracking-tight">
               {seoData.brandTitle} <span className="text-[#A6892C]">in {activeTown}</span>
             </h3>
 
-            <p className="text-slate-600 mb-6 leading-relaxed text-sm">
+            <p className="text-slate-600 mb-5 leading-relaxed text-xs sm:text-sm">
               {seoData.desc}
             </p>
 
-            {/* OFFERS CONTAINER (TARGET ANCHOR: #offers) */}
-            <div id="offers" className="space-y-3 scroll-mt-24">
-              <div className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#A6892C]">
+            {/* COMPACT OFFERS CONTAINER (TARGET ANCHOR: #offers) */}
+            <div id="offers" className="space-y-2.5 scroll-mt-24">
+              <div className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#A6892C] mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Current Customer Promotions &amp; Discounts</span>
               </div>
 
               {/* OFFER 1: BOILER FINANCE */}
-              <div className="border border-[#A6892C]/30 bg-white rounded-xl p-3.5 shadow-sm hover:border-[#A6892C] transition-colors">
-                <div className="flex items-center justify-between mb-1">
+              <div className="border border-[#A6892C]/30 bg-white rounded-xl p-3 shadow-sm hover:border-[#A6892C] transition-colors">
+                <div className="flex items-center justify-between gap-2 mb-0.5">
                   <div className="flex items-center gap-2">
-                    <BadgePercent className="w-4 h-4 text-[#A6892C] shrink-0" />
-                    <span className="text-[#A6892C] font-black text-xs uppercase tracking-wide">
+                    <BadgePercent className="w-3.5 h-3.5 text-[#A6892C] shrink-0" />
+                    <span className="text-slate-900 font-bold text-xs">
                       Boiler Finance Available
                     </span>
                   </div>
-                  <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#A6892C]/10 text-[#A6892C]">
+                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-[#A6892C]/10 text-[#A6892C] shrink-0">
                     £0 Deposit
                   </span>
                 </div>
-                <p className="text-slate-600 text-xs font-medium leading-relaxed">
-                  Spread the cost of your replacement A-rated boiler with low monthly repayment options. Instant soft credit check available.
+                <p className="text-slate-500 text-[11px] leading-relaxed">
+                  Spread the cost of replacement A-rated boilers with flexible monthly plans. Instant soft check.
                 </p>
               </div>
 
               {/* OFFER 2: REFER A FRIEND */}
-              <div className="border border-slate-200 bg-white rounded-xl p-3.5 shadow-sm hover:border-[#A6892C] transition-colors">
-                <div className="flex items-center justify-between mb-1">
+              <div className="border border-slate-200 bg-white rounded-xl p-3 shadow-sm hover:border-[#A6892C] transition-colors">
+                <div className="flex items-center justify-between gap-2 mb-0.5">
                   <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-[#A6892C] shrink-0" />
-                    <span className="text-[#A6892C] font-black text-xs uppercase tracking-wide">
+                    <Users className="w-3.5 h-3.5 text-[#A6892C] shrink-0" />
+                    <span className="text-slate-900 font-bold text-xs">
                       £50 Refer-A-Friend Reward
                     </span>
                   </div>
-                  <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
                     Cash / Voucher
                   </span>
                 </div>
-                <p className="text-slate-600 text-xs font-medium leading-relaxed">
-                  Know someone in {activeTown} who needs a new boiler or major plumbing work? Recommend RKM and receive a £50 reward upon job completion.
+                <p className="text-slate-500 text-[11px] leading-relaxed">
+                  Recommend a local friend or neighbour for boiler replacements or major repairs to receive £50.
                 </p>
               </div>
 
               {/* OFFER 3: OAP DISCOUNT */}
-              <div className="border border-slate-200 bg-white rounded-xl p-3.5 shadow-sm hover:border-[#A6892C] transition-colors">
-                <div className="flex items-center justify-between mb-1">
+              <div className="border border-slate-200 bg-white rounded-xl p-3 shadow-sm hover:border-[#A6892C] transition-colors">
+                <div className="flex items-center justify-between gap-2 mb-0.5">
                   <div className="flex items-center gap-2">
-                    <Percent className="w-4 h-4 text-[#A6892C] shrink-0" />
-                    <span className="text-[#A6892C] font-black text-xs uppercase tracking-wide">
-                      10% Senior &amp; OAP Discount
+                    <Percent className="w-3.5 h-3.5 text-[#A6892C] shrink-0" />
+                    <span className="text-slate-900 font-bold text-xs">
+                      10% Senior &amp; Pensioner Discount
                     </span>
                   </div>
-                  <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">
+                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 shrink-0">
                     Labour Discount
                   </span>
                 </div>
-                <p className="text-slate-600 text-xs font-medium leading-relaxed">
-                  Dedicated 10% labour deduction on domestic repairs and servicing for pensioners across {activeTown} and local parishes.
+                <p className="text-slate-500 text-[11px] leading-relaxed">
+                  10% labour deduction on domestic repairs and servicing for senior residents across the area.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* COL 2: TRUST SIGNALS & LOCAL SEO CREDENTIALS */}
+          {/* COL 2: TRUST SIGNALS */}
           <div>
-            <h3 className="text-slate-900 font-black text-lg mb-8 uppercase tracking-wider">Why Choose RKM?</h3>
-            <ul className="space-y-6">
-              <li className="flex items-start gap-3.5">
-                <Shield className="w-6 h-6 text-[#A6892C] flex-shrink-0 mt-0.5" />
+            <h3 className="text-slate-900 font-bold text-sm mb-4 uppercase tracking-wider">Why Choose RKM?</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-[#A6892C] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-slate-900 font-bold block mb-1 uppercase text-xs tracking-wider">No Call Out Charge</span>
-                  <span className="text-slate-600 text-sm leading-relaxed">Transparent fixed quotes with £0 dispatch fee. You only pay when repair or install work is undertaken.</span>
+                  <span className="text-slate-900 font-bold block text-xs uppercase tracking-wide">No Call Out Charge</span>
+                  <span className="text-slate-600 text-xs leading-relaxed">Transparent fixed quotes with £0 dispatch fee. Pay only when work is carried out.</span>
                 </div>
               </li>
-              <li className="flex items-start gap-3.5">
-                <CheckCircle className="w-6 h-6 text-[#A6892C] flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-[#A6892C] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-slate-900 font-bold block mb-1 uppercase text-xs tracking-wider">24/7 Rapid Emergency Response</span>
-                  <span className="text-slate-600 text-sm leading-relaxed">Direct dispatch reaching urgent boiler breakdowns, burst pipes, and sewer back-ups across {activeTown} in 60-90 minutes.</span>
+                  <span className="text-slate-900 font-bold block text-xs uppercase tracking-wide">24/7 Rapid Emergency Response</span>
+                  <span className="text-slate-600 text-xs leading-relaxed">Local dispatch for urgent boiler breakdowns, burst pipes, and drains in 60–90 minutes.</span>
                 </div>
               </li>
-              <li className="flex items-start gap-3.5">
-                <Flame className="w-6 h-6 text-[#A6892C] flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <Flame className="w-5 h-5 text-[#A6892C] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-slate-900 font-bold block mb-1 uppercase text-xs tracking-wider">{seoData.trustSignal3Title}</span>
-                  <span className="text-slate-600 text-sm leading-relaxed">{seoData.trustSignal3Desc}</span>
+                  <span className="text-slate-900 font-bold block text-xs uppercase tracking-wide">{seoData.trustSignal3Title}</span>
+                  <span className="text-slate-600 text-xs leading-relaxed">{seoData.trustSignal3Desc}</span>
                 </div>
               </li>
-              <li className="flex items-start gap-3.5">
-                <Award className="w-6 h-6 text-[#A6892C] flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <Award className="w-5 h-5 text-[#A6892C] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-slate-900 font-bold block mb-1 uppercase text-xs tracking-wider">Verified 5-Star Reputation</span>
-                  <span className="text-slate-600 text-sm leading-relaxed">Top-rated independent domestic heating and drainage contractors backed by 100+ verified customer reviews.</span>
+                  <span className="text-slate-900 font-bold block text-xs uppercase tracking-wide">Verified 5-Star Reputation</span>
+                  <span className="text-slate-600 text-xs leading-relaxed">Top-rated independent contractors backed by 100+ verified customer reviews.</span>
                 </div>
               </li>
             </ul>
           </div>
 
-          {/* COL 3: CONTACT, NAP DATA & ENQUIRIES */}
+          {/* COL 3: CONTACT & BRANDED EMAIL */}
           <div>
-            <h3 className="text-slate-900 font-black text-lg mb-8 uppercase tracking-wider">Contact Us</h3>
-            <div className="space-y-6">
+            <h3 className="text-slate-900 font-bold text-sm mb-4 uppercase tracking-wider">Contact Us</h3>
+            <div className="space-y-4">
               
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Direct Telephone Dispatch</p>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#A6892C]" />
-                  <a href={`tel:${activePhone.replace(/\s+/g, '')}`} className="text-2xl sm:text-3xl font-black text-slate-900 hover:text-[#A6892C] transition-colors tracking-tight">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Telephone Dispatch</p>
+                <div className="flex items-center gap-2.5">
+                  <Phone className="w-4 h-4 text-[#A6892C]" />
+                  <a href={`tel:${activePhone.replace(/\s+/g, '')}`} className="text-xl sm:text-2xl font-black text-slate-900 hover:text-[#A6892C] transition-colors tracking-tight">
                     {activePhone}
                   </a>
                 </div>
@@ -216,27 +216,25 @@ const Footer = ({
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5">
-                <MapPin className="w-5 h-5 text-[#A6892C] mt-1 flex-shrink-0" />
-                <span className="text-slate-700 text-sm font-medium leading-relaxed">
-                  {activeRoad},<br />
-                  {activeTown}, Leicestershire,<br />
-                  {activePostcode}, United Kingdom
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#A6892C] mt-1 shrink-0" />
+                <span className="text-slate-600 text-xs font-medium leading-relaxed">
+                  {activeRoad}, {activeTown}, Leicestershire, {activePostcode}
                 </span>
               </div>
               
-              {/* REPLACED ZONE: DIRECT EMAIL ENQUIRIES */}
-              <div className="pt-6 border-t border-slate-200">
-                <p className="text-[#A6892C] text-xs font-black uppercase tracking-wider mb-2">Domestic &amp; Commercial Enquiries</p>
-                <p className="text-slate-500 text-xs leading-relaxed mb-3">
-                  For tender documents, formal quotations, commercial contracts, or general domestic enquiries, email us directly:
+              {/* BRANDED EMAIL SECTION */}
+              <div className="pt-4 border-t border-slate-200">
+                <p className="text-[#A6892C] text-xs font-bold uppercase tracking-wider mb-1">Direct Enquiries</p>
+                <p className="text-slate-500 text-xs leading-relaxed mb-2.5">
+                  For formal quotes, boiler enquiries, or domestic questions:
                 </p>
                 <a 
-                  href="mailto:plumbersnearme.rkm@outlook.com"
-                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-[#A6892C] px-3.5 py-2.5 rounded-xl shadow-sm text-slate-800 hover:text-[#A6892C] transition-all group"
+                  href="mailto:info@rkm247.co.uk"
+                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-[#A6892C] px-3 py-2 rounded-xl shadow-sm text-slate-800 hover:text-[#A6892C] transition-all"
                 >
-                  <Mail className="w-4 h-4 text-[#A6892C] group-hover:scale-110 transition-transform" />
-                  <span className="text-xs sm:text-sm font-bold break-all">plumbersnearme.rkm@outlook.com</span>
+                  <Mail className="w-4 h-4 text-[#A6892C]" />
+                  <span className="text-xs font-bold">info@rkm247.co.uk</span>
                 </a>
               </div>
 
@@ -245,73 +243,49 @@ const Footer = ({
 
         </div>
 
-        {/* REGIONAL AUTHORITY / ACCREDITATION BADGES BAR */}
-        <div className="border-t border-slate-200 py-8 mb-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-[#A6892C]/10 rounded-xl border border-[#A6892C]/20">
-                <GraduationCap className="w-6 h-6 text-[#A6892C]" />
+        {/* REGIONAL ACCREDITATIONS */}
+        <div className="border-t border-slate-200 py-6 mb-2">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-[#A6892C]/10 rounded-xl border border-[#A6892C]/20 shrink-0">
+                <GraduationCap className="w-5 h-5 text-[#A6892C]" />
               </div>
               <div className="text-center md:text-left">
-                <h4 className="text-slate-900 font-black text-xs uppercase tracking-wider">Gas Safe &amp; Regional Trade Standards</h4>
-                <p className="text-slate-500 text-[11px] uppercase tracking-wider font-semibold mt-0.5">Gas Safe Reg No. 987039 · Compliant Installation &amp; Building Control Protocols</p>
+                <h4 className="text-slate-900 font-bold text-xs uppercase tracking-wider">Gas Safe &amp; Regional Trade Standards</h4>
+                <p className="text-slate-500 text-[11px] font-medium mt-0.5">Gas Safe Reg No. 987039 · Fully Insured Local Engineers</p>
               </div>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-2">
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-900 border border-[#A6892C]/40 bg-[#A6892C]/15 px-3.5 py-1.5 rounded-lg shadow-sm">
+            <div className="flex flex-wrap justify-center gap-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-900 border border-[#A6892C]/40 bg-[#A6892C]/15 px-2.5 py-1 rounded-md">
                 Gas Safe #987039
               </span>
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-3.5 py-1.5 rounded-lg shadow-sm">
-                Boiler Finance Available
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-3.5 py-1.5 rounded-lg shadow-sm">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-2.5 py-1 rounded-md">
                 Checkatrade Approved
               </span>
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-3.5 py-1.5 rounded-lg shadow-sm">
-                High-Pressure Jetting
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-2.5 py-1 rounded-md">
+                £0 Call Out
               </span>
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-3.5 py-1.5 rounded-lg shadow-sm">
-                Trace &amp; Access Tech
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-3.5 py-1.5 rounded-lg shadow-sm">
-                Water Regulations (WRAS)
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 border border-slate-200 bg-white px-2.5 py-1 rounded-md">
+                24/7 Response
               </span>
             </div>
           </div>
         </div>
 
-        {/* REGULATORY COMPLIANCE & FCA LEGAL DISCLAIMER */}
-        <div className="border-t border-slate-200 pt-6 pb-4 text-[11px] text-slate-500 leading-relaxed">
-          <p className="mb-2">
-            <strong className="text-slate-700">Gas Safety Compliance:</strong> RKM Plumbing Heating &amp; Drainage Services LTD is an officially registered business on the Gas Safe Register (Registration No. <strong>987039</strong>). All gas engineering works, boiler installations, heating diagnostics, and landlord gas safety inspections (CP12) are carried out strictly in accordance with the Gas Safety (Installation and Use) Regulations.
-          </p>
+        {/* FCA DISCLAIMER */}
+        <div className="border-t border-slate-200 pt-4 pb-2 text-[10px] text-slate-400 leading-relaxed">
           <p>
-            <strong className="text-slate-700">Financial Conduct Authority (FCA) Notice:</strong> RKM Plumbing Heating &amp; Drainage Services LTD acts as an Introducer Appointed Representative (IAR) of TradeHelp Ltd, who are authorised and regulated by the Financial Conduct Authority (FRN: 679812). TradeHelp acts as a credit broker, not a lender, and offers credit products from a panel of lenders. Credit is subject to status, affordability, and UK residency requirements. Terms and conditions apply.
+            RKM Plumbing Heating &amp; Drainage Services LTD is Gas Safe Registered (No. <strong>987039</strong>). All heating works comply with Gas Safety Regulations. Introducer Appointed Representative (IAR) of TradeHelp Ltd, authorised and regulated by the Financial Conduct Authority (FRN: 679812). Credit subject to status.
           </p>
         </div>
 
-        {/* FINAL FOOTER BAR */}
-        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-bold text-slate-500 gap-4">
-          <div className="flex flex-wrap gap-4 sm:gap-6 items-center justify-center">
-            <p>&copy; {currentYear} RKM Plumbing Heating &amp; Drainage Services LTD. Reg: 987039.</p>
-            
-            <div className="flex gap-4 items-center">
-              <Link to="/privacy-policy" className="hover:text-slate-900 transition-colors">
-                Privacy Policy
-              </Link>
-              <span className="text-slate-300">|</span>
-              <Link to="/locations" className="text-[#A6892C] hover:underline">
-                Areas We Cover
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#A6892C] animate-pulse"></span>
-            <p className="text-slate-600 uppercase tracking-widest text-[11px]">
-              {activeTown} Dedicated Response Unit
-            </p>
+        {/* BOTTOM COPYRIGHT */}
+        <div className="border-t border-slate-200 pt-4 flex flex-col md:flex-row justify-between items-center text-[11px] font-medium text-slate-500 gap-2">
+          <p>&copy; {currentYear} RKM Plumbing Heating &amp; Drainage Services LTD.</p>
+          <div className="flex gap-4">
+            <Link to="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
+            <Link to="/locations" className="text-[#A6892C] hover:underline">Areas Covered</Link>
           </div>
         </div>
 

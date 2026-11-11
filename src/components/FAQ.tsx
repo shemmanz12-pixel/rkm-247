@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ChevronDown, HelpCircle, Phone, ArrowRight, MessageSquareQuote } from 'lucide-react';
+import { ChevronDown, Phone, ArrowRight, MessageSquareQuote } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { towns } from '../townConfig';
 
@@ -47,9 +47,20 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
     ? townData.postcodes.join(', ')
     : 'LE67, LE65';
 
-  const nearbyTowns = townData?.nearbyTowns?.length
-    ? townData.nearbyTowns.join(', ')
-    : 'Coalville, Whitwick, Ibstock and surrounding areas';
+  // Prevent duplicate town repetition (e.g. Coalville, Coalville)
+  const nearbyTowns = useMemo(() => {
+    if (townData?.nearbyTowns?.length) {
+      const filtered = townData.nearbyTowns.filter(
+        (t: string) => t.toLowerCase() !== townName.toLowerCase()
+      );
+      return filtered.length > 0
+        ? filtered.join(', ')
+        : 'Whitwick, Ibstock and surrounding areas';
+    }
+    return townName.toLowerCase() === 'coalville'
+      ? 'Whitwick, Ibstock, Hugglescote and surrounding areas'
+      : 'Coalville, Whitwick and surrounding areas';
+  }, [townData, townName]);
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -66,7 +77,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `How quickly can you attend a blocked drain in ${townName}?`,
-        answer: `Because our engineers operate locally near Coalville and North West Leicestershire, we typically arrive on-site within 60 minutes for urgent blockages across ${townName} and postcode areas including ${postcodes}.`,
+        answer: `Because our engineers operate locally near North West Leicestershire, we typically arrive on-site within 60 minutes for urgent blockages across ${townName} and postcode areas including ${postcodes}.`,
       },
       {
         question: `Do you clear blocked outside drains and gullies in ${townName}?`,
@@ -158,7 +169,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `Are you an independent local business covering ${townName}?`,
-        answer: `Yes, RKM is a trusted local company based near Coalville, serving homeowners, landlords, and local businesses across ${townName}, ${nearbyTowns}, and ${postcodes}.`,
+        answer: `Yes, RKM is a trusted local business serving homeowners, landlords, and local commercial properties across ${townName}, ${nearbyTowns}, and postcode districts ${postcodes}.`,
       },
       {
         question: `Do you provide free estimates for plumbing work in ${townName}?`,
@@ -232,8 +243,8 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
   };
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-slate-50 border-t border-slate-200/80 relative">
-      <div className="container mx-auto px-4 max-w-4xl relative z-10">
+    <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-t border-slate-200/90 relative">
+      <div className="container mx-auto px-4 max-w-3xl relative z-10">
         <Helmet>
           <script type="application/ld+json">
             {JSON.stringify(schemaData)}
@@ -241,69 +252,54 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
         </Helmet>
 
         {/* SECTION HEADER */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#A6892C]/10 border border-[#A6892C]/25 text-[#A6892C] font-bold text-xs uppercase tracking-wider mb-3">
+        <div className="text-center max-w-xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#A6892C]/10 border border-[#A6892C]/25 text-[#A6892C] font-bold text-xs uppercase tracking-wider mb-2.5">
             <MessageSquareQuote className="w-3.5 h-3.5 text-[#A6892C]" />
             <span>Help &amp; Clear Advice</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-2">
             {selectedFAQSet.heading.split(townName)[0]}
             <span className="text-[#A6892C]">{townName}</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 font-medium">
             {selectedFAQSet.subheading}
           </p>
         </div>
 
-        {/* FAQ ACCORDION LIST */}
-        <div className="space-y-3.5">
+        {/* COMPACT CLEAN ACCORDION (NO OVERSIZED FLOATING CARDS) */}
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm divide-y divide-slate-100 overflow-hidden">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <div
-                key={index}
-                className={`rounded-2xl transition-all duration-200 border bg-white overflow-hidden ${
-                  isOpen
-                    ? 'border-[#A6892C]/60 shadow-md ring-1 ring-[#A6892C]/20'
-                    : 'border-slate-200/80 hover:border-[#A6892C]/40 shadow-sm'
-                }`}
-              >
+              <div key={index} className="transition-colors duration-150">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus:outline-none gap-4"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left focus:outline-none gap-3 hover:bg-slate-50/70"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <div className="flex items-start sm:items-center gap-3.5">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                      isOpen ? 'bg-[#A6892C] text-slate-950 shadow-sm' : 'bg-slate-100 text-slate-400'
-                    }`}>
-                      <HelpCircle className="w-4 h-4" />
-                    </div>
-
-                    <span className={`text-base sm:text-lg font-bold tracking-tight leading-snug ${
-                      isOpen ? 'text-slate-950' : 'text-slate-800'
-                    }`}>
-                      {faq.question}
-                    </span>
-                  </div>
-
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 bg-[#A6892C]/10 text-[#A6892C]' : 'bg-slate-50 text-slate-400'
+                  <span className={`text-sm sm:text-base font-bold tracking-tight leading-snug ${
+                    isOpen ? 'text-[#A6892C]' : 'text-slate-900'
                   }`}>
-                    <ChevronDown className="w-4 h-4" />
+                    {faq.question}
+                  </span>
+
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 bg-[#A6892C]/15 text-[#A6892C]' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    <ChevronDown className="w-3.5 h-3.5" />
                   </div>
                 </button>
 
                 {isOpen && (
                   <div
                     id={`faq-answer-${index}`}
-                    className="px-5 pb-6 sm:px-6 sm:pb-6 pt-0 text-slate-600 leading-relaxed text-sm sm:text-base border-t border-dashed border-slate-200/80 mt-1"
+                    className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-slate-600 leading-relaxed text-xs sm:text-sm border-t border-slate-100"
                   >
-                    <p className="pt-4">{faq.answer}</p>
+                    <p className="pt-3">{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -311,16 +307,16 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
           })}
         </div>
 
-        {/* BOTTOM QUICK ASSISTANCE PROMPT */}
-        <div className="mt-12 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        {/* COMPACT BOTTOM CALLOUT */}
+        <div className="mt-8 bg-white rounded-xl p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div>
-            <p className="text-slate-900 font-bold text-base">Have a question not answered here?</p>
-            <p className="text-slate-500 text-xs sm:text-sm">Speak directly with an on-call engineer in {townName} 24 hours a day.</p>
+            <p className="text-slate-900 font-bold text-sm">Have a question not answered here?</p>
+            <p className="text-slate-500 text-xs">Speak directly with an on-call engineer in {townName} 24/7.</p>
           </div>
 
           <a
             href={`tel:${phone.replace(/\s+/g, '')}`}
-            className="inline-flex items-center gap-2 bg-[#A6892C] hover:bg-[#c4a030] text-slate-950 font-black text-xs uppercase tracking-wider px-5 py-3 rounded-xl shadow transition-all duration-200 hover:-translate-y-0.5 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-[#A6892C] hover:bg-[#bfa03a] text-slate-950 font-black text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg shadow-sm transition-all active:scale-95 flex-shrink-0"
           >
             <Phone className="w-3.5 h-3.5" />
             <span>Call {phone}</span>

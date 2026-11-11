@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { Phone, Calendar, ChevronDown, Send, X, MapPin, Mail } from 'lucide-react';
+import { Phone, Calendar, ChevronDown, Send, MapPin, Mail } from 'lucide-react';
 import { towns } from '../townConfig'; 
 
 const StickyFooter = () => {
   const params = useParams();
   const location = useLocation();
 
-  // Widget & Speech Bubble state
+  // Widget state (tooltip popup state removed)
   const [isOpen, setIsOpen] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
   const [name, setName] = useState('');
   const [addressArea, setAddressArea] = useState('');
   const [service, setService] = useState('Emergency Plumbing');
@@ -29,15 +28,6 @@ const StickyFooter = () => {
   const townData = towns[cleanTownKey];
   const customPhone = townData?.phone || "01530 654 062";
   const displayTown = townData?.name || (cleanTownKey ? cleanTownKey.charAt(0).toUpperCase() + cleanTownKey.slice(1) : "");
-
-  // Trigger subtle speech bubble 1.2s after page load for high conversion
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +55,6 @@ const StickyFooter = () => {
       (displayTown ? `*Target Town:* ${displayTown}\n` : '') +
       `*Job Details:* ${message.trim() || 'No additional details provided'}`;
 
-    // Universal bridge: automatically handles mobile apps and prompts "Use WhatsApp Web" on desktop
     const waUrl = `https://api.whatsapp.com/send/?phone=${targetWhatsApp}&text=${encodeURIComponent(formattedText)}&type=phone_number&app_absent=0`;
     window.open(waUrl, '_blank', 'noopener,noreferrer');
   };
@@ -81,7 +70,7 @@ const StickyFooter = () => {
         />
       )}
 
-      {/* WhatsApp Query Popup Box */}
+      {/* WhatsApp Query Modal */}
       {isOpen && (
         <div className="fixed right-3 bottom-[76px] sm:bottom-[86px] z-[110] w-[calc(100vw-1.5rem)] max-w-[360px] max-h-[82vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-gray-200 transition-all duration-200 animate-in fade-in slide-in-from-bottom-3">
           
@@ -197,7 +186,7 @@ const StickyFooter = () => {
               <div className="pt-2 text-center border-t border-gray-200 mt-2 space-y-1">
                 <div>
                   <a
-                    href={`mailto:plumbersnearme.rkm@outlook.com?subject=${encodeURIComponent(
+                    href={`mailto:info@rkm247.co.uk?subject=${encodeURIComponent(
                       service + (displayTown ? ` - ${displayTown}` : '')
                     )}&body=${encodeURIComponent(
                       `Name: ${name || 'N/A'}\nAddress/Area: ${addressArea || 'N/A'}\n\nDetails: ${message || ''}`
@@ -205,7 +194,7 @@ const StickyFooter = () => {
                     className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 hover:text-[#A6892C] transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5 text-[#A6892C]" />
-                    <span>Prefer email? Send to plumbersnearme.rkm@outlook.com</span>
+                    <span>Prefer email? Send to info@rkm247.co.uk</span>
                   </a>
                 </div>
 
@@ -230,7 +219,7 @@ const StickyFooter = () => {
       >
         <div className="relative flex items-center gap-2 sm:gap-3 max-w-4xl mx-auto">
           
-          {/* PROMINENT BOOK ONLINE BUTTON */}
+          {/* BOOK ONLINE BUTTON */}
           <a 
             href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
             target="_blank"
@@ -250,7 +239,7 @@ const StickyFooter = () => {
             </div>
           </a>
 
-          {/* PROMINENT CALL 24/7 BUTTON */}
+          {/* CALL 24/7 BUTTON */}
           <a 
             href={`tel:${customPhone.replace(/\s+/g, '')}`} 
             className="flex-1 min-w-0 bg-[#A6892C] hover:bg-[#b5952f] text-slate-950 font-black py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1.5 sm:gap-2 shadow-md active:scale-[0.98] transition-all border border-[#927725]"
@@ -268,51 +257,11 @@ const StickyFooter = () => {
             </div>
           </a>
 
-          {/* WHATSAPP BUTTON + SPEECH BUBBLE POPUP */}
+          {/* WHATSAPP BUTTON */}
           <div className="relative shrink-0">
-            
-            {showTooltip && !isOpen && (
-              <div 
-                className="absolute right-0 bottom-full mb-3.5 w-60 sm:w-64 bg-slate-950 text-white rounded-2xl p-3 shadow-2xl border border-slate-800 z-[105] animate-in fade-in zoom-in-95 duration-200 cursor-pointer"
-                onClick={() => {
-                  setIsOpen(true);
-                  setShowTooltip(false);
-                }}
-              >
-                <div className="flex items-start justify-between gap-1 mb-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#25D366]">
-                      Quick Booking &amp; Quotes
-                    </span>
-                  </div>
-                  <button 
-                    type="button" 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowTooltip(false);
-                    }}
-                    className="text-slate-400 hover:text-white p-0.5 -mt-1 -mr-1"
-                    aria-label="Dismiss message"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
-                <p className="text-[11px] font-semibold leading-snug text-slate-200">
-                  Prefer to message? Chat with an engineer or book via <strong className="text-[#25D366]">WhatsApp</strong>!
-                </p>
-
-                <div className="absolute right-4 -bottom-1.5 w-3 h-3 bg-slate-950 border-r border-b border-slate-800 transform rotate-45" />
-              </div>
-            )}
-
             <button
               type="button"
-              onClick={() => {
-                setIsOpen((prev) => !prev);
-                setShowTooltip(false);
-              }}
+              onClick={() => setIsOpen((prev) => !prev)}
               aria-label="WhatsApp RKM for Emergency Plumbing, Boiler Quotes and Drain Unblocking"
               className={`h-[44px] w-[44px] sm:h-[48px] sm:w-[48px] rounded-xl flex items-center justify-center transition-all shadow-md active:scale-95 ${
                 isOpen 

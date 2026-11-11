@@ -103,7 +103,7 @@ const Careers: React.FC = () => {
             <p className="text-slate-800 font-medium mb-10 max-w-xl mx-auto">
               We are currently building our shortlist for the 2026 intake. Submit your CV and a brief cover letter today.
             </p>
-            <a href="mailto:plumbersnearme.rkm@outlook.com?subject=Apprentice Interest 2026" className="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all transform hover:scale-105 shadow-lg">
+            <a href="mailto:info@rkm247.co.uk?subject=Apprentice Interest 2026" className="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all transform hover:scale-105 shadow-lg">
               Email Your CV <ArrowRight className="w-6 h-6" />
             </a>
           </div>

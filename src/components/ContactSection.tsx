@@ -167,10 +167,10 @@ const ContactSection = ({
                 <div className="min-w-0">
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Email Support</p>
                   <a 
-                    href="mailto:plumbersnearme.rkm@outlook.com" 
+                    href="mailto:info@rkm247.co.uk" 
                     className="text-xs sm:text-sm font-bold text-slate-900 hover:text-[#A6892C] transition-colors block truncate"
                   >
-                    plumbersnearme.rkm@outlook.com
+                    info@rkm247.co.uk
                   </a>
                 </div>
               </div>
