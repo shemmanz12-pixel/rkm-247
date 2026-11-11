@@ -141,7 +141,6 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
       setIsOpen(false);
       window.history.pushState(null, '', `${location.pathname}#${cleanId}`);
     } else {
-      // If the anchor element is not on this subpage, let React Router route back to current town's main page
       setServicesOpen(false);
       setAreasOpen(false);
       setIsOpen(false);
@@ -215,12 +214,9 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
 
               {servicesOpen && (
                 <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200/80 p-2.5 py-3 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
-                  <div className="px-3 py-1 mb-1 border-b border-slate-100 flex items-center justify-between">
+                  <div className="px-3 py-1 mb-1 border-b border-slate-100">
                     <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                       Our Core Services
-                    </span>
-                    <span className="text-[9px] font-bold text-[#A6892C] uppercase">
-                      {currentTownSlug}
                     </span>
                   </div>
 
@@ -397,7 +393,7 @@ const Header = ({ customPhone = "01530 654 062" }: HeaderProps) => {
                 onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                 className="w-full flex items-center justify-between text-lg font-bold py-2 text-slate-900"
               >
-                <span>Services ({currentTownSlug})</span>
+                <span>Services</span>
                 <ChevronDown className={`w-5 h-5 transition-transform ${mobileServicesOpen ? 'rotate-180 text-[#A6892C]' : ''}`} />
               </button>
 

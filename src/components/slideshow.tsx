@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'; // <-- We just added 'React' here
-import { MapPin } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 
 interface SlideshowProps {
   images: string[];
@@ -7,7 +6,7 @@ interface SlideshowProps {
   displayLocation: string;
 }
 
-export default function Slideshow({ images, displayService, displayLocation }: SlideshowProps) {
+export default function Slideshow({ images, displayService }: SlideshowProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Reset index if the URL/images change so we don't get out-of-bounds errors
@@ -17,7 +16,6 @@ export default function Slideshow({ images, displayService, displayLocation }: S
 
   // Slideshow Timer
   useEffect(() => {
-    // Prevent interval from running if there are no images
     if (images.length === 0) return;
     
     const timer = setInterval(() => {
@@ -45,14 +43,8 @@ export default function Slideshow({ images, displayService, displayLocation }: S
         />
       ))}
 
-      {/* Location Tag Overlay */}
-      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl z-30">
-        <MapPin className="w-4 h-4 text-[#A6892C]" />
-        Serving {displayLocation}
-      </div>
-
       {/* Slideshow Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {images.map((_, index) => (
           <button
             key={index}
