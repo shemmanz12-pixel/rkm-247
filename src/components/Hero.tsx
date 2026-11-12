@@ -87,6 +87,14 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     ]
   };
 
+  const handleScrollToReviews = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const reviewsSection = document.getElementById('reviews');
+    if (reviewsSection) {
+      e.preventDefault();
+      reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <>
       {standalone && (
@@ -192,9 +200,14 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                     </div>
                   </div>
 
-                  {/* Google Reviews */}
-                  <div className="flex items-center gap-2.5 px-1 pt-2 sm:pt-0">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                  {/* Google Reviews — Now Interactive Anchor to #reviews */}
+                  <a
+                    href="#reviews"
+                    onClick={handleScrollToReviews}
+                    aria-label="Read our 5-star Google reviews"
+                    className="flex items-center gap-2.5 px-1.5 py-1 pt-2 sm:pt-1 rounded-xl hover:bg-slate-50 active:scale-[0.98] transition-all cursor-pointer group"
+                  >
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-50 border border-slate-100 group-hover:border-[#A6892C]/40 flex items-center justify-center shrink-0 transition-colors">
                       <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
                         <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24Z"/>
@@ -208,10 +221,14 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                           <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5 leading-tight">5.0 Star Rated</p>
-                      <p className="text-[10px] sm:text-xs text-slate-500 font-medium">Google Reviews</p>
+                      <p className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#A6892C] mt-0.5 leading-tight transition-colors">
+                        5.0 Star Rated
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-slate-500 font-medium underline decoration-slate-300 underline-offset-2">
+                        Read Reviews
+                      </p>
                     </div>
-                  </div>
+                  </a>
 
                   {/* Checkatrade */}
                   <div className="flex items-center gap-2.5 px-1 pt-2 sm:pt-0">
