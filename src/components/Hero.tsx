@@ -47,8 +47,33 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     ? `https://rkm247.co.uk/${serviceKey}/${townKey}/`
     : 'https://rkm247.co.uk/';
 
-  const teamPhoto = '/team-photo.webp';
-  const absoluteImageUrl = `https://rkm247.co.uk${teamPhoto}`;
+  // Match service slug to its specific .webp hero image
+  const heroPhoto = (() => {
+    if (!serviceKey) return '/team-photo.webp';
+
+    if (serviceKey.includes('drain') || serviceKey.includes('toilet') || serviceKey.includes('jetting')) {
+      return '/camera-survey.webp';
+    }
+    if (serviceKey.includes('leak')) {
+      return '/leak-detection.webp';
+    }
+    if (serviceKey.includes('emergency')) {
+      return '/emergency-plumber.webp';
+    }
+    if (serviceKey.includes('install') || serviceKey.includes('appliance')) {
+      return '/appliance-install.webp';
+    }
+    if (serviceKey.includes('heat') || serviceKey.includes('boiler') || serviceKey.includes('gas')) {
+      return '/team-photo.webp';
+    }
+    if (serviceKey.includes('plumber')) {
+      return '/general-plumbing.webp';
+    }
+
+    return '/team-photo.webp';
+  })();
+
+  const absoluteImageUrl = `https://rkm247.co.uk${heroPhoto}`;
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -200,7 +225,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                     </div>
                   </div>
 
-                  {/* Google Reviews — Now Interactive Anchor to #reviews */}
+                  {/* Google Reviews — Interactive Anchor to #reviews */}
                   <a
                     href="#reviews"
                     onClick={handleScrollToReviews}
@@ -259,12 +284,12 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
             </div>
 
-            {/* RIGHT / TEAM HERO IMAGE */}
+            {/* RIGHT / DYNAMIC SERVICE HERO IMAGE */}
             <div className="lg:col-span-5">
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 <div className="relative aspect-[16/11] sm:aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-200">
                   <img
-                    src={teamPhoto}
+                    src={heroPhoto}
                     alt={`${serviceLabel} engineers in ${displayLocation}`}
                     loading="eager"
                     fetchPriority="high"

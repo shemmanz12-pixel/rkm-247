@@ -1,5 +1,5 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { Wrench, Phone, Droplets, Flame, Search, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Wrench, Phone, Droplets, Flame, Search, CheckCircle2 } from 'lucide-react';
 
 interface ServicesProps {
   currentLocation?: string;
@@ -41,93 +41,93 @@ const Services = ({ currentLocation }: ServicesProps) => {
 
   const services = [
     {
-      icon: Droplets,
-      title: "Drain Unblocking",
-      badge: "£0 Call-Out",
-      desc: `Rapid clearance for external drains, toilets, and sewer blockages in ${activeTownName}.`,
+      icon: Flame,
+      title: "Boilers & Heating",
+      image: "/team-photo.webp",
+      badgeBg: "bg-slate-900 text-[#A6892C]",
+      desc: `Gas Safe boiler installs, annual servicing, and breakdown repairs in ${activeTownName}.`,
       items: [
-        "High-pressure water jetting",
-        "Blocked toilets, sinks & gullies",
-        "Full CCTV camera inspections"
+        "Combi replacements & annual servicing",
+        "Boiler breakdown diagnostics",
+        "Radiator valves & power flushing"
       ],
-      actionText: "Clear Blocked Drain",
-      href: buildServiceUrl("drain-unblocking"),
+      href: buildServiceUrl("heating-engineer"),
       isExternal: false
     },
     {
       icon: Phone,
       title: "Emergency Plumbing",
-      badge: "60-90 Min Arrival",
-      desc: `24/7 immediate dispatch across ${activeTownName} for domestic flooding and leaks.`,
+      image: "/emergency-plumber.webp",
+      badgeBg: "bg-[#A6892C] text-slate-950",
+      desc: `24/7 immediate dispatch across ${activeTownName} for burst pipes and sudden water leaks.`,
       items: [
-        "Burst pipes & sudden floods",
-        "Failed stopcocks & valves",
-        "Radiator leaks & water isolation"
+        "Burst pipes & active water leaks",
+        "Failed stopcocks & isolation valves",
+        "Rapid 60-minute emergency response"
       ],
-      actionText: "Request Emergency Callout",
       href: buildServiceUrl("emergency-plumber"),
       isExternal: false
     },
     {
-      icon: Flame,
-      title: "Boilers & Heating",
-      badge: "Gas Safe #987039",
-      desc: `Certified gas boiler installs, annual servicing, and breakdown repairs in ${activeTownName}.`,
+      icon: Droplets,
+      title: "Drain Unblocking",
+      image: "/drain-unblock.webp",
+      badgeBg: "bg-slate-900 text-[#A6892C]",
+      desc: `High-pressure water jetting for blocked outdoor drains, toilets, and gullies in ${activeTownName}.`,
       items: [
-        "Combi replacements & 0% finance",
-        "Boiler breakdown diagnostics",
-        "Radiator valves & power flushing"
+        "High-pressure drain jetting",
+        "Blocked toilets, sinks & outside drains",
+        "HD CCTV drain camera surveys"
       ],
-      actionText: "Book Heating Engineer",
-      href: buildServiceUrl("heating-engineer"),
-      isExternal: false
-    },
-    {
-      icon: Wrench,
-      title: "General Plumbing",
-      badge: "Fixed Quotes",
-      desc: `Everyday domestic repairs, maintenance, and fixture replacements across ${activeTownName}.`,
-      items: [
-        "Dripping taps & running toilets",
-        "Waste pipe repairs & traps",
-        "Shower valves & water pressure"
-      ],
-      actionText: "View Plumbing Services",
-      href: buildServiceUrl("plumber"),
+      href: buildServiceUrl("drain-unblocking"),
       isExternal: false
     },
     {
       icon: Search,
       title: "Leak Detection",
-      badge: "Non-Destructive",
-      desc: `Pinpoint hidden leaks beneath concrete, floorboards, and cavity walls in ${activeTownName}.`,
+      image: "/leak-detection.webp",
+      badgeBg: "bg-[#A6892C] text-slate-950",
+      desc: `Thermal imaging and acoustic trace & access to pinpoint hidden floor and wall leaks in ${activeTownName}.`,
       items: [
-        "Acoustic pipe listening tech",
-        "Thermal imaging cameras",
-        "Insurance-approved trace reports"
+        "Thermal imaging camera inspections",
+        "Non-destructive floor & wall tracing",
+        "Insurance-approved leak reports"
       ],
-      actionText: "Locate Hidden Leak",
       href: buildServiceUrl("leak-detection"),
       isExternal: false
     },
     {
       icon: Wrench,
+      title: "General Plumbing",
+      image: "/general-plumbing.webp",
+      badgeBg: "bg-slate-900 text-[#A6892C]",
+      desc: `Everyday domestic repairs, shower valves, dripping taps, and pipework across ${activeTownName}.`,
+      items: [
+        "Shower mixer valves & cartridges",
+        "Dripping taps & running toilets",
+        "Waste pipe & trap repairs"
+      ],
+      href: buildServiceUrl("plumber"),
+      isExternal: false
+    },
+    {
+      icon: Wrench,
       title: "Appliance & Installs",
-      badge: "Online Booking",
-      desc: `Professional installation of home appliances, fixtures, and modern fittings.`,
+      image: "/appliance-install.webp",
+      badgeBg: "bg-slate-900 text-[#A6892C]",
+      desc: `Professional plumbing installation of washing machines, dishwashers, and kitchen fixtures in ${activeTownName}.`,
       items: [
         "Washing machines & dishwashers",
-        "Kitchen sinks & new mixer taps",
-        "Instant confirmation calendar"
+        "Kitchen sinks, mixer & outside taps",
+        "Instant online slot confirmation"
       ],
-      actionText: "Book Installation Online",
       href: CALENDAR_LINK,
       isExternal: true
     }
   ];
 
   return (
-    <section id="services" className="py-12 sm:py-16 lg:py-20 bg-slate-50 relative z-10 border-b border-slate-200/80">
+    <section id="services" className="py-12 sm:py-16 lg:py-24 bg-[#FAF8F5] relative z-10 border-b border-slate-200/80">
       <div className="container mx-auto px-4 max-w-7xl">
         
         {/* HEADER */}
@@ -139,52 +139,66 @@ const Services = ({ currentLocation }: ServicesProps) => {
             Our Services <span className="text-[#A6892C]">in {activeTownName}</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1.5">
-            Clear fixed pricing, Gas Safe registered engineers, and £0 call-out fees for domestic homes and commercial sites.
+            Gas Safe registered (#987039) plumbing, heating, and drainage engineers available 24/7 for domestic homes and commercial sites.
           </p>
         </div>
 
-        {/* COMPACT & TRANSPARENT SERVICES GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {/* PHOTO CARD GRID (Mobile 1-Col -> Tablet 2-Col -> Desktop 3-Col) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service, index) => {
+            const IconComponent = service.icon;
             const cardClasses =
-              "bg-white border border-slate-200/90 hover:border-[#A6892C] rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group";
+              "group bg-white border border-slate-200/90 hover:border-[#A6892C] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col active:scale-[0.99]";
 
             const cardContent = (
               <>
-                <div>
-                  {/* Top Row: Icon + Guarantee Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-[#A6892C]/10 border border-[#A6892C]/20 flex items-center justify-center text-[#A6892C] group-hover:bg-[#A6892C] group-hover:text-slate-950 transition-colors">
-                      <service.icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wide bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/60">
-                      {service.badge}
+                {/* Top Photo (Clean, zero pricing overlays) */}
+                <div className="relative aspect-[16/10] w-full bg-slate-200 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={`${service.title} in ${activeTownName}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                {/* Card Content with Overlapping Circular Badge */}
+                <div className="relative px-5 sm:px-6 pt-9 pb-6 flex-1 flex flex-col justify-between">
+                  
+                  {/* Circular Icon Badge straddling the photo bottom border */}
+                  <div
+                    className={`absolute -top-7 left-5 sm:left-6 w-14 h-14 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${service.badgeBg}`}
+                  >
+                    <IconComponent className="w-6 h-6 stroke-[2.2]" />
+                  </div>
+
+                  <div>
+                    {/* Title & Description */}
+                    <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mb-2 tracking-tight group-hover:text-[#A6892C] transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-4">
+                      {service.desc}
+                    </p>
+
+                    {/* Problem Checkmarks */}
+                    <ul className="space-y-1.5 mb-5 pt-3 border-t border-slate-100">
+                      {service.items.map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#A6892C] shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Underlined Learn More Link */}
+                  <div className="pt-2">
+                    <span className="inline-block text-sm font-extrabold text-[#A6892C] group-hover:text-slate-900 underline decoration-2 underline-offset-4 transition-colors">
+                      Learn More
                     </span>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5 tracking-tight group-hover:text-[#A6892C] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-4">
-                    {service.desc}
-                  </p>
-
-                  {/* Problem Checkmarks (Transparent What-We-Do) */}
-                  <ul className="space-y-1.5 mb-5 pt-3 border-t border-slate-100">
-                    {service.items.map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#A6892C] shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Bottom CTA Action Link */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#A6892C] transition-colors">
-                  <span>{service.actionText}</span>
-                  <ArrowRight className="w-4 h-4 text-[#A6892C] group-hover:translate-x-1 transition-transform" />
                 </div>
               </>
             );

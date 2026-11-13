@@ -108,40 +108,69 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
 
   if (isHomepage) {
     images = [
+      '/team-photo.webp',
+      '/emergency-plumber.webp',
+      '/camera-survey.webp',
+      '/leak-detection.webp',
+      '/general-plumbing.webp',
+      '/appliance-install.webp',
       '/vaillant-boiler.webp',
       '/boiler-install.webp',
-      '/hugglescote-bear.webp',
-      '/blocked-drain.webp',
-      '/drainage-cctv-survey.webp',
-      '/kitchen-tap.webp',
     ];
   } else {
-    if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock')) {
+    if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('toilet')) {
       images = [
+        '/camera-survey.webp',
+        '/drain-unblock.webp',
         '/drain-unblocking.webp',
         '/drainage-cctv-survey.webp',
         '/drain-unblocked.webp',
-        '/blocked-drain.webp'
+        '/blocked-drain.webp',
       ];
     } else if (normalizedService.includes('boiler') || normalizedService.includes('heat') || normalizedService.includes('gas')) {
       images = [
+        '/team-photo.webp',
         '/boiler-repair.webp',
         '/boiler-install.webp',
-        '/team-photo.webp',
         '/vaillant-boiler.webp',
       ];
-    } else if (normalizedService.includes('leak') || normalizedService.includes('emergency') || normalizedService.includes('plumb')) {
+    } else if (normalizedService.includes('leak')) {
       images = [
+        '/leak-detection.webp',
+        '/emergency-plumber.webp',
+        '/general-plumbing.webp',
         '/team-photo.webp',
+      ];
+    } else if (normalizedService.includes('emergency')) {
+      images = [
+        '/emergency-plumber.webp',
+        '/leak-detection.webp',
+        '/general-plumbing.webp',
+        '/team-photo.webp',
+      ];
+    } else if (normalizedService.includes('install') || normalizedService.includes('appliance')) {
+      images = [
+        '/appliance-install.webp',
+        '/general-plumbing.webp',
+        '/outside-tap-install.webp',
+        '/kitchen-tap.webp',
+      ];
+    } else if (normalizedService.includes('plumb')) {
+      images = [
+        '/general-plumbing.webp',
+        '/appliance-install.webp',
+        '/emergency-plumber.webp',
         '/outside-tap-install.webp',
         '/kitchen-tap.webp',
       ];
     } else {
       images = [
         '/team-photo.webp',
-        '/boiler-install.webp',
-        '/drain-unblocking.webp',
-        '/kitchen-tap.webp',
+        '/emergency-plumber.webp',
+        '/camera-survey.webp',
+        '/leak-detection.webp',
+        '/general-plumbing.webp',
+        '/appliance-install.webp',
       ];
     }
 
@@ -157,7 +186,7 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start">
           
-          {/* PHOTO SLIDESHOW: Now order-1 on both mobile and desktop (Always on top for mobile) */}
+          {/* PHOTO SLIDESHOW: Always on top for mobile */}
           <div className="order-1 relative lg:pt-8">
             <Slideshow 
               images={images} 
@@ -169,7 +198,7 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
             <div className="absolute inset-0 border-2 border-[#A6892C] rounded-[2rem] -z-10 translate-x-4 translate-y-4 lg:mt-8 hidden lg:block transition-transform duration-500"></div>
           </div>
 
-          {/* TEXT CONTENT: Now order-2 (Follows naturally below photo on mobile) */}
+          {/* TEXT CONTENT */}
           <div className="order-2">
             <h2 className="text-xs sm:text-sm font-black text-[#A6892C] uppercase tracking-[0.2em] mb-2">
               About RKM Plumbing Heating &amp; Drainage Services
