@@ -37,14 +37,15 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
     || `RKM provides domestic plumbing repairs, heating engineering, drain unblocking, and rapid 24/7 emergency response across ${displayLocation} and Leicestershire. £0 call-out fee.`;
 
   const metaDescription = (townData as any).metaDescription
-    || `Looking for Emergency plumbers in ${displayLocation}? Expert domestic plumbing, heating, boiler installs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
+    || `Looking for ${serviceLabel} in ${displayLocation}? Expert domestic plumbing, heating, boiler installs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
   const pageTitle = isLandingPage 
     ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
     : `Plumbers Coalville | RKM Plumbing Heating & Drainage 24/7`;
 
-  const schemaUrl = isLandingPage 
-    ? `https://rkm247.co.uk/${serviceKey}/${townKey}/`
+  const canonicalPath = [serviceKey, townKey].filter(Boolean).join('/');
+  const schemaUrl = canonicalPath 
+    ? `https://rkm247.co.uk/${canonicalPath}/`
     : 'https://rkm247.co.uk/';
 
   // Match service slug to its specific .webp hero image
@@ -75,40 +76,99 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   const absoluteImageUrl = `https://rkm247.co.uk${heroPhoto}`;
 
-  const schemaData = {
+  const townPostcodes = Array.isArray((townData as any).postcodes) && (townData as any).postcodes.length > 0
+    ? (townData as any).postcodes
+    : ['LE67', 'LE65'];
+
+  const areaServedList = [
+    { "@type": "City", "name": displayLocation },
+    ...townPostcodes.map((pc: string) => ({ "@type": "PostalCode", "name": pc }))
+  ];
+
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://rkm247.co.uk/"
+    }
+  ];
+
+  if (serviceKey) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": serviceLabel,
+      "item": `https://rkm247.co.uk/${serviceKey}/`
+    });
+  }
+
+  if (townKey) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": breadcrumbItems.length + 1,
+      "name": displayLocation,
+      "item": schemaUrl
+    });
+  }
+
+  const schemaGraph = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "PlumbingService"],
-    "@id": `${schemaUrl}#business`,
-    "name": "RKM Plumbing Heating & Drainage Services",
-    "url": schemaUrl,
-    "logo": "https://rkm247.co.uk/logo-square.webp",
-    "telephone": phone,
-    "image": absoluteImageUrl,
-    "priceRange": "££",
-    "description": metaDescription,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Hodgetts Street",
-      "addressLocality": displayLocation,
-      "addressRegion": "Leicestershire",
-      "postalCode": "LE67 2JH",
-      "addressCountry": "GB"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 52.723,
-      "longitude": -1.369
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
-    },
-    "areaServed": [
-      { "@type": "AdministrativeArea", "name": displayLocation },
-      { "@type": "PostalCode", "name": "LE67" },
-      { "@type": "PostalCode", "name": "LE65" }
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "PlumbingService"],
+        "@id": "https://rkm247.co.uk/#business",
+        "name": "RKM Plumbing Heating & Drainage Services",
+        "url": "https://rkm247.co.uk/",
+        "logo": "https://rkm247.co.uk/logo-square.webp",
+        "telephone": phone,
+        "image": absoluteImageUrl,
+        "priceRange": "££",
+        "description": metaDescription,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Hodgetts Street",
+          "addressLocality": "Coalville",
+          "addressRegion": "Leicestershire",
+          "postalCode": "LE67 2JH",
+          "addressCountry": "GB"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 52.723,
+          "longitude": -1.369
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "48",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "areaServed": areaServedList,
+        "sameAs": [
+          "https://www.checkatrade.com/"
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": `${schemaUrl}#service`,
+        "name": `${serviceLabel} in ${displayLocation}`,
+        "serviceType": serviceLabel,
+        "provider": { "@id": "https://rkm247.co.uk/#business" },
+        "areaServed": { "@type": "City", "name": displayLocation },
+        "description": metaDescription
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbItems
+      }
     ]
   };
 
@@ -127,12 +187,13 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription} />
           <link rel="canonical" href={schemaUrl} />
+          <link rel="preload" as="image" href={heroPhoto} />
           <meta property="og:title" content={pageTitle} />
           <meta property="og:description" content={metaDescription} />
           <meta property="og:type" content="website" />
           <meta property="og:url" content={schemaUrl} />
           <meta property="og:image" content={absoluteImageUrl} />
-          <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+          <script type="application/ld+json">{JSON.stringify(schemaGraph)}</script>
         </Helmet>
       )}
 

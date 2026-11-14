@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#A6892C" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="geo.region" content="GB-LEC" />
+    <meta name="geo.placename" content="Coalville, Leicestershire" />
+    <meta name="geo.position" content="52.723;-1.369" />
+    <meta name="ICBM" content="52.723, -1.369" />
     
     <link rel="preload" href="/logo-square.webp" as="image" />
     <link rel="preconnect" href="https://cdn-cookieyes.com" />
@@ -20,13 +25,13 @@
         })(window, document, "clarity", "script", "zc4h1hkeu4");
     </script>
 
-    <!-- GENERIC BASELINE TITLES & METAS (React Helmet overrides per page) -->
+    <!-- BASELINE TITLES & METAS (React Helmet overrides per route; canonical injected dynamically) -->
     <title>Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7</title>
     <meta name="description" content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
-    <link rel="canonical" href="https://rkm247.co.uk/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rkm247.co.uk/" />
+    <meta property="og:site_name" content="RKM Plumbing Heating &amp; Drainage Services" />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content="Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7" />
     <meta property="og:description" content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
     <meta property="og:image" content="https://rkm247.co.uk/team-photo.webp" />
@@ -45,9 +50,9 @@
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
 
-    <!-- Slim Brand-Matched CookieYes Override -->
+    <!-- Slim White & Gold CookieYes Override (High Specificity) -->
     <style>
-      .cky-consent-container {
+      body .cky-consent-container {
         padding: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -55,51 +60,47 @@
         right: 0 !important;
         bottom: 0 !important;
       }
-      .cky-consent-bar {
+      body .cky-consent-container .cky-consent-bar {
         padding: 10px 14px !important;
         border-radius: 0 !important;
         border-top: 2px solid #A6892C !important;
-        background: rgba(15, 23, 42, 0.97) !important;
-        backdrop-filter: blur(6px) !important;
-        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15) !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08) !important;
       }
-      .cky-notice-des,
-      .cky-notice-des p,
-      .cky-notice-des span {
+      body .cky-consent-container .cky-notice-des,
+      body .cky-consent-container .cky-notice-des p,
+      body .cky-consent-container .cky-notice-des span {
         font-size: 12px !important;
+        font-weight: 600 !important;
         line-height: 1.4 !important;
         margin-bottom: 8px !important;
-        color: #f1f5f9 !important;
+        color: #A6892C !important;
       }
-      .cky-notice-btn-wrapper {
+      body .cky-consent-container .cky-notice-btn-wrapper {
         display: flex !important;
         flex-direction: row !important;
         gap: 8px !important;
         margin-top: 0 !important;
       }
-      .cky-notice-btn-wrapper .cky-btn {
+      body .cky-consent-container .cky-notice-btn-wrapper .cky-btn,
+      body .cky-consent-container .cky-btn-accept,
+      body .cky-consent-container .cky-btn-reject {
         flex: 1 !important;
         padding: 7px 12px !important;
         font-size: 12px !important;
         font-weight: 700 !important;
         border-radius: 10px !important;
         margin: 0 !important;
-        transition: opacity 0.15s ease !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        border: 1.5px solid #A6892C !important;
+        color: #A6892C !important;
       }
-      /* RKM Gold Accept Button */
-      .cky-btn-accept {
-        background-color: #A6892C !important;
-        border: 1px solid #A6892C !important;
-        color: #0f172a !important;
+      body .cky-consent-container .cky-banner-btn-close img {
+        filter: sepia(100%) saturate(400%) brightness(85%) hue-rotate(5deg) !important;
       }
-      /* RKM Dark Slate Reject Button */
-      .cky-btn-reject {
-        background-color: #1e293b !important;
-        border: 1px solid #334155 !important;
-        color: #f8fafc !important;
-      }
-      /* Hide floating bottom-left re-consent wheel icon */
-      .cky-btn-revisit-wrapper {
+      body .cky-btn-revisit-wrapper {
         display: none !important;
       }
     </style>

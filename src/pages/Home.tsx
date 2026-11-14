@@ -36,133 +36,170 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [location.hash]);
 
-  // Enhanced Homepage Schema with Gas Safe #987039 & Heating Accreditation Mapping
+  // Enhanced Homepage Schema Graph with Gas Safe #987039, AggregateRating & Entity Citations
   const homeSchema = {
     "@context": "https://schema.org",
-    "@type": ["PlumbingService", "HomeAndConstructionBusiness"],
-    "@id": "https://rkm247.co.uk/#business",
-    "name": "RKM Plumbing Heating & Drainage Services",
-    "alternateName": ["RKM Drainage Coalville", "RKM Gas Engineers Coalville"],
-    "url": "https://rkm247.co.uk/",
-    "logo": "https://rkm247.co.uk/logo-square.webp",
-    "image": "https://rkm247.co.uk/team-photo.webp",
-    "telephone": "+441530654062",
-    "priceRange": "££",
-    "identifier": {
-      "@type": "PropertyValue",
-      "name": "Gas Safe Register Number",
-      "value": "987039"
-    },
-    "hasCredential": [
+    "@graph": [
       {
-        "@type": "EducationalOccupationalCredential",
-        "credentialCategory": "certification",
-        "name": "Gas Safe Register",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Gas Safe Register",
-          "url": "https://www.gassaferegister.co.uk/"
+        "@type": "WebSite",
+        "@id": "https://rkm247.co.uk/#website",
+        "url": "https://rkm247.co.uk/",
+        "name": "RKM Plumbing Heating & Drainage Services",
+        "publisher": { "@id": "https://rkm247.co.uk/#business" },
+        "inLanguage": "en-GB"
+      },
+      {
+        "@type": ["PlumbingService", "HomeAndConstructionBusiness"],
+        "@id": "https://rkm247.co.uk/#business",
+        "name": "RKM Plumbing Heating & Drainage Services",
+        "alternateName": ["RKM Drainage Coalville", "RKM Gas Engineers Coalville"],
+        "url": "https://rkm247.co.uk/",
+        "logo": "https://rkm247.co.uk/logo-square.webp",
+        "image": "https://rkm247.co.uk/team-photo.webp",
+        "telephone": "+441530654062",
+        "priceRange": "££",
+        "description": "Gas Safe Registered (#987039) emergency plumbers, heating engineers, boiler installers, and drain unblocking specialists serving Coalville and Leicestershire 24/7 with £0 call-out fees.",
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "Gas Safe Register Number",
+          "value": "987039"
         },
-        "identifier": "987039"
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Hodgetts Street",
-      "addressLocality": "Coalville",
-      "addressRegion": "Leicestershire",
-      "postalCode": "LE67 2JH",
-      "addressCountry": "GB"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 52.723,
-      "longitude": -1.369
-    },
-    "areaServed": [
-      {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "Gas Safe Register",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "Gas Safe Register",
+              "url": "https://www.gassaferegister.co.uk/"
+            },
+            "identifier": "987039"
+          }
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Hodgetts Street",
+          "addressLocality": "Coalville",
+          "addressRegion": "Leicestershire",
+          "postalCode": "LE67 2JH",
+          "addressCountry": "GB"
+        },
+        "geo": {
           "@type": "GeoCoordinates",
           "latitude": 52.723,
           "longitude": -1.369
         },
-        "geoRadius": "25000"
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "48",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "areaServed": [
+          {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+              "@type": "GeoCoordinates",
+              "latitude": 52.723,
+              "longitude": -1.369
+            },
+            "geoRadius": "25000"
+          },
+          {
+            "@type": "City",
+            "name": "Coalville"
+          },
+          {
+            "@type": "PostalCode",
+            "name": "LE67"
+          },
+          {
+            "@type": "PostalCode",
+            "name": "LE65"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Gas, Heating, Drainage & Plumbing Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Gas Safe Boiler Installations & Replacements",
+                "description": "Accredited Gas Safe (Reg #987039) combi boiler installations, system upgrades, and flexible monthly finance options.",
+                "url": "https://rkm247.co.uk/heating-engineer/coalville/",
+                "category": "Heating and Gas Engineering"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Emergency Boiler Repairs & Servicing",
+                "description": "24/7 gas boiler breakdown diagnostics, radiator repairs, and annual gas safety certification.",
+                "url": "https://rkm247.co.uk/heating-engineer/coalville/",
+                "category": "Heating Engineering"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Emergency Drain Unblocking Coalville",
+                "description": "24/7 high-pressure drain jetting, blocked toilet clearance, and external sewer unblocking.",
+                "url": "https://rkm247.co.uk/drain-unblocking/coalville/",
+                "sameAs": "https://en.wikipedia.org/wiki/Drain_(plumbing)"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "CCTV Drain Surveys",
+                "description": "Full camera inspection for collapsed pipes, root ingress, and structural drain issues.",
+                "url": "https://rkm247.co.uk/drain-unblocking/coalville/"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Emergency Plumbing Repairs",
+                "description": "Burst pipe repair, leaking radiators, tap replacements, and rapid domestic plumbing isolation.",
+                "url": "https://rkm247.co.uk/emergency-plumber/coalville/"
+              }
+            }
+          ]
+        },
+        "sameAs": [
+          "https://www.facebook.com/rkmplumbingandheatingservices",
+          "https://www.google.com/maps?cid=3XtXaKCXHVDlgzSLh",
+          "https://www.yell.com/biz/rkm-plumbing-and-heating-services-ltd-coalville-100007379/",
+          "https://www.checkatrade.com/trades/rkmplumbingandheatingservices",
+          "https://www.thomsonlocal.com/search/plumbers/burton-loughborough/rkm-plumbing-heating-services/3496846/01530654062",
+          "https://118businessdirectory.co.uk/listing/rkm-plumbing-heating-services-ltd"
+        ]
       },
       {
-        "@type": "City",
-        "name": "Coalville"
-      },
-      {
-        "@type": "PostalCode",
-        "name": "LE67"
-      },
-      {
-        "@type": "PostalCode",
-        "name": "LE65"
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://rkm247.co.uk/"
+          }
+        ]
       }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Gas, Heating, Drainage & Plumbing Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Gas Safe Boiler Installations & Replacements",
-            "description": "Accredited Gas Safe (Reg #987039) combi boiler installations, system upgrades, and flexible monthly finance options.",
-            "url": "https://rkm247.co.uk/#services",
-            "category": "Heating and Gas Engineering"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Boiler Repairs & Servicing",
-            "description": "24/7 gas boiler breakdown diagnostics, radiator repairs, and annual gas safety certification.",
-            "url": "https://rkm247.co.uk/#services",
-            "category": "Heating Engineering"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Drain Unblocking Coalville",
-            "description": "24/7 high-pressure drain jetting, blocked toilet clearance, and external sewer unblocking.",
-            "url": "https://rkm247.co.uk/drain-unblocking/coalville/",
-            "sameAs": "https://en.wikipedia.org/wiki/Drain_(plumbing)"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "CCTV Drain Surveys",
-            "description": "Full camera inspection for collapsed pipes, root ingress, and structural drain issues.",
-            "url": "https://rkm247.co.uk/drain-unblocking/coalville/"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Plumbing Repairs",
-            "description": "Burst pipe repair, leaking radiators, tap replacements, and rapid domestic plumbing isolation.",
-            "url": "https://rkm247.co.uk/"
-          }
-        }
-      ]
-    },
-    "sameAs": [
-      "https://www.facebook.com/rkmplumbingandheatingservices",
-      "https://www.google.com/maps?cid=3XtXaKCXHVDlgzSLh",
-      "https://www.yell.com/biz/rkm-plumbing-and-heating-services-ltd-coalville-100007379/",
-      "https://www.checkatrade.com/trades/rkmplumbingandheatingservices",
-      "https://www.thomsonlocal.com/search/plumbers/burton-loughborough/rkm-plumbing-heating-services/3496846/01530654062",
-      "https://118businessdirectory.co.uk/listing/rkm-plumbing-heating-services-ltd"
     ]
   };
 
@@ -175,6 +212,7 @@ const Home = () => {
           content="Looking for Emergency plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." 
         />
         <link rel="canonical" href="https://rkm247.co.uk/" />
+        <link rel="preload" as="image" href="/team-photo.webp" />
         <meta property="og:title" content="Plumbers Coalville | RKM Plumbing Heating &amp; Drainage 24/7" />
         <meta property="og:description" content="Looking for local plumbers in Coalville? Expert domestic plumbing, heating, boiler installs &amp; blocked drainage. Fast 24/7 emergency service. £0 call out." />
         <meta property="og:url" content="https://rkm247.co.uk/" />
