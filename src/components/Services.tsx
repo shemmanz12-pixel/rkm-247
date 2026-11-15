@@ -41,20 +41,6 @@ const Services = ({ currentLocation }: ServicesProps) => {
 
   const services = [
     {
-      icon: Flame,
-      title: "Boilers & Heating",
-      image: "/team-photo.webp",
-      badgeBg: "bg-slate-900 text-[#A6892C]",
-      desc: `Gas Safe boiler installs, annual servicing, and breakdown repairs in ${activeTownName}.`,
-      items: [
-        "Combi replacements & annual servicing",
-        "Boiler breakdown diagnostics",
-        "Radiator valves & power flushing"
-      ],
-      href: buildServiceUrl("heating-engineer"),
-      isExternal: false
-    },
-    {
       icon: Phone,
       title: "Emergency Plumbing",
       image: "/emergency-plumber.webp",
@@ -71,7 +57,7 @@ const Services = ({ currentLocation }: ServicesProps) => {
     {
       icon: Droplets,
       title: "Drain Unblocking",
-      image: "/drain-unblock.webp",
+      image: "/camera-survey.webp",
       badgeBg: "bg-slate-900 text-[#A6892C]",
       desc: `High-pressure water jetting for blocked outdoor drains, toilets, and gullies in ${activeTownName}.`,
       items: [
@@ -80,6 +66,20 @@ const Services = ({ currentLocation }: ServicesProps) => {
         "HD CCTV drain camera surveys"
       ],
       href: buildServiceUrl("drain-unblocking"),
+      isExternal: false
+    },
+    {
+      icon: Flame,
+      title: "Boilers & Heating",
+      image: "/team-photo.webp",
+      badgeBg: "bg-slate-900 text-[#A6892C]",
+      desc: `Gas Safe boiler installs, annual servicing, and breakdown repairs in ${activeTownName}.`,
+      items: [
+        "Combi replacements & annual servicing",
+        "Boiler breakdown diagnostics",
+        "Radiator valves & power flushing"
+      ],
+      href: buildServiceUrl("heating-engineer"),
       isExternal: false
     },
     {

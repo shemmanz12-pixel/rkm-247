@@ -108,14 +108,11 @@ const About = ({ townSlug: propTownSlug, serviceSlug: propServiceSlug }: AboutPr
 
   if (isHomepage) {
     images = [
-      '/team-photo.webp',
       '/emergency-plumber.webp',
-      '/camera-survey.webp',
-      '/leak-detection.webp',
-      '/general-plumbing.webp',
-      '/appliance-install.webp',
       '/vaillant-boiler.webp',
       '/boiler-install.webp',
+      '/drainage-cctv-survey.webp',
+      '/kitchen-tap.webp',
     ];
   } else {
     if (normalizedService.includes('drain') || normalizedService.includes('cctv') || normalizedService.includes('unblock') || normalizedService.includes('toilet')) {
