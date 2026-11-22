@@ -1,6 +1,15 @@
-import { useRef } from 'react';
-import { Star, CheckCircle, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import {
+  Star,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  ExternalLink,
+  X,
+  ZoomIn,
+} from 'lucide-react';
+import { useParams, useLocation } from 'react-router-dom';
 import { towns } from '../townConfig';
 
 interface ReviewsProps {
@@ -8,11 +17,75 @@ interface ReviewsProps {
   serviceSlug?: string;
 }
 
+interface ReviewItem {
+  name: string;
+  location: string;
+  text: string;
+  photos?: string[];
+  reviewUrl?: string;
+  serviceTag?: string;
+}
+
 const TRUSTINDEX_URL = 'https://www.trustindex.io/reviews/rkm247.co.uk';
+
+const BOILER_PHOTO_REVIEWS: ReviewItem[] = [
+  {
+    name: 'Piotr Bakiera',
+    location: 'Coalville',
+    serviceTag: 'New Boiler & Water Tank',
+    text: 'New Boiler and Water Tank fitted perfectly and professionally. They will literally work long hours to make your things done. Totally worth recommending.',
+    photos: ['/review-piotr-1.webp', '/review-piotr-2.webp'],
+    reviewUrl: 'https://maps.app.goo.gl/WSevYSjFLgkVEGkL9',
+  },
+  {
+    name: 'Nik p',
+    location: 'Coalville',
+    serviceTag: 'New Boiler Install',
+    text: 'I had a new boiler fitted and it was a very professional service, great care taken to protect surfaces, prompt and well priced service. I would highly recommend.',
+    photos: ['/review-nik-1.webp'],
+    reviewUrl: 'https://maps.app.goo.gl/1Xf2jo7GPsioHvxh6',
+  },
+  {
+    name: 'Roy Hart',
+    location: 'Coalville',
+    serviceTag: 'New Boiler Install',
+    text: 'Brilliant job very pleased, clean and tidy work, lovely new boiler!',
+    photos: ['/review-roy-1.webp'],
+    reviewUrl: 'https://maps.app.goo.gl/XPymGYDfk3Wqvt6w6',
+  },
+];
+
+const getVerifiedDrainageReviews = (locationName: string): ReviewItem[] => [
+  {
+    name: 'ThePhantom666',
+    location: locationName,
+    serviceTag: 'Drain Cleaning',
+    text: "The toilet was blocked and it turned out to be a blocked drain. Ryan's team unblocked the drain, flushed everything through, and got the toilet working again. Quick, efficient, and no mess. Would highly recommend and will use them again if I need to.",
+    reviewUrl: 'https://maps.app.goo.gl/jhrXLDdpF7G3URts6',
+  },
+  {
+    name: 'Craig',
+    location: locationName,
+    serviceTag: 'Internal Blockage',
+    text: 'Cleared a stubborn bath blockage which had withstood all other clearing attempts. Reasonable price and great service.',
+    reviewUrl: 'https://maps.app.goo.gl/9zR3VHmLcKPw5qmw6',
+  },
+  {
+    name: 'Jordan Carmichael',
+    location: 'Whitwick',
+    serviceTag: 'Emergency Drain Unblocking',
+    text: 'We had a blocked drain pipe that was causing both the toilet and bath to back up. Called at 8pm and they came out immediately to assess the issue. Resolved in under 2 hours, cleared up and working perfectly again, also installed an access point for the future. Massive help and very efficient.',
+    reviewUrl: 'https://maps.app.goo.gl/ngVxiZV9qa5vYcYf7',
+  },
+];
 
 const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
   const params = useParams<{ townSlug?: string; serviceSlug?: string }>();
+  const location = useLocation();
+  const pathname = (location?.pathname || '').toLowerCase();
+
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
 
   const normalize = (value: string | undefined) =>
     (value || '').toLowerCase().replace(/\/$/, '').replace(/\.html$/, '').trim();
@@ -32,24 +105,44 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
 
   const isCoreLocal = !cleanTownKey || coreTowns.includes(cleanTownKey);
 
-  const isDrainagePage = [
-    'drain-unblocking',
-    'blocked-drain-clearing',
-    'emergency-drain-unblocking',
-    'outside-drain-unblocking',
-    'blocked-toilet',
-  ].includes(cleanServiceKey);
+  const isDrainagePage =
+    [
+      'drain-unblocking',
+      'blocked-drain-clearing',
+      'emergency-drain-unblocking',
+      'outside-drain-unblocking',
+      'blocked-toilet',
+      'cctv-drain-surveys',
+      'drain-relining',
+      'drain-root-cutting',
+    ].includes(cleanServiceKey) ||
+    pathname.includes('drain') ||
+    pathname.includes('blocked-toilet');
 
-  const isHeatingPage = ['heating', 'heating-engineer', 'heating-repairs'].includes(cleanServiceKey);
-  const isLeakPage = cleanServiceKey === 'leak-detection';
-  const isEmergencyPage = cleanServiceKey === 'emergency-plumber';
+  const isHeatingPage =
+    [
+      'heating',
+      'heating-engineer',
+      'heating-repairs',
+      'central-heating',
+      'central-heating-repairs',
+      'radiator-repairs',
+      'boiler-installs',
+    ].includes(cleanServiceKey) ||
+    pathname.includes('heating') ||
+    pathname.includes('boiler') ||
+    pathname.includes('radiator');
+
+  const isLeakPage = cleanServiceKey === 'leak-detection' || pathname.includes('leak-detection');
+  const isEmergencyPage =
+    cleanServiceKey === 'emergency-plumber' || pathname.includes('emergency-plumber');
 
   let headingLead = '5-Star';
   let headingHighlight = 'Reviews';
   let sectionSubtitle = `Trusted by local customers in ${locationName}`;
   let footerText = 'Read All Google & Checkatrade Reviews';
 
-  let reviews: { name: string; location: string; text: string }[] = [];
+  let reviews: ReviewItem[] = [];
 
   // ----------------------------------------------------
   // 1. CORE LE67 / LE65 & HOMEPAGE REVIEWS (Real Quotes)
@@ -62,26 +155,46 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
       footerText = 'Read All Verified Drainage Reviews';
 
       reviews = [
-        { name: 'J D', location: 'Bardon Hill', text: 'Fast response for a commercial blocked drain, good customer service.' },
-        { name: 'Tony Mackie', location: locationName, text: 'We had a toilet that wouldn\'t flush. Ryan arrived on time and sorted the issue out quickly at a good price.' },
-        { name: 'Barbara O\'Sullivan', location: 'Coalville', text: 'My bathroom toilet stopped flushing on Sunday so I googled plumbers in Coalville area where I found RKM Plumbing. Quick and reliable service!' },
-        { name: 'Smisby Village Hall', location: 'Smisby / Ashby', text: 'Ryan did a brilliant job of sorting out our leaking toilet and shower. Came across a difficult problem, but didn’t give up and found a way to fix it.' },
-        { name: 'Susan P.', location: locationName, text: 'Repaired toilet! Done a great job, very polite and helpful.' },
-        { name: 'Liz Biscombe', location: locationName, text: 'Toilet fixed in no time! Really happy with Ryan who did a great job and didn\'t have to wait ages for it to be done.' },
+        ...getVerifiedDrainageReviews(locationName),
+        {
+          name: 'Kayley',
+          location: 'Coalville',
+          text: 'Great price. Unblocked drains for us in Coalville.',
+        },
+        {
+          name: 'J D',
+          location: 'Bardon Hill',
+          text: 'Fast response for a commercial blocked drain, good customer service.',
+        },
+        {
+          name: "Barbara O'Sullivan",
+          location: 'Coalville',
+          text: 'My bathroom toilet stopped flushing on Sunday so I googled plumbers in Coalville area where I found RKM Plumbing. Quick and reliable service!',
+        },
       ];
     } else if (isHeatingPage) {
       headingLead = '5-Star';
       headingHighlight = 'Heating Reviews';
-      sectionSubtitle = `Trusted for boiler & heating repairs in ${locationName}`;
+      sectionSubtitle = `Trusted for boiler installs & heating repairs in ${locationName}`;
       footerText = 'Read All Verified Heating Reviews';
 
       reviews = [
-        { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
-        { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.' },
-        { name: 'Jake Spencer', location: 'Coalville', text: 'RKM Plumbing Heating & Drainage Services in Coalville did a fantastic job installing five new radiators at my property.' },
-        { name: 'Bee Bi', location: 'Hugglescote', text: 'Excellent service, friendly, respected our property. Came out within an hour of calling during cold weather and no heating.' },
-        { name: 'Robert Moore', location: 'Ellistown', text: 'Had RKM Plumbing to our property in Ellistown today to fix an air lock in our pipes. A very pleasant young man who worked hard to clear the problem.' },
-        { name: 'Rosemary W.', location: 'Coalville', text: 'Glad we could install the two new radiators for you here in Coalville. Excellent job done in Ellistown.' },
+        ...BOILER_PHOTO_REVIEWS,
+        {
+          name: 'Jim Crotty',
+          location: 'Ashby-de-la-Zouch',
+          text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!',
+        },
+        {
+          name: 'Yesh Kempanna',
+          location: 'Hugglescote',
+          text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.',
+        },
+        {
+          name: 'Jake Spencer',
+          location: 'Coalville',
+          text: 'RKM Plumbing Heating & Drainage Services in Coalville did a fantastic job installing five new radiators at my property.',
+        },
       ];
     } else if (isLeakPage) {
       headingLead = '5-Star';
@@ -112,14 +225,10 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
         { name: 'Fiona Carrington', location: 'Coalville', text: 'Came and did an emergency repair on the washer tap. Then returned and replaced it. Polite and courteous for my 90 year old mother.' },
       ];
     } else {
-      // Homepage & General Core Reviews
+      // Homepage & General Core Reviews (All 6 Verified on Google: 3 Boiler Installs + 3 Drainage)
       reviews = [
-        { name: 'Jim Crotty', location: 'Ashby-de-la-Zouch', text: 'Repaired condensate pipe on boiler. Top service, would recommend anyone looking for plumber in Ashby de la zouch, would highly recommend!' },
-        { name: 'Debbie Billing', location: 'Coalville', text: 'Had a leak in the loft, called RKM plumbing in Coalville, Ryan was excellent came out the same day sorted the leak with no problem.' },
-        { name: 'Beverley Roberts', location: 'Ellistown', text: 'Amazing service, I\'d recommend to anyone. Called with an emergency leak in Ellistown. Super quick response, friendly advise and fixed in no time.' },
-        { name: 'Joanna Connaughton', location: 'Ibstock / Coalville', text: 'Super quick call out to Ibstock / Coalville area! Arrived in 10 minutes of my call and fixed the problem in 5 minutes at a more than reasonable price!' },
-        { name: 'Yesh Kempanna', location: 'Hugglescote', text: 'Excellent plumbing service! Swiftly attended to an emergency call-out in Hugglescote when our boiler started leaking.' },
-        { name: 'Myla Wood', location: 'Whitwick', text: 'Had RKM Plumbing out to our office in Whitwick recently for a Legionella project. They installed a series of non-return valves. Great job!' },
+        ...BOILER_PHOTO_REVIEWS,
+        ...getVerifiedDrainageReviews(locationName),
       ];
     }
   }
@@ -133,12 +242,10 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
       sectionSubtitle = `Trusted for drain & toilet unblocking in ${locationName}`;
 
       reviews = [
+        ...getVerifiedDrainageReviews(locationName),
+        { name: 'Kayley', location: locationName, text: `Great price. Unblocked our drains quickly in ${locationName}.` },
         { name: 'J D', location: locationName, text: `Fast response for a blocked drain in ${locationName}, excellent customer service.` },
         { name: 'Tony M.', location: locationName, text: `We had a toilet that wouldn't flush in ${locationName}. Ryan arrived on time and sorted the issue out quickly at a great price.` },
-        { name: 'Barbara O.', location: locationName, text: `My bathroom toilet stopped flushing so I called RKM Plumbing for our ${locationName} property. Quick, clean, and reliable service!` },
-        { name: 'Chris P.', location: locationName, text: `Ryan did a brilliant job sorting our blocked outside drain in ${locationName}. Polite, quick, and very thorough.` },
-        { name: 'Susan P.', location: locationName, text: `Unblocked our main sewer pipe in ${locationName}! Great job, very polite and helpful team.` },
-        { name: 'Liz B.', location: locationName, text: `Drain fixed in no time! Really happy with Ryan who came out to ${locationName} fast so we didn't have to wait ages.` },
       ];
     } else if (isHeatingPage) {
       headingLead = '5-Star';
@@ -146,12 +253,10 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
       sectionSubtitle = `Trusted for boiler & heating repairs in ${locationName}`;
 
       reviews = [
+        ...BOILER_PHOTO_REVIEWS,
         { name: 'James C.', location: locationName, text: `Repaired condensate pipe on our boiler in ${locationName}. Top quality service, would highly recommend to anyone!` },
         { name: 'Mark S.', location: locationName, text: `Swiftly attended to an emergency heating call-out in ${locationName} when our boiler stopped working.` },
         { name: 'Jake S.', location: locationName, text: `RKM Plumbing Heating & Drainage Services did a fantastic job installing new radiators at my ${locationName} property.` },
-        { name: 'Bee B.', location: locationName, text: `Excellent service, friendly and respected our property. Came out within an hour of calling during cold weather in ${locationName}.` },
-        { name: 'Robert M.', location: locationName, text: `Had RKM Plumbing out to ${locationName} to fix an air lock in our central heating. Worked hard and solved it quickly.` },
-        { name: 'Rosemary W.', location: locationName, text: `Glad we chose RKM to install two new radiators for us in ${locationName}. Excellent workmanship throughout.` },
       ];
     } else if (isLeakPage) {
       headingLead = '5-Star';
@@ -268,26 +373,81 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
               className="snap-start shrink-0 w-[84vw] sm:w-[60vw] md:w-auto relative bg-white p-5 sm:p-7 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200/80 transition-all duration-300 hover:shadow-xl hover:border-[#A6892C]/50 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-3.5 sm:mb-5">
+                <div className="flex items-center justify-between mb-3.5 sm:mb-4 gap-2">
                   <div className="flex text-[#A6892C]">
                     {[...Array(5)].map((_, starIdx) => (
                       <Star key={starIdx} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
                     ))}
                   </div>
 
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
-                    <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true">
-                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                    </svg>
-                  </div>
+                  {rev.reviewUrl ? (
+                    <a
+                      href={rev.reviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Verify ${rev.name}'s review on Google`}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 hover:bg-[#A6892C]/10 border border-slate-200/80 hover:border-[#A6892C]/40 text-[11px] font-bold text-slate-600 hover:text-[#A6892C] transition-colors shrink-0"
+                    >
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" aria-hidden="true">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                      </svg>
+                      <span>Verify</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
 
-                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed mb-5 sm:mb-7 font-medium">
+                {rev.serviceTag && (
+                  <span className="inline-block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#A6892C] bg-[#A6892C]/10 px-2.5 py-0.5 rounded-full mb-2.5">
+                    {rev.serviceTag}
+                  </span>
+                )}
+
+                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-5 font-medium">
                   "{rev.text}"
                 </p>
+
+                {/* OPTIONAL CUSTOMER PHOTO THUMBNAILS */}
+                {rev.photos && rev.photos.length > 0 && (
+                  <div className="flex items-center gap-2.5 mb-5">
+                    {rev.photos.map((photoSrc, photoIdx) => (
+                      <button
+                        key={photoIdx}
+                        type="button"
+                        onClick={() =>
+                          setLightboxImage({
+                            src: photoSrc,
+                            alt: `${rev.serviceTag || 'Customer install'} photo by ${rev.name}`,
+                          })
+                        }
+                        aria-label={`Enlarge install photo from ${rev.name}`}
+                        className="group/photo relative h-16 w-20 sm:h-20 sm:w-24 rounded-xl overflow-hidden border border-slate-200 hover:border-[#A6892C] bg-slate-100 shrink-0 focus:outline-none focus:ring-2 focus:ring-[#A6892C]"
+                      >
+                        <img
+                          src={photoSrc}
+                          alt={`${rev.serviceTag || 'Boiler install'} by RKM - ${rev.name}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover/photo:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-slate-900/0 group-hover/photo:bg-slate-900/30 transition-colors flex items-center justify-center">
+                          <ZoomIn className="w-4 h-4 text-white opacity-0 group-hover/photo:opacity-100 transition-opacity" />
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-3 sm:gap-4 border-t border-slate-100 pt-4 sm:pt-5 mt-auto">
@@ -331,6 +491,39 @@ const Reviews = ({ townSlug, serviceSlug }: ReviewsProps) => {
           </p>
         </div>
       </div>
+
+      {/* FULL-SCREEN PHOTO LIGHTBOX MODAL */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightboxImage.alt}
+        >
+          <div
+            className="relative max-w-3xl w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setLightboxImage(null)}
+              aria-label="Close photo"
+              className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-slate-950/80 hover:bg-slate-950 text-white flex items-center justify-center transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <img
+              src={lightboxImage.src}
+              alt={lightboxImage.alt}
+              className="w-full max-h-[80vh] object-contain bg-black"
+            />
+            <div className="px-4 py-3 text-xs sm:text-sm text-slate-300 font-medium bg-slate-900">
+              {lightboxImage.alt}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

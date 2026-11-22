@@ -11,11 +11,36 @@ interface HeroProps {
 
 const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: HeroProps) => {
   const normalize = (slug?: string) => (slug || '').toLowerCase().replace(/\/$/, '').replace(/\.html$/, '');
-  const formatName = (slug?: string) => slug ? slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
-  
+  const formatName = (slug?: string) =>
+    slug ? slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
+
   const townKey = normalize(townSlug);
   const serviceKey = normalize(serviceSlug);
   const isLandingPage = !!townKey || !!serviceKey;
+
+  const isDrainage =
+    serviceKey.includes('drain') ||
+    serviceKey.includes('toilet') ||
+    serviceKey.includes('jetting') ||
+    serviceKey.includes('cctv');
+
+  const isHeating =
+    !isDrainage &&
+    (serviceKey.includes('heat') ||
+      serviceKey.includes('boiler') ||
+      serviceKey.includes('gas') ||
+      serviceKey.includes('radiator'));
+
+  const isLeak =
+    !isDrainage &&
+    !isHeating &&
+    (serviceKey.includes('leak') || serviceKey.includes('trace'));
+
+  const isEmergency =
+    !isDrainage &&
+    !isHeating &&
+    !isLeak &&
+    (serviceKey.includes('emergency') || serviceKey.includes('burst') || serviceKey.includes('24-7'));
 
   const townData = towns[townKey] || {};
   const serviceData = serviceContent[serviceKey] || serviceContent['emergency-plumber'];
@@ -25,26 +50,78 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
   const phone = townData.phone || '01530 654 062';
   const cleanPhone = phone.replace(/\s+/g, '');
 
+  // Focused, non-diluted service headlines
+  const primaryHeading = isDrainage
+    ? 'Blocked Drains & Drain Unblocking'
+    : isHeating
+    ? 'Boiler Installs & Repairs'
+    : isLeak
+    ? 'Water Leak Detection'
+    : isEmergency
+    ? 'Emergency Plumber'
+    : serviceLabel;
+
+  const statusPillLeft = isDrainage
+    ? 'Local 24/7 Drainage Engineers'
+    : isHeating
+    ? 'Gas Safe Heating Engineers'
+    : isLeak
+    ? 'Trace & Access Specialists'
+    : isEmergency
+    ? '24/7 Emergency Plumbers'
+    : 'Local 24/7 Emergency Engineers';
+
+  const statusPillRight = isHeating
+    ? 'Finance Available'
+    : isLeak
+    ? 'Non-Destructive'
+    : '60 Min Arrival';
+
   const targetWhatsApp = '447848969229';
-  const formattedWhatsAppText = 
-    `*New Hero Inquiry (RKM Plumbing & Heating)*\n\n` +
-    `*Service Required:* ${serviceLabel}\n` +
+  const formattedWhatsAppText =
+    `*New Hero Inquiry (RKM)*\n\n` +
+    `*Service Required:* ${isLandingPage ? primaryHeading : 'Plumbing, Heating & Drainage'}\n` +
     `*Target Town:* ${displayLocation}\n` +
     `*Message:* Hi RKM, I'd like to ask a question / arrange an appointment.`;
   const whatsAppUrl = `https://api.whatsapp.com/send/?phone=${targetWhatsApp}&text=${encodeURIComponent(formattedWhatsAppText)}&type=phone_number&app_absent=0`;
 
-  const heroDescription = townData.description
-    || `RKM provides domestic plumbing repairs, heating engineering, drain unblocking, and rapid 24/7 emergency response across ${displayLocation} and Leicestershire. £0 call-out fee.`;
+  // Service-specific descriptions (no cross-service keyword dilution on landing pages)
+  const heroDescription = isDrainage
+    ? `24/7 blocked drains, high-pressure water jetting, HD CCTV drain surveys, mechanical root cutting, and no-dig drain relining across ${displayLocation}. Fixed upfront rates & £0 call-out fee.`
+    : isHeating
+    ? `Gas Safe registered (#987039) boiler installations with finance available, emergency boiler breakdown repairs, annual servicing, and central heating upgrades across ${displayLocation}. £0 call-out fee.`
+    : isLeak
+    ? `Non-destructive thermal imaging and acoustic leak detection across ${displayLocation}. We pinpoint hidden floor, wall, and pipework leaks fast with insurance-approved trace & access reports. £0 call-out fee.`
+    : isEmergency
+    ? `Rapid 24/7 emergency plumbing across ${displayLocation} for burst pipes, active water leaks, failed stopcocks, and urgent make-safe repairs. 60-minute target arrival & £0 call-out fee.`
+    : townData.description ||
+      `RKM provides domestic plumbing repairs, heating engineering, drain unblocking, and rapid 24/7 emergency response across ${displayLocation} and Leicestershire. £0 call-out fee.`;
 
-  const metaDescription = (townData as any).metaDescription
-    || `Looking for ${serviceLabel} in ${displayLocation}? Expert domestic plumbing, heating, boiler installs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
+  const metaDescription = isDrainage
+    ? `24/7 blocked drains & drain unblocking in ${displayLocation}. High-pressure jetting, HD CCTV drain surveys, root cutting & no-dig relining. £0 call-out fee. Call ${phone}.`
+    : isHeating
+    ? `Gas Safe (#987039) boiler installs, breakdown repairs & central heating servicing in ${displayLocation}. Finance available, fast local response & £0 call-out fee. Call ${phone}.`
+    : isLeak
+    ? `Non-destructive water leak detection in ${displayLocation}. Thermal imaging & acoustic trace and access for hidden leaks with insurance reports. £0 call-out fee. Call ${phone}.`
+    : isEmergency
+    ? `Need an emergency plumber in ${displayLocation}? 24/7 60-minute response for burst pipes, active water leaks & urgent repairs. £0 call-out fee. Call ${phone}.`
+    : (townData as any).metaDescription ||
+      `Looking for ${serviceLabel} in ${displayLocation}? Expert domestic plumbing, heating, boiler installs & blocked drainage. Fast 24/7 emergency service. £0 call out.`;
 
-  const pageTitle = isLandingPage 
-    ? `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
+  const pageTitle = isLandingPage
+    ? isDrainage
+      ? `Blocked Drains & Drain Unblocking ${displayLocation} | Fixed Rates 24/7`
+      : isHeating
+      ? `Boiler Installs & Repairs ${displayLocation} | Gas Safe | RKM`
+      : isLeak
+      ? `Water Leak Detection ${displayLocation} | Trace & Access | RKM`
+      : isEmergency
+      ? `24/7 Emergency Plumber ${displayLocation} | 60 Min Response | RKM`
+      : `${serviceLabel} in ${displayLocation} | 60 Min Response | RKM`
     : `Plumbers Coalville | RKM Plumbing Heating & Drainage 24/7`;
 
   const canonicalPath = [serviceKey, townKey].filter(Boolean).join('/');
-  const schemaUrl = canonicalPath 
+  const schemaUrl = canonicalPath
     ? `https://rkm247.co.uk/${canonicalPath}/`
     : 'https://rkm247.co.uk/';
 
@@ -52,19 +129,19 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
   const heroPhoto = (() => {
     if (!serviceKey) return '/team-photo.webp';
 
-    if (serviceKey.includes('drain') || serviceKey.includes('toilet') || serviceKey.includes('jetting')) {
+    if (isDrainage) {
       return '/camera-survey.webp';
     }
-    if (serviceKey.includes('leak')) {
+    if (isLeak) {
       return '/leak-detection.webp';
     }
-    if (serviceKey.includes('emergency')) {
+    if (isEmergency) {
       return '/emergency-plumber.webp';
     }
     if (serviceKey.includes('install') || serviceKey.includes('appliance')) {
       return '/appliance-install.webp';
     }
-    if (serviceKey.includes('heat') || serviceKey.includes('boiler') || serviceKey.includes('gas')) {
+    if (isHeating) {
       return '/team-photo.webp';
     }
     if (serviceKey.includes('plumber')) {
@@ -76,100 +153,99 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
   const absoluteImageUrl = `https://rkm247.co.uk${heroPhoto}`;
 
-  const townPostcodes = Array.isArray((townData as any).postcodes) && (townData as any).postcodes.length > 0
-    ? (townData as any).postcodes
-    : ['LE67', 'LE65'];
+  const townPostcodes =
+    Array.isArray((townData as any).postcodes) && (townData as any).postcodes.length > 0
+      ? (townData as any).postcodes
+      : ['LE67', 'LE65'];
 
   const areaServedList = [
-    { "@type": "City", "name": displayLocation },
-    ...townPostcodes.map((pc: string) => ({ "@type": "PostalCode", "name": pc }))
+    { '@type': 'City', name: displayLocation },
+    ...townPostcodes.map((pc: string) => ({ '@type': 'PostalCode', name: pc })),
   ];
 
   const breadcrumbItems = [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://rkm247.co.uk/"
-    }
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://rkm247.co.uk/',
+    },
   ];
 
   if (serviceKey) {
     breadcrumbItems.push({
-      "@type": "ListItem",
-      "position": 2,
-      "name": serviceLabel,
-      "item": `https://rkm247.co.uk/${serviceKey}/`
+      '@type': 'ListItem',
+      position: 2,
+      name: primaryHeading,
+      item: `https://rkm247.co.uk/${serviceKey}/`,
     });
   }
 
   if (townKey) {
     breadcrumbItems.push({
-      "@type": "ListItem",
-      "position": breadcrumbItems.length + 1,
-      "name": displayLocation,
-      "item": schemaUrl
+      '@type': 'ListItem',
+      position: breadcrumbItems.length + 1,
+      name: displayLocation,
+      item: schemaUrl,
     });
   }
 
   const schemaGraph = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": ["LocalBusiness", "PlumbingService"],
-        "@id": "https://rkm247.co.uk/#business",
-        "name": "RKM Plumbing Heating & Drainage Services",
-        "url": "https://rkm247.co.uk/",
-        "logo": "https://rkm247.co.uk/logo-square.webp",
-        "telephone": phone,
-        "image": absoluteImageUrl,
-        "priceRange": "££",
-        "description": metaDescription,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Hodgetts Street",
-          "addressLocality": "Coalville",
-          "addressRegion": "Leicestershire",
-          "postalCode": "LE67 2JH",
-          "addressCountry": "GB"
+        '@type': ['LocalBusiness', 'PlumbingService'],
+        '@id': 'https://rkm247.co.uk/#business',
+        name: 'RKM Plumbing Heating & Drainage Services',
+        url: 'https://rkm247.co.uk/',
+        logo: 'https://rkm247.co.uk/logo-square.webp',
+        telephone: phone,
+        image: absoluteImageUrl,
+        priceRange: '££',
+        description: metaDescription,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Hodgetts Street',
+          addressLocality: 'Coalville',
+          addressRegion: 'Leicestershire',
+          postalCode: 'LE67 2JH',
+          addressCountry: 'GB',
         },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 52.723,
-          "longitude": -1.369
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 52.723,
+          longitude: -1.369,
         },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "00:00",
-          "closes": "23:59"
+        openingHoursSpecification: {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: '00:00',
+          closes: '23:59',
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5.0",
-          "reviewCount": "48",
-          "bestRating": "5",
-          "worstRating": "1"
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '5.0',
+          reviewCount: '48',
+          bestRating: '5',
+          worstRating: '1',
         },
-        "areaServed": areaServedList,
-        "sameAs": [
-          "https://www.checkatrade.com/"
-        ]
+        areaServed: areaServedList,
+        sameAs: ['https://www.checkatrade.com/'],
       },
       {
-        "@type": "Service",
-        "@id": `${schemaUrl}#service`,
-        "name": `${serviceLabel} in ${displayLocation}`,
-        "serviceType": serviceLabel,
-        "provider": { "@id": "https://rkm247.co.uk/#business" },
-        "areaServed": { "@type": "City", "name": displayLocation },
-        "description": metaDescription
+        '@type': 'Service',
+        '@id': `${schemaUrl}#service`,
+        name: `${primaryHeading} in ${displayLocation}`,
+        serviceType: isDrainage ? 'Drainage Service' : isHeating ? 'Boiler Installation & Heating Service' : primaryHeading,
+        provider: { '@id': 'https://rkm247.co.uk/#business' },
+        areaServed: { '@type': 'City', name: displayLocation },
+        description: metaDescription,
       },
       {
-        "@type": "BreadcrumbList",
-        "itemListElement": breadcrumbItems
-      }
-    ]
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbItems,
+      },
+    ],
   };
 
   const handleScrollToReviews = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -199,25 +275,22 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
       <section className="relative pt-20 pb-8 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-16 bg-slate-50 border-b border-slate-200/90 overflow-hidden">
         <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-
             {/* LEFT / HERO COPY & ACTIONS */}
             <div className="lg:col-span-7 flex flex-col">
-
               {/* Status Pill */}
               <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide w-fit mb-3.5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                <span>Local 24/7 Emergency Engineers</span>
+                <span>{statusPillLeft}</span>
                 <span className="text-slate-500 font-normal">|</span>
-                <span className="text-[#c4a030] font-bold">60 Min Arrival</span>
+                <span className="text-[#c4a030] font-bold">{statusPillRight}</span>
               </div>
 
               {/* Primary Headline */}
               <h1 className="text-[28px] sm:text-4xl lg:text-[44px] leading-[1.14] tracking-tight font-extrabold text-slate-900 mb-3">
                 {isLandingPage ? (
                   <>
-                    <span>{serviceLabel}</span>
+                    <span>{primaryHeading}</span>
                     <span className="block text-[#A6892C] font-black mt-0.5">in {displayLocation}</span>
                   </>
                 ) : (
@@ -238,8 +311,8 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
               {/* Action Buttons: 2-Col on Mobile (Call + WhatsApp), 3-Col on Desktop */}
               <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2.5 sm:gap-3.5 mb-5 sm:mb-6">
-                <a 
-                  href={`tel:${cleanPhone}`} 
+                <a
+                  href={`tel:${cleanPhone}`}
                   className="bg-[#A6892C] hover:bg-[#bfa03a] text-slate-950 font-bold py-3 sm:py-3.5 px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow active:scale-95 transition-all text-sm sm:text-base"
                 >
                   <Phone className="w-4 h-4 fill-slate-950 shrink-0" />
@@ -258,8 +331,8 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                   <span>WhatsApp</span>
                 </a>
 
-                <a 
-                  href="https://calendar.app.google/pbb7EJraxjMQd1xS9" 
+                <a
+                  href="https://calendar.app.google/pbb7EJraxjMQd1xS9"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hidden sm:flex bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3.5 px-6 rounded-xl items-center justify-center gap-2 shadow-sm hover:shadow active:scale-95 transition-all text-sm sm:text-base"
@@ -272,13 +345,12 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
               {/* Compact Responsive Trust Strip */}
               <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-4 shadow-sm mb-4 lg:mb-0">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 items-center divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-                  
                   {/* Gas Safe */}
                   <div className="flex items-center gap-2.5 px-1">
-                    <img 
-                      src="/gas safe register.webp" 
-                      alt="Gas Safe Registered" 
-                      className="h-9 sm:h-10 w-auto object-contain shrink-0" 
+                    <img
+                      src="/gas safe register.webp"
+                      alt="Gas Safe Registered"
+                      className="h-9 sm:h-10 w-auto object-contain shrink-0"
                     />
                     <div className="text-left">
                       <p className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Gas Safe</p>
@@ -295,10 +367,22 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                   >
                     <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-50 border border-slate-100 group-hover:border-[#A6892C]/40 flex items-center justify-center shrink-0 transition-colors">
                       <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
-                        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24Z"/>
-                        <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15Z"/>
-                        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"/>
+                        <path
+                          fill="#4285F4"
+                          d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
+                        />
+                        <path
+                          fill="#34A853"
+                          d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24Z"
+                        />
+                        <path
+                          fill="#FBBC05"
+                          d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15Z"
+                        />
+                        <path
+                          fill="#EA4335"
+                          d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"
+                        />
                       </svg>
                     </div>
                     <div className="text-left">
@@ -318,10 +402,10 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
 
                   {/* Checkatrade */}
                   <div className="flex items-center gap-2.5 px-1 pt-2 sm:pt-0">
-                    <img 
-                      src="/checkatrade.webp" 
-                      alt="Checkatrade Approved" 
-                      className="h-8 sm:h-9 w-auto object-contain shrink-0" 
+                    <img
+                      src="/checkatrade.webp"
+                      alt="Checkatrade Approved"
+                      className="h-8 sm:h-9 w-auto object-contain shrink-0"
                     />
                     <div className="text-left">
                       <p className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Checkatrade</p>
@@ -339,10 +423,8 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                       <p className="text-[10px] sm:text-xs text-slate-500 font-medium">Finance Available</p>
                     </div>
                   </div>
-
                 </div>
               </div>
-
             </div>
 
             {/* RIGHT / DYNAMIC SERVICE HERO IMAGE */}
@@ -351,12 +433,12 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 <div className="relative aspect-[16/11] sm:aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-200">
                   <img
                     src={heroPhoto}
-                    alt={`${serviceLabel} engineers in ${displayLocation}`}
+                    alt={`${primaryHeading} engineers in ${displayLocation}`}
                     loading="eager"
                     fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
-                  
+
                   <div className="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 bg-slate-950/85 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold shadow-md">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#A6892C]" />
                     <span>Serving {displayLocation} &amp; Surrounds</span>
@@ -364,9 +446,7 @@ const Hero = ({ town: townSlug, service: serviceSlug, standalone = false }: Hero
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
     </>

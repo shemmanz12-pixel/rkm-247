@@ -69,27 +69,39 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
   };
 
   const faqSets = useMemo(() => {
-    // 1. Drain Unblocking FAQs
+    // 1. Drain Unblocking & Specialist Drainage FAQs
     const drainFAQs: FAQItem[] = [
       {
-        question: `Do you provide emergency drain unblocking in ${townName}?`,
-        answer: `Yes, we provide 24/7 emergency drain unblocking across ${townName} and surrounding areas. We clear blocked outside drains, manholes, soil stacks, gullies, sinks, and overflowing toilets for domestic and commercial properties.`,
+        question: `Do you provide 24/7 emergency drain unblocking in ${townName}?`,
+        answer: `Yes, we provide 24/7 emergency drain unblocking across ${townName} and ${postcodes}, typically arriving within 60–90 minutes. We use commercial high-pressure water jetting to clear blocked outside drains, overflowing manholes, gullies, and main sewer lines.`,
       },
       {
-        question: `How quickly can you attend a blocked drain in ${townName}?`,
-        answer: `Because our engineers operate locally near North West Leicestershire, we typically arrive on-site within 60 minutes for urgent blockages across ${townName} and postcode areas including ${postcodes}.`,
+        question: `Do you carry out HD CCTV drain surveys in ${townName}?`,
+        answer: `Yes, we carry out full HD CCTV drain camera surveys across ${townName} and ${nearbyTowns}. We provide video footage and written reports for recurring blockages, pre-purchase homebuyer surveys, Severn Trent build-over agreements, and home insurance claims.`,
       },
       {
-        question: `Do you clear blocked outside drains and gullies in ${townName}?`,
-        answer: `Yes, we use commercial high-pressure water jetting and mechanical rotary equipment in ${townName} to clear grease, wet wipes, tree roots, silt, and foreign debris from external drains and main sewer lines.`,
+        question: `Can you remove tree roots from blocked drains in ${townName}?`,
+        answer: `Yes. Older clay pipes around ${townName} are prone to tree root intrusion. We use specialist mechanical rotary root cutting equipment and high-pressure jetting to cut away roots and heavy limescale, followed by a CCTV check to confirm full flow is restored.`,
       },
       {
-        question: `Can you unblock slow-draining toilets, sinks, and showers in ${townName}?`,
-        answer: `Yes, we clear internal waste pipe blockages, stubborn toilet clogs, and slow-draining shower traps throughout ${townName}, resolving bad smells and preventing indoor flooding.`,
+        question: `Do you offer no-dig drain relining and pipe repairs in ${townName}?`,
+        answer: `Yes, we repair cracked, displaced, and pitch fibre drains using no-dig CIPP patch repairs and full-length drain relining. This permanently strengthens the pipe from the inside without digging up your driveway, patio, or garden.`,
+      },
+      {
+        question: `Can you clear internal blockages like toilets, sinks, and showers in ${townName}?`,
+        answer: `Yes, we clear stubborn internal blockages across ${townName} including blocked toilets, macerators, soil stacks, kitchen sinks, baths, and slow-draining showers cleanly and with zero mess left behind.`,
+      },
+      {
+        question: `Can you stop rats getting into my property through the drains in ${townName}?`,
+        answer: `Yes. If you have rodent activity, we can run a CCTV drain survey to locate broken or disused pipes where rats are entering, repair the defect, and fit stainless-steel non-return rat flaps to block future entry.`,
+      },
+      {
+        question: `Is a blocked drain in ${townName} my responsibility or Severn Trent Water's?`,
+        answer: `Generally, drains serving only your property within your boundary are your responsibility, while shared drains serving more than one property or pipes outside your boundary are usually managed by Severn Trent Water. If you are unsure, our engineers can quickly check and advise on-site.`,
       },
       {
         question: `Do you charge a call out fee for drain unblocking in ${townName}?`,
-        answer: `No. We offer £0 call-out fees across ${townName}. You only pay a transparent, fixed price for the drain clearance work carried out with no hidden extras.`,
+        answer: `No. We operate with £0 call-out fees across ${townName} and ${postcodes}. You receive a clear, fixed upfront price before any work starts, with no hidden extras or half-hourly surprises.`,
       },
     ];
 
@@ -113,7 +125,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
       {
         question: `Are your emergency engineers certified and insured in ${townName}?`,
-        answer: `Yes, all our engineers are fully insured, highly qualified, and Gas Safe registered where heating and boiler work is involved.`,
+        answer: `Yes, all our engineers are fully insured, highly qualified, and Gas Safe registered (#987039) where heating and boiler work is involved.`,
       },
     ];
 
@@ -141,7 +153,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
     const heatingFAQs: FAQItem[] = [
       {
         question: `Do you provide boiler repairs and central heating maintenance in ${townName}?`,
-        answer: `Yes, we provide gas boiler servicing, breakdown repairs, radiator power flushing, pump replacements, and thermostat upgrades across ${townName} and ${nearbyTowns}.`,
+        answer: `Yes, we provide Gas Safe (#987039) boiler installations, servicing, breakdown repairs, radiator power flushing, pump replacements, and thermostat upgrades across ${townName} and ${nearbyTowns}.`,
       },
       {
         question: `Can you fix cold radiators and circulation issues in ${townName}?`,
@@ -177,47 +189,63 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
       },
     ];
 
+    const drainSet = {
+      heading: `Frequently Asked Drainage Questions in ${townName}`,
+      subheading: `Expert answers on blocked drains, HD CCTV surveys, root cutting, and no-dig relining across ${townName}`,
+      items: drainFAQs,
+    };
+
+    const heatingSet = {
+      heading: `Heating & Boiler Servicing FAQ in ${townName}`,
+      subheading: `Boiler breakdown diagnostics, radiator fixes, and heating repairs in ${townName}`,
+      items: heatingFAQs,
+    };
+
+    const emergencySet = {
+      heading: `Emergency Plumbing FAQ in ${townName}`,
+      subheading: `24/7 callout policies, response times, and emergency rates in ${townName}`,
+      items: emergencyPlumberFAQs,
+    };
+
+    const leakSet = {
+      heading: `Water Leak Detection FAQ in ${townName}`,
+      subheading: `Non-invasive trace & access leak pinpointing advice for ${townName}`,
+      items: leakDetectionFAQs,
+    };
+
+    const plumbingSet = {
+      heading: `Plumbing & Heating FAQ in ${townName}`,
+      subheading: `Common questions regarding domestic repairs, quotes, and callouts in ${townName}`,
+      items: plumbingFAQs,
+    };
+
     return {
-      'drain-unblocking': {
-        heading: `Frequently Asked Drainage Questions in ${townName}`,
-        subheading: `Expert answers on blocked drains, CCTV surveys, and jetting across ${townName}`,
-        items: drainFAQs,
-      },
-      'blocked-drain-clearing': {
-        heading: `Blocked Drain Questions in ${townName}`,
-        subheading: `Clear advice on external drain clearance and waste pipe jetting in ${townName}`,
-        items: drainFAQs,
-      },
-      'emergency-drain-unblocking': {
-        heading: `24/7 Emergency Drainage FAQ in ${townName}`,
-        subheading: `Rapid drain unblocking details for ${townName} homeowners and businesses`,
-        items: drainFAQs,
-      },
-      'emergency-plumber': {
-        heading: `Emergency Plumbing FAQ in ${townName}`,
-        subheading: `24/7 callout policies, response times, and emergency rates in ${townName}`,
-        items: emergencyPlumberFAQs,
-      },
-      'leak-detection': {
-        heading: `Water Leak Detection FAQ in ${townName}`,
-        subheading: `Non-invasive trace & access leak pinpointing advice for ${townName}`,
-        items: leakDetectionFAQs,
-      },
-      heating: {
-        heading: `Heating & Boiler Servicing FAQ in ${townName}`,
-        subheading: `Boiler breakdown diagnostics, radiator fixes, and heating repairs in ${townName}`,
-        items: heatingFAQs,
-      },
-      'heating-repairs': {
-        heading: `Heating Repairs FAQ in ${townName}`,
-        subheading: `Central heating troubleshooting and boiler advice across ${townName}`,
-        items: heatingFAQs,
-      },
-      plumber: {
-        heading: `Plumbing & Heating FAQ in ${townName}`,
-        subheading: `Common questions regarding domestic repairs, quotes, and callouts in ${townName}`,
-        items: plumbingFAQs,
-      },
+      'drain-unblocking': drainSet,
+      'blocked-drain-clearing': drainSet,
+      'emergency-drain-unblocking': drainSet,
+      'blocked-toilet': drainSet,
+      'outside-drain-unblocking': drainSet,
+      'cctv-drain-surveys': drainSet,
+      'drain-relining': drainSet,
+      'drain-root-cutting': drainSet,
+      'emergency-plumber': emergencySet,
+      'emergency-plumbing': emergencySet,
+      'emergency-repairs': emergencySet,
+      '24-7-plumber': emergencySet,
+      'burst-pipe-repair': emergencySet,
+      'leak-detection': leakSet,
+      'water-leak-detection': leakSet,
+      'trace-and-access': leakSet,
+      'hidden-leak-detection': leakSet,
+      heating: heatingSet,
+      'heating-repairs': heatingSet,
+      'heating-engineer': heatingSet,
+      'central-heating': heatingSet,
+      'central-heating-repairs': heatingSet,
+      'radiator-repairs': heatingSet,
+      'boiler-installs': heatingSet,
+      plumber: plumbingSet,
+      'local-plumber': plumbingSet,
       default: {
         heading: `Frequently Asked Questions in ${townName}`,
         subheading: `Trusted plumbing, heating & drainage advice for ${townName} and Leicestershire`,
@@ -232,7 +260,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
   const schemaData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
+    mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
       acceptedAnswer: {
@@ -246,9 +274,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
     <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-t border-slate-200/90 relative">
       <div className="container mx-auto px-4 max-w-3xl relative z-10">
         <Helmet>
-          <script type="application/ld+json">
-            {JSON.stringify(schemaData)}
-          </script>
+          <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         </Helmet>
 
         {/* SECTION HEADER */}
@@ -268,7 +294,7 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
           </p>
         </div>
 
-        {/* COMPACT CLEAN ACCORDION (NO OVERSIZED FLOATING CARDS) */}
+        {/* COMPACT CLEAN ACCORDION */}
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm divide-y divide-slate-100 overflow-hidden">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
@@ -281,15 +307,19 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <span className={`text-sm sm:text-base font-bold tracking-tight leading-snug ${
-                    isOpen ? 'text-[#A6892C]' : 'text-slate-900'
-                  }`}>
+                  <span
+                    className={`text-sm sm:text-base font-bold tracking-tight leading-snug ${
+                      isOpen ? 'text-[#A6892C]' : 'text-slate-900'
+                    }`}
+                  >
                     {faq.question}
                   </span>
 
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 bg-[#A6892C]/15 text-[#A6892C]' : 'bg-slate-100 text-slate-500'
-                  }`}>
+                  <div
+                    className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 bg-[#A6892C]/15 text-[#A6892C]' : 'bg-slate-100 text-slate-500'
+                    }`}
+                  >
                     <ChevronDown className="w-3.5 h-3.5" />
                   </div>
                 </button>
@@ -323,7 +353,6 @@ const FAQ = ({ townSlug, serviceSlug }: FAQProps) => {
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
-
       </div>
     </section>
   );
